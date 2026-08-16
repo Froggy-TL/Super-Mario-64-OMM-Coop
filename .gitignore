@@ -1,0 +1,7 @@
+build/
+*.o
+__pycache__/
+platform/local.properties
+platform/.gradle/
+platform/app/build/
+platform/app/src/main/assets/
