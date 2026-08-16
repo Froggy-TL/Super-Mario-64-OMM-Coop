@@ -260,7 +260,7 @@ jobs:
 
             - name: Build the game
               run: |
-                make -j$(nproc) TOUCH_CONTROLS=1
+                make -j$(nproc) TOUCH_CONTROLS=1 DISCORD_SDK=0
                 chmod +x ./platform/gradlew
                 ./platform/gradlew assembleRelease
                 apksigner sign \
