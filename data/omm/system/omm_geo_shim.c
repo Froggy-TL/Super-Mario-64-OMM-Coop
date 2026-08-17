@@ -480,17 +480,6 @@ bool geo_compute_capture_cappy_obj_transform(struct Object *o, s32 animParts, Ma
     return false;
 }
 
-#define STUB_LEVEL(_0, levelenum, courseenum, _3, _4, _5, _6, _7, _8) [courseenum] = levelenum,
-#define DEFINE_LEVEL(_0, levelenum, courseenum, _3, _4, _5, _6, _7, _8, _9, _10) [courseenum] = levelenum,
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Woverride-init"
-s8 gCourseNumToLevelNumTable[] = {
-#include "levels/level_defines.h"
-};
-#pragma GCC diagnostic pop
-#undef STUB_LEVEL
-#undef DEFINE_LEVEL
-
 //
 // Extra math helpers present in the OMM port but not in coopdx.
 //

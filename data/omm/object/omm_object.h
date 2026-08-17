@@ -15,11 +15,11 @@ extern s32 gOmmAllObjectLists[];
 #define for_each_(_T_, _item_, _start_, _size_)             u32 i_##_item_ = 0; for (_T_ *_item_ = _start_; i_##_item_ != _size_; ++i_##_item_, _item_++)
 #define for_each_in_(_T_, _item_, ...)                      _T_ arr_##_item_[] = __VA_ARGS__; u32 i_##_item_ = 0; for (_T_ *_item_ = arr_##_item_; i_##_item_ != array_length(arr_##_item_); ++i_##_item_, _item_++)
 #define for_each_until_null(_T_, _item_, _start_)           for (_T_ *_item_ = _start_; *_item_; _item_++)
-#define for_each_object_in_list(_obj_, _list_)              for (struct Object* _obj_ = obj_get_first(_list_); _obj_; _obj_ = obj_get_next(_obj_, _list_))
-#define for_each_object_in_cappy_lists(_obj_)               for (s32 *_list_ = gOmmCappyObjectLists; *_list_ != -1; ++_list_) for (struct Object* _obj_ = obj_get_first(*_list_); _obj_; _obj_ = obj_get_next(_obj_, *_list_))
-#define for_each_object_in_interaction_lists(_obj_)         for (s32 *_list_ = gOmmInteractionObjectLists; *_list_ != -1; ++_list_) for (struct Object* _obj_ = obj_get_first(*_list_); _obj_; _obj_ = obj_get_next(_obj_, *_list_))
-#define for_each_object_in_unimportant_lists(_obj_)         for (s32 *_list_ = gOmmUnimportantObjectLists; *_list_ != -1; ++_list_) for (struct Object* _obj_ = obj_get_first(*_list_); _obj_; _obj_ = obj_get_next(_obj_, *_list_))
-#define for_each_object_in_all_lists(_obj_)                 for (s32 *_list_ = gOmmAllObjectLists; *_list_ != -1; ++_list_) for (struct Object* _obj_ = obj_get_first(*_list_); _obj_; _obj_ = obj_get_next(_obj_, *_list_))
+#define for_each_object_in_list(_obj_, _list_)              for (struct Object* _obj_ = obj_get_first(_list_); _obj_; _obj_ = omm_obj_get_next(_obj_, _list_))
+#define for_each_object_in_cappy_lists(_obj_)               for (s32 *_list_ = gOmmCappyObjectLists; *_list_ != -1; ++_list_) for (struct Object* _obj_ = obj_get_first(*_list_); _obj_; _obj_ = omm_obj_get_next(_obj_, *_list_))
+#define for_each_object_in_interaction_lists(_obj_)         for (s32 *_list_ = gOmmInteractionObjectLists; *_list_ != -1; ++_list_) for (struct Object* _obj_ = obj_get_first(*_list_); _obj_; _obj_ = omm_obj_get_next(_obj_, *_list_))
+#define for_each_object_in_unimportant_lists(_obj_)         for (s32 *_list_ = gOmmUnimportantObjectLists; *_list_ != -1; ++_list_) for (struct Object* _obj_ = obj_get_first(*_list_); _obj_; _obj_ = omm_obj_get_next(_obj_, *_list_))
+#define for_each_object_in_all_lists(_obj_)                 for (s32 *_list_ = gOmmAllObjectLists; *_list_ != -1; ++_list_) for (struct Object* _obj_ = obj_get_first(*_list_); _obj_; _obj_ = omm_obj_get_next(_obj_, *_list_))
 #define for_each_object_with_behavior(_obj_, _bhv_)         for (struct Object* _obj_ = obj_get_first_with_behavior(_bhv_); _obj_; _obj_ = obj_get_next_with_behavior(_obj_, _bhv_))
 
 //
@@ -28,7 +28,7 @@ extern s32 gOmmAllObjectLists[];
 
 struct Object *obj_spawn_from_geo(struct Object *parent, const GeoLayout *geoLayout, const BehaviorScript *behavior);
 struct Object *obj_get_first(s32 list);
-struct Object *obj_get_next(struct Object *o, s32 list);
+struct Object *omm_obj_get_next(struct Object *o, s32 list);
 struct Object *obj_get_first_with_behavior(const BehaviorScript *behavior);
 struct Object *obj_get_first_with_behavior_and_parent(struct Object *parent, const BehaviorScript *behavior);
 struct Object *obj_get_next_with_behavior(struct Object *o, const BehaviorScript *behavior);

@@ -13,25 +13,6 @@
 
 static s16 sMovingSandSpeeds[] = { 12, 8, 4, 0 };
 
-struct Surface gWaterSurfacePseudoFloor = {
-    .type = SURFACE_VERY_SLIPPERY,
-    .flags = 0,
-    .room = 0,
-    .force = 0,
-    .lowerY = 0,
-    .upperY = 0,
-    .vertex1 = { 0, 0, 0 },
-    .vertex2 = { 0, 0, 0 },
-    .vertex3 = { 0, 0, 0 },
-    .prevVertex1 = { 0, 0, 0 },
-    .prevVertex2 = { 0, 0, 0 },
-    .prevVertex3 = { 0, 0, 0 },
-    .normal = { 0.0f, 1.0f, 0.0f },
-    .originOffset = 0.0f,
-    .modifiedTimestamp = 0,
-    .object = NULL
-};
-
 /**
  * Always returns zero. This may have been intended
  * to be used for the beta trampoline. Its return value
@@ -85,21 +66,6 @@ void transfer_bully_speed(struct BullyCollisionData *obj1, struct BullyCollision
     obj1->velZ += -projectedV1 * rz + obj1->conversionRatio * projectedV2 * -rz;
 
     //! Bully battery
-}
-
-BAD_RETURN(s32) init_bully_collision_data(struct BullyCollisionData *data, f32 posX, f32 posZ,
-                               f32 forwardVel, s16 yaw, f32 conversionRatio, f32 radius) {
-    if (forwardVel < 0.0f) {
-        forwardVel *= -1.0f;
-        yaw += 0x8000;
-    }
-
-    data->radius = radius;
-    data->conversionRatio = conversionRatio;
-    data->posX = posX;
-    data->posZ = posZ;
-    data->velX = forwardVel * sins(yaw);
-    data->velZ = forwardVel * coss(yaw);
 }
 
 void mario_bonk_reflection(struct MarioState *m, u8 negateSpeed) {

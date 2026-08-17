@@ -48,15 +48,6 @@ u8 gCurrCourseStarFlags = 0;
 
 u8 gSaveFileUsingBackupSlot = FALSE;
 
-#define STUB_LEVEL(_0, _1, courseenum, _3, _4, _5, _6, _7, _8) courseenum,
-#define DEFINE_LEVEL(_0, _1, courseenum, _3, _4, _5, _6, _7, _8, _9, _10) courseenum,
-
-s8 gLevelToCourseNumTable[] = {
-    #include "levels/level_defines.h"
-};
-#undef STUB_LEVEL
-#undef DEFINE_LEVEL
-
 #define STUB_LEVEL(_0, levelenum, courseenum, _3, _4, _5, _6, _7, _8) [courseenum] = levelenum,
 #define DEFINE_LEVEL(_0, levelenum, courseenum, _3, _4, _5, _6, _7, _8, _9, _10) [courseenum] = levelenum,
 #pragma GCC diagnostic push
@@ -67,9 +58,6 @@ s8 sCourseNumToLevelNumTable[] = {
 #pragma GCC diagnostic pop
 #undef STUB_LEVEL
 #undef DEFINE_LEVEL
-
-STATIC_ASSERT(ARRAY_COUNT(gLevelToCourseNumTable) == LEVEL_COUNT - 1,
-              "change this array if you are adding levels");
 
 s8 get_level_num_from_course_num(s16 courseNum) {
     if (courseNum < 0 || courseNum >= COURSE_COUNT) {

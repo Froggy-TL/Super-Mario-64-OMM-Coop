@@ -128,22 +128,6 @@ void set_secondary_camera_focus(struct Object *o) { gSecondCameraFocus = o; }
 // Helpers to iterate through the object table
 //
 
-struct Object *obj_get_first(enum ObjectList objList) {
-    if (gObjectLists && objList >= 0 && objList < NUM_OBJ_LISTS) {
-        u32 sanityDepth = 0;
-        struct Object *head = (struct Object *) &gObjectLists[objList];
-        struct Object *obj = (struct Object *) head->header.next;
-        while (obj != head) {
-            if (++sanityDepth > 10000) { break; }
-            if (obj->activeFlags != ACTIVE_FLAG_DEACTIVATED) {
-                return obj;
-            }
-            obj = (struct Object *) obj->header.next;
-        }
-    }
-    return NULL;
-}
-
 static struct Object *obj_get_next_internal(struct Object *o, enum ObjectList objList) {
     if (gObjectLists && o) {
         u32 sanityDepth = 0;

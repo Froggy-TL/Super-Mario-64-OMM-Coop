@@ -29,7 +29,7 @@ struct Object *obj_get_first(s32 list) {
     return NULL;
 }
 
-struct Object *obj_get_next(struct Object *o, s32 list) {
+struct Object *omm_obj_get_next(struct Object *o, s32 list) {
     if (OMM_LIKELY(gObjectLists && o)) {
         struct Object *head = (struct Object *) &gObjectLists[list];
         struct Object *next = (struct Object *) o->header.next;
@@ -65,7 +65,7 @@ struct Object *obj_get_first_with_behavior_and_parent(struct Object *parent, con
 struct Object *obj_get_next_with_behavior(struct Object *o, const BehaviorScript *behavior) {
     if (OMM_LIKELY(o && behavior)) {
         s32 list = obj_get_list_index_from_behavior(behavior);
-        for (struct Object *obj = obj_get_next(o, list); obj; obj = obj_get_next(obj, list)) {
+        for (struct Object *obj = omm_obj_get_next(o, list); obj; obj = omm_obj_get_next(obj, list)) {
             if (obj->behavior == behavior && obj->activeFlags) {
                 return obj;
             }
