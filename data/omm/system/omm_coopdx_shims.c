@@ -93,3 +93,50 @@ void omm_monty_mole_spawn_dirt_particles(s8 offsetY, s8 velYBase) {
     sOmmMontyMoleRiseFromGroundParticles.velYBase = velYBase;
     cur_obj_spawn_particles(&sOmmMontyMoleRiseFromGroundParticles);
 }
+
+//
+// Second round of symbols missing from the coopdx build (defs were in
+// modules excluded from the Android build).
+//
+
+#include "behavior_commands.h"
+#include "level_commands.h"
+
+// Interactions: coopdx has no interact_unknown_08 handler or sInvulnerable.
+u32 interact_unknown_08(struct MarioState *m, u32 interactType, struct Object *o) {
+    (void) m; (void) interactType; (void) o;
+    return 0;
+}
+
+s16 sInvulnerable = 0;
+
+// Peachy room trigger behavior (defined in the excluded omm_level_peachy.c).
+const BehaviorScript bhvOmmPeachyRoomTrigger[] = {
+    OBJ_TYPE_DEFAULT,
+    BHV_BREAK(),
+};
+
+// Sparkly star sparkle effect (defined in the excluded peachy modules).
+void bhv_omm_sparkly_grand_star_spawn_sparkles() {
+}
+
+// Level palette color callback (coopdx gfx has no level palettes).
+void gfx_texture_set_level_palette_color(f32 r, f32 g, f32 b) {
+    (void) r; (void) g; (void) b;
+}
+
+// Frame interpolation global used by several OMM modules.
+bool gFrameInterpolation = false;
+
+// Palette editor level (defined in the excluded omm_palette_editor.c).
+const LevelScript omm_level_palette_editor[] = {
+    EXIT(),
+};
+
+// Options menu callbacks (defined in the excluded dialog/menu modules).
+void omm_opt_return_to_previous_menu(struct Option *opt, s32 arg) {
+    (void) opt; (void) arg;
+}
+
+void omm_opt_init_main_menu(void) {
+}
