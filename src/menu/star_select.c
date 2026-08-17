@@ -413,6 +413,23 @@ void print_act_selector_strings(void) {
 }
 
 /**
+ * Geo function that Print act selector strings.
+ *!@bug: This geo function is missing the third param. Harmless in practice due to o32 convention.
+ */
+#ifndef TARGET_ANDROID
+#ifdef AVOID_UB
+Gfx *geo_act_selector_strings(s16 callContext, UNUSED struct GraphNode *node, UNUSED void *context) {
+#else
+Gfx *geo_act_selector_strings(s16 callContext, UNUSED struct GraphNode *node) {
+#endif
+    if (callContext == GEO_CONTEXT_RENDER) {
+        print_act_selector_strings();
+    }
+    return NULL;
+}
+#endif
+
+/**
  * Initiates act selector values before entering a main course.
  * Also load how much stars a course has, without counting the 100 coin star.
  */

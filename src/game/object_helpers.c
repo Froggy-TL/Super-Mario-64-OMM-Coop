@@ -1201,6 +1201,20 @@ u16 cur_obj_count_objects_with_behavior(const BehaviorScript* behavior, f32 dist
     return numObjs;
 }
 
+#ifndef TARGET_ANDROID
+/* |description|Finds an unimportant object from the unimportant object list|descriptionEnd| */
+struct Object *find_unimportant_object(void) {
+    struct ObjectNode *listHead = &gObjectLists[OBJ_LIST_UNIMPORTANT];
+    struct ObjectNode *obj = listHead->next;
+
+    if (listHead == obj) {
+        obj = NULL;
+    }
+
+    return (struct Object *) obj;
+}
+#endif
+
 /* |description|Counts the number of unimportant objects in the unimportant object list|descriptionEnd| */
 s32 count_unimportant_objects(void) {
     struct ObjectNode *listHead = &gObjectLists[OBJ_LIST_UNIMPORTANT];

@@ -57,3 +57,40 @@ const LevelScript level_main_menu_entry_1[] = {
     EXIT_AND_EXECUTE(/*seg*/ 0x15, _scriptsSegmentRomStart, _scriptsSegmentRomEnd, level_main_scripts_entry),
 };
 
+#ifndef TARGET_ANDROID
+const LevelScript level_main_menu_entry_2[] = {
+    CALL(/*arg*/ 0, /*func*/ lvl_set_current_level),
+    JUMP_IF(/*op*/ OP_EQ, /*arg*/ 0, level_main_menu_entry_2 + 42),
+    INIT_LEVEL(),
+    FIXED_LOAD(/*loadAddr*/ _goddardSegmentStart, /*romStart*/ _goddardSegmentRomStart, /*romEnd*/ _goddardSegmentRomEnd),
+    LOAD_MIO0(/*seg*/ 0x07, _menu_segment_7SegmentRomStart, _menu_segment_7SegmentRomEnd),
+    ALLOC_LEVEL_POOL(),
+
+    AREA(/*index*/ 2, geo_menu_act_selector_strings),
+        OBJECT(/*model*/ MODEL_NONE, /*pos*/ 0, -100, 0, /*angle*/ 0, 0, 0, /*behParam*/ 0x04000000, /*beh*/ bhvActSelector),
+        TERRAIN(/*terrainData*/ main_menu_seg7_collision),
+    END_AREA(),
+
+    FREE_LEVEL_POOL(),
+    LOAD_AREA(/*area*/ 2),
+
+    // sVisibleStars is set to 0 during FIXED_LOAD above on N64, but not on PC-port.
+    // lvl_init_act_selector_values_and_stars must be called here otherwise the
+    // previous value is retained and causes incorrect drawing during the 10 transition
+    // frames.
+    CALL(/*arg*/ 0, /*func*/ lvl_init_act_selector_values_and_stars),
+
+    TRANSITION(/*transType*/ WARP_TRANSITION_FADE_FROM_COLOR, /*time*/ 16, /*color*/ 0xFF, 0xFF, 0xFF),
+    SLEEP(/*frames*/ 8), // Was 16 frames
+    SET_MENU_MUSIC(/*seq*/ 0x000D),
+    CALL_LOOP(/*arg*/ 0, /*func*/ lvl_update_obj_and_load_act_button_actions),
+    GET_OR_SET(/*op*/ OP_SET, /*var*/ VAR_CURR_ACT_NUM),
+    STOP_MUSIC(/*fadeOutTime*/ 0x00BE),
+    TRANSITION(/*transType*/ WARP_TRANSITION_FADE_INTO_COLOR, /*time*/ 16, /*color*/ 0xFF, 0xFF, 0xFF),
+    SLEEP(/*frames*/ 10), // Was 16 frames
+    CLEAR_LEVEL(),
+    SLEEP_BEFORE_EXIT(/*frames*/ 1),
+    // L1:
+    EXIT(),
+};
+#endif
