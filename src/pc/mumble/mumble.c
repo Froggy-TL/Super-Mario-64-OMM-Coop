@@ -42,6 +42,10 @@ void mumble_init(void) {
 		return;
 	}
 #else
+#ifdef TARGET_ANDROID
+	// POSIX shared memory (shm_open) is unavailable on Android (Bionic).
+	return;
+#else
 	char memname[256];
 	snprintf(memname, 256, "/MumbleLink.%d", getuid());
 
@@ -57,6 +61,7 @@ void mumble_init(void) {
 		lm = NULL;
 		return;
 	}
+#endif
 #endif
 
 	if(lm->uiVersion != 2) {
