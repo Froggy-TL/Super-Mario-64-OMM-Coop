@@ -143,7 +143,7 @@ static struct {
 
 static void omm_sparkly_act_ending_update_toad_anim(EndToadStruct *toad) {
     if (toad->obj) {
-        geo_obj_init_animation(&toad->obj->header.gfx, (struct Animation **) &toad_seg6_anims_0600FB58[toad->anim]);
+        omm_geo_obj_init_animation(&toad->obj->header.gfx, (struct Animation **) &toad_seg6_anims_0600FB58[toad->anim]);
         if (obj_anim_is_near_end(toad->obj) && (toad->anim == 0 || toad->anim == 2)) {
             toad->anim++;
         }
@@ -165,7 +165,7 @@ static void omm_sparkly_act_ending_set_toad_message(const char *msg, s16 duratio
 }
 
 static void omm_sparkly_act_ending_set_visual_pos(struct Object *o, f32 *value) {
-    Vec3s t; find_mario_anim_flags_and_translation(o, o->oGfxAngle[1], t);
+    Vec3s t; omm_find_mario_anim_flags_and_translation(o, o->oGfxAngle[1], t);
     f32 x = o->oGfxPos[0] + t[0];
     f32 y = o->oGfxPos[1] + 10.f;
     f32 z = o->oGfxPos[2] + t[2];
@@ -452,7 +452,7 @@ s32 omm_sparkly_act_ending_2(struct MarioState *m) {
 #if OMM_GAME_IS_SM64
     if (gOmmSparklyEnding == OMM_SPARKLY_ENDING_BAD) {
         action_init(0, 0, 0, 0, m->statusForCamera->cameraEvent = CAM_EVENT_START_END_WAVING;);
-        stop_and_set_height_to_floor(m);
+        omm_stop_and_set_height_to_floor(m);
         m->marioObj->oNodeFlags |= GRAPH_RENDER_INVISIBLE;
         if (m->actionTimer++ >= 300) {
             level_trigger_warp(m, WARP_OP_CREDITS_END);

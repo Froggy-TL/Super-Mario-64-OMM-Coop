@@ -6,7 +6,7 @@
 #include "math_util.h"                      // Math stuff
 #include "game/camera.h"                    // struct Camera
 #include "game/level_update.h"              // HUD_DISPLAY_* flags
-#include "game/object_list_processor.h"     // OBJECT_POOL_CAPACITY, bhv_mario_update
+#include "game/object_list_processor.h"     // OBJECT_POOL_CAPACITY, omm_bhv_mario_update
 #include "stb/stb_image.h"                  // stb_image_* functions
 #include "stb/stb_image_write.h"            // stb_image_write_* functions
 
@@ -175,13 +175,13 @@ extern s32 check_horizontal_wind(struct MarioState *m);
 extern s32 check_object_step(struct Object *o, s32 step, u32 flags);
 extern s32 lava_boost_on_wall(struct MarioState *m);
 extern s32 perform_hang_step(struct MarioState *m);
-extern s32 perform_water_step(struct MarioState *m);
+extern s32 omm_perform_water_step(struct MarioState *m);
 extern s32 perform_object_step(struct Object *o, u32 flags);
 extern s32 should_begin_sliding(struct MarioState *m);
 extern u32 common_air_action_step(struct MarioState *, u32, s32, u32);
-extern u32 determine_interaction(struct MarioState *m, struct Object *o);
+extern u32 omm_determine_interaction(struct MarioState *m, struct Object *o);
 extern u32 should_push_or_pull_door(struct MarioState *m, struct Object *o);
-extern f32 get_buoyancy(struct MarioState *m);
+extern f32 omm_get_buoyancy(struct MarioState *m);
 extern void apply_slope_accel(struct MarioState *m);
 extern void bhv_chain_chomp_update_chain_parts(struct Object *o, bool isFreed);
 extern void bhv_hidden_red_coin_star_init_();
@@ -207,15 +207,15 @@ extern void handle_special_dialog_text(s16 dialogID);
 extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpArg);
 extern void mario_reset_bodystate(struct MarioState *m);
 extern void mario_update_hitbox_and_cap_model(struct MarioState *m);
-extern void monty_mole_spawn_dirt_particles(s8 offsetY, s8 velYBase);
+extern void omm_monty_mole_spawn_dirt_particles(s8 offsetY, s8 velYBase);
 extern void obj_orient_graph(struct Object *obj, f32 normalX, f32 normalY, f32 normalZ);
 extern void play_flip_sounds(struct MarioState *m, s16 frame1, s16 frame2, s16 frame3);
 extern void play_sequence(u8, u8, u16);
 extern void pss_begin_slide(struct MarioState *m);
 extern void pss_end_slide(struct MarioState *m);
-extern void push_mario_out_of_object(struct MarioState *, struct Object *, f32);
+extern void omm_push_mario_out_of_object(struct MarioState *, struct Object *, f32);
 extern void push_or_sidle_wall(struct MarioState *m, Vec3f startPos);
-extern void render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox);
+extern void omm_render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox);
 extern void set_mario_initial_action(struct MarioState *, u32, u32);
 extern void set_play_mode(s16);
 extern void set_submerged_cam_preset_and_spawn_bubbles(struct MarioState *m);

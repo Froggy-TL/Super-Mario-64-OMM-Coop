@@ -338,7 +338,7 @@ static void bhv_omm_peach_vibe_gloom_tear_update() {
     // Update object
     obj_scale(o, 1.f);
     obj_set_xyz(o, mp[0], mp[1], mp[2]);
-    obj_set_vel(o, 0.f, 0.f, 0.f);
+    omm_obj_set_vel(o, 0.f, 0.f, 0.f);
     obj_set_home(o, 0.f, 0.f, 0.f);
     obj_set_angle(o, 0, 0, 0);
 }

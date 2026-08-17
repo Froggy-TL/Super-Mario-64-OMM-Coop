@@ -25,8 +25,8 @@
 
 void geo_obj_sync_anim_frame(struct_AnimInfo *animInfo);
 void geo_obj_sync_anim_frame_accel_assist(struct_AnimInfo *animInfo, bool clearBits);
-void geo_obj_init_animation(struct GraphNodeObject *node, struct Animation **animPtrAddr);
-void geo_obj_init_animation_accel(struct GraphNodeObject *node, struct Animation **animPtrAddr, s32 animAccel);
+void omm_geo_obj_init_animation(struct GraphNodeObject *node, struct Animation **animPtrAddr);
+void omm_geo_obj_init_animation_accel(struct GraphNodeObject *node, struct Animation **animPtrAddr, s32 animAccel);
 s16  geo_obj_retrieve_animation_value(const u16 *indices, u32 indicesLen, const s16 *values, u32 valuesLen, s32 frame, u32 *offset);
 s32  geo_obj_update_animation_frame(struct_AnimInfo *animInfo);
 

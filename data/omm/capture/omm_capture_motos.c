@@ -26,7 +26,7 @@ bool omm_cappy_motos_init(struct Object *o) {
 void omm_cappy_motos_end(struct Object *o) {
     pobj_throw_held_object(o, OMM_CAPPY_MOTOS_THROW_FVEL, OMM_CAPPY_MOTOS_THROW_YVEL);
     obj_anim_play(o, MOTOS_ANIM_WAIT, 1.f);
-    obj_set_vel(o, 0.f, 0.f, 0.f);
+    omm_obj_set_vel(o, 0.f, 0.f, 0.f);
     o->oAction = MOTOS_ACT_WAIT;
 }
 

@@ -120,7 +120,7 @@ s32 omm_mario_execute_object_action(struct MarioState *m) {
 
     // Quicksand
     // Needs to be 0 to not apply the sinking twice per frame
-    if (mario_update_quicksand(m, 0)) {
+    if (omm_mario_update_quicksand(m, 0)) {
         return OMM_MARIO_ACTION_RESULT_CANCEL;
     }
 

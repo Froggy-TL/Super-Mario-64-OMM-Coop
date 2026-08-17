@@ -71,7 +71,7 @@ endif
 PC_BUILD_DIR := $(LOCAL_PATH)/build/$(VERSION)_pc
 
 SRC_DIRS := src src/engine src/game src/audio src/menu src/buffers actors levels bin bin/$(VERSION) data assets sound src/pc src/pc/gfx src/pc/audio src/pc/controller src/pc/fs src/pc/mods src/pc/dev src/pc/network src/pc/network/packets src/pc/network/socket src/pc/network/coopnet src/pc/utils src/pc/utils/miniz src/pc/djui src/pc/lua src/pc/lua/utils src/pc/mumble include/android_execinfo
-SRC_DIRS += data/omm data/omm/system data/omm/engine data/omm/engine/miniaudio data/omm/object data/omm/models data/omm/mario data/omm/cappy data/omm/capture data/omm/peachy data/omm/level data/omm/time_trials data/omm/dev
+SRC_DIRS += data/omm data/omm/system data/omm/engine data/omm/object data/omm/models data/omm/mario data/omm/cappy data/omm/capture data/omm/peachy data/omm/level data/omm/time_trials data/omm/dev
 SRC_DIRS := $(addprefix $(LOCAL_PATH)/,$(SRC_DIRS))
 
 GODDARD_SRC_DIRS := src/goddard src/goddard/dynlists

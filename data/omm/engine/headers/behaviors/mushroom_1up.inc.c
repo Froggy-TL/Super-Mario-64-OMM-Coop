@@ -110,22 +110,22 @@ static void bhv_1up_sliding_move(void) {
 // Init
 //
 
-void bhv_1up_common_init(void) {
+void omm_bhv_1up_common_init(void) {
     o->oMoveAnglePitch = -0x4000;
     o->oGravity = 3.f;
     o->oFriction = 1.f;
     o->oBuoyancy = 1.f;
 }
 
-void bhv_1up_init(void) {
-    bhv_1up_common_init();
+void omm_bhv_1up_init(void) {
+    omm_bhv_1up_common_init();
 }
 
 //
 // Update
 //
 
-void bhv_1up_walking_loop(void) {
+void omm_bhv_1up_walking_loop(void) {
     bhv_1up_common_update(true, true, true);
     object_step();
 
@@ -153,7 +153,7 @@ void bhv_1up_walking_loop(void) {
     }
 }
 
-void bhv_1up_running_away_loop(void) {
+void omm_bhv_1up_running_away_loop(void) {
     bhv_1up_common_update(true, true, true);
     s16 colFlags = object_step();
 
@@ -179,7 +179,7 @@ void bhv_1up_running_away_loop(void) {
     }
 }
 
-void bhv_1up_sliding_loop(void) {
+void omm_bhv_1up_sliding_loop(void) {
     bool sparkles = o->oAction >= 1;
     bhv_1up_common_update(true, true, sparkles);
 
@@ -200,11 +200,11 @@ void bhv_1up_sliding_loop(void) {
     }
 }
 
-void bhv_1up_loop(void) {
+void omm_bhv_1up_loop(void) {
     bhv_1up_common_update(true, true, false);
 }
 
-void bhv_1up_jump_on_approach_loop(void) {
+void omm_bhv_1up_jump_on_approach_loop(void) {
     bool sparkles = o->oAction >= 1;
     bhv_1up_common_update(true, true, sparkles);
 
@@ -228,7 +228,7 @@ void bhv_1up_jump_on_approach_loop(void) {
     }
 }
 
-void bhv_1up_hidden_loop(void) {
+void omm_bhv_1up_hidden_loop(void) {
     bool hidden = o->oAction == 0;
     bhv_1up_common_update(!hidden, !hidden, !hidden);
 
@@ -262,7 +262,7 @@ void bhv_1up_hidden_loop(void) {
     }
 }
 
-void bhv_1up_hidden_in_pole_loop(void) {
+void omm_bhv_1up_hidden_in_pole_loop(void) {
     bool hidden = o->oAction == 0;
     bhv_1up_common_update(!hidden, !hidden, !hidden);
 
@@ -295,7 +295,7 @@ void bhv_1up_hidden_in_pole_loop(void) {
 // Hidden triggers
 //
 
-void bhv_1up_hidden_trigger_loop(void) {
+void omm_bhv_1up_hidden_trigger_loop(void) {
     if (obj_check_if_collided_with_object(o, gMarioObject)) {
         struct Object *hidden1up = cur_obj_nearest_object_with_behavior(bhvHidden1up);
         if (hidden1up) {
@@ -305,7 +305,7 @@ void bhv_1up_hidden_trigger_loop(void) {
     }
 }
 
-void bhv_1up_hidden_in_pole_trigger_loop(void) {
+void omm_bhv_1up_hidden_in_pole_trigger_loop(void) {
     if (obj_check_if_collided_with_object(o, gMarioObject)) {
         struct Object *hidden1upInPole = cur_obj_nearest_object_with_behavior(bhvHidden1upInPole);
         if (hidden1upInPole) {
@@ -315,7 +315,7 @@ void bhv_1up_hidden_in_pole_trigger_loop(void) {
     }
 }
 
-void bhv_1up_hidden_in_pole_spawner_loop(void) {
+void omm_bhv_1up_hidden_in_pole_spawner_loop(void) {
     if (is_point_within_radius_of_mario(o->oPosX, o->oPosY, o->oPosZ, 700)) {
         spawn_object_relative(2, 0, 50, 0, o, MODEL_1UP, bhvHidden1upInPole);
         for (s32 i = 0; i < 2; i++) {

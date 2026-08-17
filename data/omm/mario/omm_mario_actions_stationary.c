@@ -28,7 +28,7 @@ static s32 omm_act_idle(struct MarioState *m) {
     action_condition(m->actionState == 3 && !OMM_PEACH_VIBE_NO_SHIVERING && omm_world_is_cold(), ACT_SHIVERING, 0, RETURN_CANCEL);
     action_condition(m->actionState == 3 && !OMM_PEACH_VIBE_NO_SLEEPING, ACT_START_SLEEPING, 0, RETURN_CANCEL);
 
-    s32 step = stationary_ground_step(m);
+    s32 step = omm_stationary_ground_step(m);
     if (step == GROUND_STEP_NONE) {
         if (m->actionArg & 1) {
             ANM(MARIO_ANIM_STAND_AGAINST_WALL, 1.f);
@@ -122,7 +122,7 @@ static s32 omm_act_spin_pound_land(struct MarioState *m) {
     action_spin(OMM_MOVESET_ODYSSEY, ACT_OMM_SPIN_GROUND, 0, RETURN_CANCEL);
     action_off_floor(1, ACT_FREEFALL, 0, RETURN_CANCEL);
 
-    stationary_ground_step(m);
+    omm_stationary_ground_step(m);
     ANM(MARIO_ANIM_GENERAL_LAND, 1.f);
     action_condition(obj_anim_is_at_end(m->marioObj), ACT_IDLE, 0, RETURN_BREAK);
     return OMM_MARIO_ACTION_RESULT_CONTINUE;
@@ -169,7 +169,7 @@ s32 omm_mario_execute_stationary_action(struct MarioState *m) {
 
     // Quicksand
     // Needs to be 0 to not apply the sinking twice per frame
-    if (mario_update_quicksand(m, (m->action == ACT_IDLE ? 0.25f : 0.f))) {
+    if (omm_mario_update_quicksand(m, (m->action == ACT_IDLE ? 0.25f : 0.f))) {
         return OMM_MARIO_ACTION_RESULT_CANCEL;
     }
 

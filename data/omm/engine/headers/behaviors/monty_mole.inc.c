@@ -39,7 +39,7 @@ void bhv_monty_mole_hole_init(void) {
     sMontyMoleKillStreak = 0;
 }
 
-void bhv_monty_mole_hole_update(void) {
+void omm_bhv_monty_mole_hole_update(void) {
     if (o->oTimer == 0) {
         bhv_monty_mole_hole_init();
     }
@@ -50,7 +50,7 @@ void bhv_monty_mole_hole_update(void) {
 // Monty mole
 //
 
-void monty_mole_spawn_dirt_particles(s8 offsetY, s8 velYBase) {
+void omm_monty_mole_spawn_dirt_particles(s8 offsetY, s8 velYBase) {
     static struct SpawnParticlesInfo sMontyMoleRiseFromGroundParticles = { 0, 3, MODEL_SAND_DUST, 0, 4, 4, 10, 15, -4, 0, 10, 7 };
     sMontyMoleRiseFromGroundParticles.offsetY = offsetY;
     sMontyMoleRiseFromGroundParticles.velYBase = velYBase;
@@ -79,12 +79,12 @@ static void monty_mole_act_select_hole(void) {
             o->oAction = MONTY_MOLE_ACT_RISE_FROM_HOLE;
             o->oVelY = 3;
             o->oGravity = 0;
-            monty_mole_spawn_dirt_particles(0, 10);
+            omm_monty_mole_spawn_dirt_particles(0, 10);
         } else {
             o->oAction = MONTY_MOLE_ACT_JUMP_OUT_OF_HOLE;
             o->oVelY = 50;
             o->oGravity = -4;
-            monty_mole_spawn_dirt_particles(0, 20);
+            omm_monty_mole_spawn_dirt_particles(0, 20);
         }
         cur_obj_unhide();
         cur_obj_become_tangible();
@@ -138,7 +138,7 @@ static void monty_mole_act_jump_into_hole(void) {
     if (o->oVelY < 0 && o->oMontyMoleHeightRelativeToFloor < 120) {
         o->oAction = MONTY_MOLE_ACT_HIDE;
         o->oGravity = 0;
-        monty_mole_spawn_dirt_particles(-80, 15);
+        omm_monty_mole_spawn_dirt_particles(-80, 15);
     }
 }
 
@@ -174,11 +174,11 @@ static void monty_mole_act_jump_out_of_hole(void) {
     }
 }
 
-void bhv_monty_mole_init(void) {
+void omm_bhv_monty_mole_init(void) {
     o->oMontyMoleCurrentHole = NULL;
 }
 
-void bhv_monty_mole_update(void) {
+void omm_bhv_monty_mole_update(void) {
     o->oDeathSound = SOUND_OBJ_DYING_ENEMY1;
     cur_obj_update_floor_and_walls();
     o->oMontyMoleHeightRelativeToFloor = o->oPosY - o->oFloorHeight;
@@ -240,7 +240,7 @@ static void monty_mole_rock_act_move(void) {
     }
 }
 
-void bhv_monty_mole_rock_update(void) {
+void omm_bhv_monty_mole_rock_update(void) {
     static struct ObjectHitbox sMontyMoleRockHitbox = { INTERACT_MR_BLIZZARD, 15, 1, 99, 0, 30, 15, 30, 15 };
     obj_check_attacks(&sMontyMoleRockHitbox, o->oAction);
     switch (o->oAction) {

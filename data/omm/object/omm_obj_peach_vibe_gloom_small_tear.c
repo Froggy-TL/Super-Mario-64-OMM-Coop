@@ -153,7 +153,7 @@ struct Object *omm_obj_spawn_peach_vibe_gloom_tear_small(struct Object *o, f32 x
     struct Object *small = obj_spawn_from_geo(o, omm_geo_peach_vibe_gloom_tear_small, bhvOmmPeachVibeGloomTearSmall);
     obj_scale(small, 0.1f + random_float() * 0.1f);
     obj_set_xyz(small, x, y, z);
-    obj_set_vel(small, random_f32_around_zero(16.f), 10.f + random_float() * 10.f, random_f32_around_zero(16.f));
+    omm_obj_set_vel(small, random_f32_around_zero(16.f), 10.f + random_float() * 10.f, random_f32_around_zero(16.f));
     obj_set_home(small, x, y, z);
     obj_set_angle(small, 0, 0, 0);
     return small;

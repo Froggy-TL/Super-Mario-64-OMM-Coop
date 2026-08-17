@@ -694,7 +694,7 @@ s32 omm_act_possession(struct MarioState *m) {
     obj_set_xyz(o, oPos[0], oPos[1], oPos[2]); \
     obj_set_home(o, oPos[0], oPos[1], oPos[2]); \
     obj_set_angle(o, oAngle[0], oAngle[1], oAngle[2]); \
-    obj_set_vel(o, 0, 0, 0);
+    omm_obj_set_vel(o, 0, 0, 0);
 
 static void copy_object_data(struct Object *o, bool possess) {
     static struct Object sObjectData[1];
@@ -805,7 +805,7 @@ bool omm_mario_possess_object(struct MarioState *m, struct Object *o, u32 posses
 
     // OK
     copy_object_data(o, true);
-    obj_set_vel(o, 0, o->behavior == bhvChainChomp ? max_f(o->oVelY, 0) : 0, 0); // What a stupid glitch :(
+    omm_obj_set_vel(o, 0, o->behavior == bhvChainChomp ? max_f(o->oVelY, 0) : 0, 0); // What a stupid glitch :(
     o->curBhvCommand = bhvOmmPossessedObject;
     o->bhvStackIndex = 0;
     o->oRoom = -1;
@@ -902,7 +902,7 @@ bool omm_mario_possess_object_after_warp(struct MarioState *m) {
 
     // OK
     copy_object_data(o, true);
-    obj_set_vel(o, 0, 0, 0);
+    omm_obj_set_vel(o, 0, 0, 0);
     o->curBhvCommand = bhvOmmPossessedObject;
     o->bhvStackIndex = 0;
     o->oRoom = -1;

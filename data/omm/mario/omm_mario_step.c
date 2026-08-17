@@ -172,11 +172,11 @@ static bool omm_object_check_move_through_walls(struct Object *o, Vec3f target) 
 // Stationary Ground Step
 //
 
-s32 stationary_ground_step(struct MarioState *m) {
+s32 omm_stationary_ground_step(struct MarioState *m) {
     mario_set_forward_vel(m, 0.f);
     if (!(m->action & (ACT_FLAG_SWIMMING | ACT_FLAG_METAL_WATER))) {
-        if (mario_update_moving_sand(m) || mario_update_windy_ground(m)) {
-            return perform_ground_step(m);
+        if (omm_mario_update_moving_sand(m) || omm_mario_update_windy_ground(m)) {
+            return omm_perform_ground_step(m);
         }
     }
 
@@ -190,7 +190,7 @@ s32 stationary_ground_step(struct MarioState *m) {
     return STEP_RESULT[STEP_NONE][GROUND_STEP];
 }
 
-void stop_and_set_height_to_floor(struct MarioState *m) {
+void omm_stop_and_set_height_to_floor(struct MarioState *m) {
     mario_set_forward_vel(m, 0.f);
     m->vel[1] = 0.f;
     m->pos[1] = m->floorHeight = find_floor_height(m->pos[0], m->pos[1], m->pos[2]);
@@ -292,7 +292,7 @@ static s32 omm_mario_perform_ground_sub_step(struct MarioState *m, Vec3f nextPos
     return STEP_NONE;
 }
 
-s32 perform_ground_step(struct MarioState *m) {
+s32 omm_perform_ground_step(struct MarioState *m) {
     Vec3f prevPos = { m->pos[0], m->pos[1], m->pos[2] };
 
     // Sliding acceleration
@@ -360,7 +360,7 @@ s32 perform_ground_step(struct MarioState *m) {
     return STEP_RESULT[stepResult][GROUND_STEP];
 }
 
-u32 mario_update_moving_sand(struct MarioState *m) {
+u32 omm_mario_update_moving_sand(struct MarioState *m) {
     if (!omm_mario_has_metal_cap(m) && m->floor) {
         s32 floorType = m->floor->type;
         if (floorType == SURFACE_MOVING_QUICKSAND ||
@@ -377,7 +377,7 @@ u32 mario_update_moving_sand(struct MarioState *m) {
     return 0;
 }
 
-u32 mario_update_quicksand(struct MarioState *m, f32 sinkingSpeed) {
+u32 omm_mario_update_quicksand(struct MarioState *m, f32 sinkingSpeed) {
     if (!omm_mario_has_metal_cap(m) && !walk_on_quicksand(m) && !(m->action & ACT_FLAG_RIDING_SHELL) && m->floor) {
         switch (m->floor->type) {
             case SURFACE_SHALLOW_QUICKSAND: {
@@ -433,7 +433,7 @@ u32 mario_update_quicksand(struct MarioState *m, f32 sinkingSpeed) {
     return 0;
 }
 
-u32 mario_update_windy_ground(struct MarioState *m) {
+u32 omm_mario_update_windy_ground(struct MarioState *m) {
     if (!omm_mario_has_metal_cap(m) && m->floor) {
         if (m->floor->type == SURFACE_HORIZONTAL_WIND) {
             f32 pushSpeed = 3.2f + (gGlobalTimer % 4);
@@ -453,7 +453,7 @@ u32 mario_update_windy_ground(struct MarioState *m) {
     return 0;
 }
 
-u32 mario_push_off_steep_floor(struct MarioState *m, u32 action, u32 actionArg) {
+u32 omm_mario_push_off_steep_floor(struct MarioState *m, u32 action, u32 actionArg) {
     s16 floorDYaw = m->floorAngle - m->faceAngle[1];
     if (floorDYaw > -0x4000 && floorDYaw < 0x4000) {
         m->forwardVel = 16.f;
@@ -798,7 +798,7 @@ static void omm_mario_apply_vertical_wind(struct MarioState *m) {
     }
 }
 
-s32 perform_air_step(struct MarioState *m, u32 stepArg) {
+s32 omm_perform_air_step(struct MarioState *m, u32 stepArg) {
     Vec3f prevPos = { m->pos[0], m->pos[1], m->pos[2] };
     if (OMM_MOVESET_ODYSSEY && m->action == ACT_WALL_KICK_AIR) {
         stepArg |= AIR_STEP_CHECK_HANG;
@@ -879,7 +879,7 @@ s32 perform_air_step(struct MarioState *m, u32 stepArg) {
     return STEP_RESULT[stepResult][AIR_STEP];
 }
 
-void mario_bonk_reflection(struct MarioState *m, u32 negateSpeed) {
+void omm_mario_bonk_reflection(struct MarioState *m, u32 negateSpeed) {
     if (m->wall) {
         s16 wallAngle = atan2s(m->wall->normal.z, m->wall->normal.x);
         m->faceAngle[1] = wallAngle - (s16) (m->faceAngle[1] - wallAngle);
@@ -994,7 +994,7 @@ s32 perform_hang_step(struct MarioState *m) {
 // Water Step
 //
 
-f32 get_buoyancy(struct MarioState *m) {
+f32 omm_get_buoyancy(struct MarioState *m) {
 
     // Metal Mario
     if (m->flags & MARIO_METAL_CAP) {
@@ -1118,7 +1118,7 @@ static void omm_mario_apply_water_current(struct MarioState *m, Vec3f waterVel) 
     }
 }
 
-s32 perform_water_step(struct MarioState *m) {
+s32 omm_perform_water_step(struct MarioState *m) {
     Vec3f prevPos = { m->pos[0], m->pos[1], m->pos[2] };
     Vec3f waterVel = { m->vel[0], m->vel[1], m->vel[2] };
     if (m->action & ACT_FLAG_SWIMMING) {
@@ -1410,7 +1410,7 @@ s32 check_object_step(struct Object *o, s32 step, u32 flags) {
 // Bully collision
 //
 
-void transfer_bully_speed(struct BullyCollisionData *obj1, struct BullyCollisionData *obj2) {
+void omm_transfer_bully_speed(struct BullyCollisionData *obj1, struct BullyCollisionData *obj2) {
     f32 rx = obj2->posX - obj1->posX;
     f32 rz = obj2->posZ - obj1->posZ;
     f32 v1 = (+rx * obj1->velX + rz * obj1->velZ) / (rx * rx + rz * rz);
@@ -1436,8 +1436,8 @@ BAD_RETURN(s32) init_bully_collision_data(struct BullyCollisionData *data, f32 p
 // Unused functions
 //
 
-void stub_mario_step_1(UNUSED struct MarioState *m) {
+void omm_stub_mario_step_1(UNUSED struct MarioState *m) {
 }
 
-void stub_mario_step_2(void) {
+void omm_stub_mario_step_2(void) {
 }

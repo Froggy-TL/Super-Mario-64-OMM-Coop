@@ -171,7 +171,7 @@ static s32 omm_act_walking(struct MarioState *m) {
     // Step
     m->actionState = 0;
     update_walking_speed(m);
-    switch (perform_ground_step(m)) {
+    switch (omm_perform_ground_step(m)) {
         case GROUND_STEP_NONE: {
             if (omm_peach_vibe_is_gloom()) {
                 ANM(MARIO_ANIM_RUNNING, max_f(1.f, abs_f(m->forwardVel / 2.f)));
@@ -243,7 +243,7 @@ static s32 omm_act_riding_shell_ground(struct MarioState *m) {
     m->actionTimer = (u16) ((((u16) currTilt) & 0xFFFC) | (((u16) cTiltDir) & 0x0003));
 
     // Perform step
-    s32 step = perform_ground_step(m);
+    s32 step = omm_perform_ground_step(m);
     action_condition(step == GROUND_STEP_LEFT_GROUND, ACT_RIDING_SHELL_FALL, 0, RETURN_BREAK, play_mario_sound(m, SOUND_ACTION_TERRAIN_JUMP, 0););
     action_condition(step == GROUND_STEP_HIT_WALL && m->forwardVel > OMM_MARIO_SHELL_RIDE_BONK_SPEED, ACT_BACKWARD_GROUND_KB, 0, RETURN_BREAK,
         mario_stop_riding_object(m);
@@ -338,7 +338,7 @@ static s32 omm_act_knockback_ground(struct MarioState *m, s32 animID, u16 landin
 
     // Step
     mario_set_forward_vel(m, clamp_f(m->forwardVel * 0.9f, -32.f, 32.f));
-    s32 step = perform_ground_step(m);
+    s32 step = omm_perform_ground_step(m);
     if (step == GROUND_STEP_LEFT_GROUND) {
         omm_mario_set_action(m, m->forwardVel >= 0.f ? ACT_FORWARD_AIR_KB : ACT_BACKWARD_AIR_KB, m->actionArg, 0);
     } else if (obj_anim_is_at_end(m->marioObj)) {
@@ -425,7 +425,7 @@ static s32 omm_act_roll(struct MarioState *m) {
     action_condition(m->forwardVel <= OMM_MARIO_ROLL_MIN_SPEED && !isFlatGround, ACT_STOMACH_SLIDE, 0, RETURN_CANCEL);
 
     // Perform step
-    s32 step = perform_ground_step(m);
+    s32 step = omm_perform_ground_step(m);
     action_condition(step == GROUND_STEP_LEFT_GROUND, ACT_OMM_ROLL_AIR, 0, RETURN_BREAK);
     action_condition(step == GROUND_STEP_HIT_WALL, ACT_BACKWARD_GROUND_KB, 0, RETURN_BREAK, PFX(PARTICLE_VERTICAL_STAR););
 
@@ -450,7 +450,7 @@ static s32 omm_act_spin_ground(struct MarioState *m) {
     action_off_floor(1, ACT_FREEFALL, 0, RETURN_CANCEL);
     action_condition(gOmmMario->spin.timer == 0, ACT_IDLE, 0, RETURN_CANCEL);
 
-    s32 step = perform_ground_step(m);
+    s32 step = omm_perform_ground_step(m);
     action_condition(step == GROUND_STEP_LEFT_GROUND, ACT_OMM_SPIN_AIR, 0, RETURN_BREAK);
 
     mario_set_forward_vel(m, max_f(0, m->forwardVel - 1.f));
@@ -472,7 +472,7 @@ static s32 omm_act_cappy_throw_ground(struct MarioState *m) {
 
     f32 f = coss(abs_s(m->faceAngle[1] - m->intendedYaw)) * m->controller->stickMag / 64.f;
     mario_set_forward_vel(m, m->forwardVel * clamp_f(f, 0.80f, 0.98f));
-    s32 step = perform_ground_step(m);
+    s32 step = omm_perform_ground_step(m);
     action_condition(step == GROUND_STEP_LEFT_GROUND, ACT_FREEFALL, 0, RETURN_BREAK);
     action_condition(step == GROUND_STEP_HIT_WALL, ACT_IDLE, 0, RETURN_BREAK);
     return OMM_MARIO_ACTION_RESULT_CONTINUE;
@@ -519,7 +519,7 @@ s32 omm_mario_execute_moving_action(struct MarioState *m) {
 
     // Quicksand
     // Needs to be 0 to not apply the sinking twice per frame
-    if (mario_update_quicksand(m, (m->action == ACT_WALKING ? 0.25f : 0.f))) {
+    if (omm_mario_update_quicksand(m, (m->action == ACT_WALKING ? 0.25f : 0.f))) {
         return OMM_MARIO_ACTION_RESULT_CANCEL;
     }
 

@@ -122,7 +122,7 @@ static void bhv_dorrie_act_raise_head(void) {
     }
 }
 
-void bhv_dorrie_update(void) {
+void omm_bhv_dorrie_update(void) {
     if (!(o->activeFlags & ACTIVE_FLAG_IN_DIFFERENT_ROOM)) {
         o->oDorrieForwardDistToMario = o->oDistanceToMario * coss(o->oAngleToMario - o->oMoveAngleYaw);
 

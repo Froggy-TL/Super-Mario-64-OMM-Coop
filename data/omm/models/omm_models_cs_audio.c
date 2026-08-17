@@ -5,12 +5,9 @@
 #include "data/omm/models/omm_models_cs_char_sound.h"
 
 #define STB_VORBIS_HEADER_ONLY
-#include "data/omm/engine/miniaudio/stb_vorbis.c"
+#include "src/pc/utils/stb_vorbis.c"
 
-#if !OMM_GAME_IS_R96X
-#define MINIAUDIO_IMPLEMENTATION
-#endif
-#include "data/omm/engine/miniaudio/miniaudio.h"
+#include "src/pc/utils/miniaudio.h"
 
 #define CHAR_SOUND_DEFAULT (CHAR_SOUND_MAX + 1)
 #define SOUND_PRIO(x) (((x) & SOUNDARGS_MASK_PRIORITY) >> SOUNDARGS_SHIFT_PRIORITY)

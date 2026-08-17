@@ -8,7 +8,7 @@ static void omm_mario_metal_destroy_or_push_away_object(struct MarioState *m, st
     } else {
         f32 x = m->pos[0];
         f32 z = m->pos[2];
-        push_mario_out_of_object(m, o, 0);
+        omm_push_mario_out_of_object(m, o, 0);
         o->oPosX -= (m->pos[0] - x);
         o->oPosZ -= (m->pos[2] - z);
         o->oInteractStatus = INT_STATUS_INTERACTED;
@@ -17,7 +17,7 @@ static void omm_mario_metal_destroy_or_push_away_object(struct MarioState *m, st
     }
 }
 
-void push_mario_out_of_object(struct MarioState *m, struct Object *o, f32 padding) {
+void omm_push_mario_out_of_object(struct MarioState *m, struct Object *o, f32 padding) {
     if (m->action != ACT_GETTING_BLOWN &&
         m->action != ACT_THROWN_FORWARD &&
         m->action != ACT_THROWN_BACKWARD) {
@@ -45,7 +45,7 @@ void push_mario_out_of_object(struct MarioState *m, struct Object *o, f32 paddin
     }
 }
 
-u32 determine_interaction(struct MarioState *m, struct Object *o) {
+u32 omm_determine_interaction(struct MarioState *m, struct Object *o) {
     u32 interaction = 0;
 
     // Bounces
@@ -450,7 +450,7 @@ bool omm_mario_interact_flame(struct MarioState *m, struct Object *o) {
 
 bool omm_mario_interact_koopa_shell(struct MarioState *m, struct Object *o) {
     if (!(m->action & ACT_FLAG_RIDING_SHELL) && !(o->oInteractStatus & INT_STATUS_STOP_RIDING) && !o->oSubAction) {
-        u32 interaction = determine_interaction(m, o);
+        u32 interaction = omm_determine_interaction(m, o);
         if ((interaction & (INT_GROUND_POUND_OR_TWIRL | INT_KICK | INT_HIT_FROM_ABOVE)) || m->action == ACT_WALKING || m->action == ACT_HOLD_WALKING) {
             m->interactObj = o;
             m->usedObj = o;
@@ -466,7 +466,7 @@ bool omm_mario_interact_koopa_shell(struct MarioState *m, struct Object *o) {
             }
             return true;
         }
-        push_mario_out_of_object(m, o, 2);
+        omm_push_mario_out_of_object(m, o, 2);
     }
     return interact_koopa_shell(m, INTERACT_KOOPA_SHELL, o);
 }

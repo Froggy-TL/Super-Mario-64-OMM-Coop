@@ -133,7 +133,7 @@ static void bhv_omm_hold_update() {
                     case HOLD_ACT_ATTACKED: {
                         bhv_omm_hold_restore_behavior(o);
                         o->oInteractStatus = (ATTACK_KICK_OR_TRIP | INT_STATUS_INTERACTED | INT_STATUS_WAS_ATTACKED);
-                        obj_set_vel(o, 0, 0, 0);
+                        omm_obj_set_vel(o, 0, 0, 0);
                     } break;
 
                     // Attack the Big Boo
@@ -144,7 +144,7 @@ static void bhv_omm_hold_update() {
                         o->oPrevAction = 1;
                         o->oSubAction = 0;
                         o->oTimer = 0;
-                        obj_set_vel(o, 0, 0, 0);
+                        omm_obj_set_vel(o, 0, 0, 0);
                     } break;
 
                     // Destroy the object
@@ -205,7 +205,7 @@ static void bhv_omm_hold_update() {
                         o->oPrevAction = h->nextAction;
                         o->oSubAction = 0;
                         o->oTimer = 0;
-                        obj_set_vel(o, 0, prevVelY - 4.f, 0);
+                        omm_obj_set_vel(o, 0, prevVelY - 4.f, 0);
                     } break;
                 }
             }
@@ -253,7 +253,7 @@ static void bhv_omm_hold_update() {
                 obj_set_forward_and_y_vel(o, o->oForwardVel / 2.f, abs_f(prevVelY) / 2.f);
                 if (o->oVelY < 4.f || abs_f(o->oForwardVel) < 1.f) {
                     bhv_omm_hold_restore_behavior(o);
-                    obj_set_vel(o, 0, 0, 0);
+                    omm_obj_set_vel(o, 0, 0, 0);
                 }
             }
         } break;

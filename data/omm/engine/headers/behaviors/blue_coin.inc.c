@@ -11,7 +11,7 @@
 // Hidden blue coin
 //
 
-void bhv_hidden_blue_coin_loop(void) {
+void omm_bhv_hidden_blue_coin_loop(void) {
     o->oTransparency = 0;
     switch (o->oAction) {
         case HIDDEN_BLUE_COIN_ACT_INACTIVE: {
@@ -55,7 +55,7 @@ void bhv_hidden_blue_coin_loop(void) {
 // Blue coin switch
 //
 
-void bhv_blue_coin_switch_loop(void) {
+void omm_bhv_blue_coin_switch_loop(void) {
     cur_obj_scale(3.f);
     switch (o->oAction) {
         case BLUE_COIN_SWITCH_ACT_IDLE: {

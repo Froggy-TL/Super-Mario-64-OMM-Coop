@@ -33,7 +33,7 @@ bool omm_cappy_monty_mole_init(struct Object *o) {
 
 void omm_cappy_monty_mole_end(struct Object *o) {
     obj_drop_to_floor(o);
-    monty_mole_spawn_dirt_particles(40, 15);
+    omm_monty_mole_spawn_dirt_particles(40, 15);
     o->oAction = MONTY_MOLE_ACT_SELECT_HOLE;
     o->oVelY = 0;
 }
@@ -101,7 +101,7 @@ s32 omm_cappy_monty_mole_update(struct Object *o) {
                 if (POBJ_A_BUTTON_PRESSED) {
                     gOmmObject->state.actionState = MONTY_MOLE_ACT_BEGIN_JUMP_INTO_HOLE;
                     gOmmObject->state.actionTimer = 0;
-                    monty_mole_spawn_dirt_particles(0, 10);
+                    omm_monty_mole_spawn_dirt_particles(0, 10);
                 }
 
                 // Throw rock
@@ -129,7 +129,7 @@ s32 omm_cappy_monty_mole_update(struct Object *o) {
 
             // Update pos and vel
             f32 terminalVelocity = pobj_get_terminal_velocity(o);
-            obj_set_vel(o, 0.f, max_f(40.f - 6.f * gOmmObject->state.actionTimer++, terminalVelocity), 0.f);
+            omm_obj_set_vel(o, 0.f, max_f(40.f - 6.f * gOmmObject->state.actionTimer++, terminalVelocity), 0.f);
             s32 returnValue = omm_cappy_monty_mole_update_pos_and_vel(o, false);
             if (returnValue) return returnValue;
             o->oFaceAnglePitch = (s16) relerp_0_1_f(o->oVelY, -terminalVelocity / 4.f, terminalVelocity / 4.f, 0x0000, 0x8000);
@@ -137,7 +137,7 @@ s32 omm_cappy_monty_mole_update(struct Object *o) {
             // Update state
             if (o->oVelY < 0.f && o->oDistToFloor < 120.f) {
                 gOmmObject->state.actionState = MONTY_MOLE_ACT_JUMP_INTO_HOLE;
-                monty_mole_spawn_dirt_particles(-80, 15);
+                omm_monty_mole_spawn_dirt_particles(-80, 15);
                 obj_play_sound(o, POBJ_SOUND_MONTY_MOLE_DIG);
             }
         } break;
@@ -163,7 +163,7 @@ s32 omm_cappy_monty_mole_update(struct Object *o) {
         case MONTY_MOLE_ACT_HIDE: {
 
             // Update pos and vel
-            obj_set_vel(o, 0.f, 0.f, 0.f);
+            omm_obj_set_vel(o, 0.f, 0.f, 0.f);
             obj_set_angle(o, 0, o->oFaceAngleYaw, 0);
             s32 returnValue = omm_cappy_monty_mole_update_pos_and_vel(o, true);
             if (returnValue) return returnValue;
@@ -218,7 +218,7 @@ s32 omm_cappy_monty_mole_update(struct Object *o) {
                             mole->oIntangibleTimer = -1;
                             mole->oNodeFlags |= GRAPH_RENDER_INVISIBLE;
                             mole->prevObj = NULL;
-                            monty_mole_spawn_dirt_particles(80, 15);
+                            omm_monty_mole_spawn_dirt_particles(80, 15);
                             break;
                         }
                     }
@@ -239,7 +239,7 @@ s32 omm_cappy_monty_mole_update(struct Object *o) {
             if (POBJ_A_BUTTON_PRESSED) {
                 gOmmObject->state.actionState = MONTY_MOLE_ACT_RISE_FROM_HOLE;
                 gOmmObject->state.actionTimer = 0;
-                monty_mole_spawn_dirt_particles(0, 10);
+                omm_monty_mole_spawn_dirt_particles(0, 10);
                 obj_play_sound(o, POBJ_SOUND_MONTY_MOLE_DIG);
             }
         } break;
@@ -249,7 +249,7 @@ s32 omm_cappy_monty_mole_update(struct Object *o) {
             omm_mario_lock(gMarioState, -1);
 
             // Update pos and vel
-            obj_set_vel(o, 0.f, 0.f, 0.f);
+            omm_obj_set_vel(o, 0.f, 0.f, 0.f);
             s32 returnValue = omm_cappy_monty_mole_update_pos_and_vel(o, true);
             if (returnValue) return returnValue;
             if (gOmmObject->state.actionState != MONTY_MOLE_ACT_RISE_FROM_HOLE) {
@@ -292,7 +292,7 @@ void omm_cappy_monty_mole_update_gfx(struct Object *o) {
                 if (POBJ_IS_WALKING) {
                     obj_anim_play(o, 4, 1.f);
                     if (obj_anim_is_near_end(o)) {
-                        monty_mole_spawn_dirt_particles(0, 10);
+                        omm_monty_mole_spawn_dirt_particles(0, 10);
                     }
                 } else {
                     obj_anim_play(o, 3, 1.f);

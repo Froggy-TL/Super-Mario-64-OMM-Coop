@@ -289,7 +289,7 @@ struct Object *omm_obj_spawn_peach_vibe_sparkle(struct Object *o, f32 x, f32 y, 
     if (OMM_PLAYER_IS_PEACH) {
         struct Object *sparkle = obj_spawn_from_geo(o, omm_geo_peach_vibe_sparkle, bhvOmmPeachVibeSparkle);
         obj_set_xyz(sparkle, 0, 0, 0);
-        obj_set_vel(sparkle, random_f32_around_zero(2.5f), random_f32_around_zero(2.5f), random_f32_around_zero(2.5f));
+        omm_obj_set_vel(sparkle, random_f32_around_zero(2.5f), random_f32_around_zero(2.5f), random_f32_around_zero(2.5f));
         obj_set_angle(sparkle, 0, 0, 0);
         obj_set_scale(sparkle, 1.f, 1.f, 1.f);
         obj_set_always_rendered(sparkle, true);

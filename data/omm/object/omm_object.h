@@ -74,7 +74,7 @@ void obj_set_angle_vec3s(struct Object *o, Vec3s angle);
 void obj_set_scale_vec3f(struct Object *o, Vec3f scale);
 void obj_set_xyz(struct Object *o, f32 x, f32 y, f32 z);
 void obj_set_home(struct Object *o, f32 x, f32 y, f32 z);
-void obj_set_vel(struct Object *o, f32 x, f32 y, f32 z);
+void omm_obj_set_vel(struct Object *o, f32 x, f32 y, f32 z);
 void obj_set_throw_vel(struct Object *o, struct Object *thrower, f32 forwardVel, f32 yVel);
 void obj_set_forward_vel(struct Object *o, s16 yaw, f32 mag, f32 velMax);
 void obj_set_forward_and_y_vel(struct Object *o, f32 forwardVel, f32 yVel);

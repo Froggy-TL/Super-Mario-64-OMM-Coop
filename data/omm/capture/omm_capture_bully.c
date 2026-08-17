@@ -23,7 +23,7 @@ bool omm_cappy_bully_init(struct Object *o) {
 
 void omm_cappy_bully_end(struct Object *o) {
     obj_anim_play(o, 1, 1.f);
-    obj_set_vel(o, 0.f, 0.f, 0.f);
+    omm_obj_set_vel(o, 0.f, 0.f, 0.f);
     o->oAction = BULLY_ACT_PATROL;
 }
 
@@ -97,14 +97,14 @@ s32 omm_cappy_bully_update(struct Object *o) {
             } break;
 
             case OMM_CAPPY_BULLY_ACT_GROUND_POUND_START: {
-                obj_set_vel(o, 0.f, 0.f, 0.f);
+                omm_obj_set_vel(o, 0.f, 0.f, 0.f);
                 if (o->oAnimFrame >= 6) {
                     gOmmObject->state.actionState = OMM_CAPPY_BULLY_ACT_GROUND_POUND_FALL;
                 }
             } break;
 
             case OMM_CAPPY_BULLY_ACT_GROUND_POUND_FALL: {
-                obj_set_vel(o, 0.f, pobj_get_terminal_velocity(o), 0.f);
+                omm_obj_set_vel(o, 0.f, pobj_get_terminal_velocity(o), 0.f);
                 if (obj_is_on_ground(o)) {
                     cur_obj_shake_screen(SHAKE_POS_MEDIUM);
                     obj_spawn_white_puff(o, POBJ_SOUND_BULLY);

@@ -86,7 +86,7 @@ s32 omm_act_peach_float(struct MarioState *m) {
     // Step
     m->vel[1] = 0.f;
     update_air_with_turn(m);
-    s32 step = perform_air_step(m, OMM_MOVESET_ODYSSEY * AIR_STEP_CHECK_LEDGE_GRAB);
+    s32 step = omm_perform_air_step(m, OMM_MOVESET_ODYSSEY * AIR_STEP_CHECK_LEDGE_GRAB);
     action_condition(step == AIR_STEP_LANDED, ACT_FREEFALL_LAND, 0, RETURN_BREAK);
     action_condition(step == AIR_STEP_GRABBED_LEDGE, ACT_LEDGE_GRAB, 0, RETURN_BREAK, ANM(MARIO_ANIM_IDLE_ON_LEDGE, 1.f););
     action_condition(step == AIR_STEP_HIT_WALL && omm_mario_check_and_perform_wall_slide(m), ACT_OMM_WALL_SLIDE, 0, RETURN_BREAK);
@@ -128,7 +128,7 @@ s32 omm_act_peach_glide(struct MarioState *m) {
 
     // Step
     update_air_with_turn(m);
-    s32 step = perform_air_step(m, OMM_MOVESET_ODYSSEY * AIR_STEP_CHECK_LEDGE_GRAB);
+    s32 step = omm_perform_air_step(m, OMM_MOVESET_ODYSSEY * AIR_STEP_CHECK_LEDGE_GRAB);
     action_condition(step == AIR_STEP_LANDED, ACT_FREEFALL_LAND, 0, RETURN_BREAK);
     action_condition(step == AIR_STEP_GRABBED_LEDGE, ACT_LEDGE_GRAB, 0, RETURN_BREAK, ANM(MARIO_ANIM_IDLE_ON_LEDGE, 1.f););
     action_condition(step == AIR_STEP_HIT_LAVA_WALL && lava_boost_on_wall(m), ACT_LAVA_BOOST, 1, RETURN_BREAK);
@@ -158,7 +158,7 @@ s32 omm_act_peach_attack_ground(struct MarioState *m) {
     mario_set_forward_vel(m, m->forwardVel);
 
     // Step
-    s32 step = perform_ground_step(m);
+    s32 step = omm_perform_ground_step(m);
     action_condition(step == GROUND_STEP_LEFT_GROUND, ACT_FREEFALL, 0, RETURN_BREAK);
 
     // Update attack sequence
@@ -236,7 +236,7 @@ s32 omm_act_peach_attack_fast(struct MarioState *m) {
 
     // Step
     update_walking_speed(m);
-    s32 step = perform_ground_step(m);
+    s32 step = omm_perform_ground_step(m);
     action_condition(step == GROUND_STEP_LEFT_GROUND, ACT_FREEFALL, 0, RETURN_BREAK);
 
     // Update attack sequence
@@ -300,7 +300,7 @@ s32 omm_act_peach_attack_air(struct MarioState *m) {
 
     // Step
     update_air_without_turn(m);
-    s32 step = perform_air_step(m, OMM_MOVESET_ODYSSEY * AIR_STEP_CHECK_LEDGE_GRAB);
+    s32 step = omm_perform_air_step(m, OMM_MOVESET_ODYSSEY * AIR_STEP_CHECK_LEDGE_GRAB);
     action_condition(step == AIR_STEP_LANDED, ACT_FREEFALL_LAND, 0, RETURN_BREAK);
     action_condition(step == AIR_STEP_GRABBED_LEDGE, ACT_LEDGE_GRAB, 0, RETURN_BREAK, ANM(MARIO_ANIM_IDLE_ON_LEDGE, 1.f););
     action_condition(step == AIR_STEP_HIT_WALL && omm_mario_check_and_perform_wall_slide(m), ACT_OMM_WALL_SLIDE, 0, RETURN_BREAK);
@@ -327,7 +327,7 @@ s32 omm_act_peach_perry_charge_ground(struct MarioState *m) {
     action_a_pressed(OMM_PERRY_CHARGED, ACT_JUMP, 0, RETURN_CANCEL);
     action_spin(OMM_PERRY_CHARGED, ACT_OMM_SPIN_GROUND, 0, RETURN_CANCEL);
     action_moving(OMM_PERRY_CHARGED, ACT_WALKING, 0, RETURN_CANCEL);
-    action_condition(m->floor->normal.y < 0.3f, 0, 0, RETURN_CANCEL, mario_push_off_steep_floor(m, ACT_FREEFALL, 0););
+    action_condition(m->floor->normal.y < 0.3f, 0, 0, RETURN_CANCEL, omm_mario_push_off_steep_floor(m, ACT_FREEFALL, 0););
     action_condition(m->input & INPUT_UNKNOWN_10, ACT_SHOCKWAVE_BOUNCE, 0, RETURN_CANCEL);
     action_condition(m->input & INPUT_ABOVE_SLIDE, ACT_BEGIN_SLIDING, 0, RETURN_CANCEL);
     action_condition(m->input & INPUT_FIRST_PERSON, ACT_FIRST_PERSON, 0, RETURN_CANCEL);
@@ -350,7 +350,7 @@ s32 omm_act_peach_perry_charge_ground(struct MarioState *m) {
     mario_set_forward_vel(m, m->forwardVel);
 
     // Step
-    s32 step = perform_ground_step(m);
+    s32 step = omm_perform_ground_step(m);
     action_condition(step == GROUND_STEP_LEFT_GROUND && OMM_PERRY_CHARGED, ACT_FREEFALL, 0, RETURN_BREAK);
     action_condition(step == GROUND_STEP_LEFT_GROUND, ACT_OMM_PEACH_PERRY_CHARGE_AIR, m->actionState, RETURN_BREAK, omm_peach_perry_charge_update_animation_and_sound(m, MARIO_ANIM_SINGLE_JUMP, 1.f, 0, 10););
     return OMM_MARIO_ACTION_RESULT_CONTINUE;
@@ -369,7 +369,7 @@ s32 omm_act_peach_perry_charge_air(struct MarioState *m) {
 
     // Step
     update_air_with_turn(m);
-    s32 step = perform_air_step(m, 0);
+    s32 step = omm_perform_air_step(m, 0);
     action_condition(step == AIR_STEP_LANDED && OMM_PERRY_CHARGED, ACT_JUMP_LAND, 0, RETURN_BREAK);
     action_condition(step == AIR_STEP_LANDED, ACT_OMM_PEACH_PERRY_CHARGE_GROUND, m->actionState, RETURN_BREAK, omm_peach_perry_charge_update_animation_and_sound(m, MARIO_ANIM_SUMMON_STAR, 4.f, 18, 58););
     action_condition(step == AIR_STEP_HIT_WALL && OMM_PERRY_CHARGED && omm_mario_check_and_perform_wall_slide(m), ACT_OMM_WALL_SLIDE, 0, RETURN_BREAK);
@@ -396,7 +396,7 @@ static s32 omm_peach_vibe_joy_update(struct MarioState *m, s32 yawVel, bool fly)
     m->faceAngle[1] = m->intendedYaw - approach_s32((s16) (m->intendedYaw - m->faceAngle[1]), 0, handling, handling);
 
     // Perform step
-    s32 step = (!fly && m->pos[1] < find_floor_height(m->pos[0], m->pos[1], m->pos[2]) + 4.f) ? perform_ground_step(m) : perform_air_step(m, 0);
+    s32 step = (!fly && m->pos[1] < find_floor_height(m->pos[0], m->pos[1], m->pos[2]) + 4.f) ? omm_perform_ground_step(m) : omm_perform_air_step(m, 0);
     action_condition(step == AIR_STEP_LANDED && fly, ACT_OMM_PEACH_VIBE_JOY_MOVE, 0, RETURN_BREAK);
     action_condition(step == AIR_STEP_HIT_LAVA_WALL && lava_boost_on_wall(m), ACT_LAVA_BOOST, 1, RETURN_BREAK);
 

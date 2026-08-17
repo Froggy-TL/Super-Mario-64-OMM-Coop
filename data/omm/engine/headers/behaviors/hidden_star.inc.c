@@ -11,10 +11,10 @@
 // Hidden star
 //
 
-void bhv_hidden_star_init(void) {
+void omm_bhv_hidden_star_init(void) {
 }
 
-void bhv_hidden_star_loop(void) {
+void omm_bhv_hidden_star_loop(void) {
     switch (o->oAction) {
 
         // Init
@@ -57,7 +57,7 @@ void bhv_hidden_star_loop(void) {
 // Hidden star trigger (secret)
 //
 
-void bhv_hidden_star_trigger_loop(void) {
+void omm_bhv_hidden_star_trigger_loop(void) {
 #if !OMM_GAME_IS_SMGS
     if (OMM_EXTRAS_REVEAL_SECRETS) {
         o->oGraphNode = geo_layout_to_graph_node(NULL, purple_marble_geo);

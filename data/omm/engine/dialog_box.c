@@ -86,7 +86,7 @@ static Gfx *render_dialog_box(Gfx *pos, f32 t) {
     return pos;
 }
 
-void render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox) {
+void omm_render_dialog_box_type(struct DialogEntry *dialog, s8 linesPerBox) {
     create_dl_translation_matrix(MENU_MTX_NOPUSH, dialog->leftOffset, dialog->width, 0);
     bool interpolate = gFrameInterpolation && (sDialogBox1->type == gDialogBoxType);
 

@@ -226,7 +226,7 @@ void obj_set_home(struct Object *o, f32 x, f32 y, f32 z) {
     o->oHomeZ = z;
 }
 
-void obj_set_vel(struct Object *o, f32 x, f32 y, f32 z) {
+void omm_obj_set_vel(struct Object *o, f32 x, f32 y, f32 z) {
     o->oVelX = x;
     o->oVelY = y;
     o->oVelZ = z;

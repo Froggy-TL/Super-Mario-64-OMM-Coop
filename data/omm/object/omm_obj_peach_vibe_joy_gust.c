@@ -164,7 +164,7 @@ const BehaviorScript bhvOmmPeachVibeJoyGust[] = {
 
 struct Object *omm_obj_spawn_peach_vibe_joy_gust(struct Object *o, f32 fvel, s16 angle) {
     struct Object *gust = obj_spawn_from_geo(o, omm_geo_peach_vibe_joy_gust, bhvOmmPeachVibeJoyGust);
-    obj_set_vel(gust, fvel * sins(angle), 0.f, fvel * coss(angle));
+    omm_obj_set_vel(gust, fvel * sins(angle), 0.f, fvel * coss(angle));
     obj_set_angle(gust, 0, 0, 0);
     return gust;
 }

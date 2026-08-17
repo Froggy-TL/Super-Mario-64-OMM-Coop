@@ -39,7 +39,7 @@ static Vec3s sDonutPlatformPositions[] = {
     { 0xFD0C, 0x0A66, 0xFF45 },
 };
 
-void bhv_donut_platform_spawner_update(void) {
+void omm_bhv_donut_platform_spawner_update(void) {
     for (s32 i = 0; i != array_length(sDonutPlatformPositions); ++i) {
         struct Object *donut = spawn_object_relative(i, sDonutPlatformPositions[i][0], sDonutPlatformPositions[i][1], sDonutPlatformPositions[i][2], o, MODEL_RR_DONUT_PLATFORM, bhvDonutPlatform);
         if (donut) {
@@ -49,7 +49,7 @@ void bhv_donut_platform_spawner_update(void) {
     obj_mark_for_deletion(o);
 }
 
-void bhv_donut_platform_update(void) {
+void omm_bhv_donut_platform_update(void) {
     switch (o->oAction) {
 
         // Ready
@@ -58,7 +58,7 @@ void bhv_donut_platform_update(void) {
             if (gMarioObject->platform == o) {
                 cur_obj_shake_y(4.f);
                 if (o->oTimer > 15) {
-                    obj_set_vel(o, 0, 0, 0);
+                    omm_obj_set_vel(o, 0, 0, 0);
                     o->oAction = 1;
                 }
             } else {

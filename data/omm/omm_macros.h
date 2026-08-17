@@ -9,7 +9,6 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdbool.h>
-#include <xmmintrin.h>
 
 // Must be here, but can't use SM64 typenames
 typedef struct { unsigned int ts; short v; } s16_ts;

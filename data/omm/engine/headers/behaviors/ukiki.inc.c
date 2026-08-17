@@ -92,7 +92,7 @@ static void idle_ukiki_taunt(void) {
 // Actions
 //
 
-void ukiki_act_idle(void) {
+void omm_ukiki_act_idle(void) {
     idle_ukiki_taunt();
 
     // Get closer to Mario
@@ -136,7 +136,7 @@ void ukiki_act_idle(void) {
     }
 }
 
-void ukiki_act_run(void) {
+void omm_ukiki_act_run(void) {
     s32 fleeMario = TRUE;
     s16 goalYaw = o->oAngleToMario + 0x8000;
     if (o->oTimer == 0) {
@@ -171,7 +171,7 @@ void ukiki_act_run(void) {
     }
 }
 
-void ukiki_act_turn_to_mario(void) {
+void omm_ukiki_act_turn_to_mario(void) {
     if (o->oTimer == 0) {
         o->oForwardVel = random_float() * 3.f + 2.f;
     }
@@ -193,7 +193,7 @@ void ukiki_act_turn_to_mario(void) {
     }
 }
 
-void ukiki_act_jump(void) {
+void omm_ukiki_act_jump(void) {
     o->oForwardVel = 10.f;
 
     // Jumping
@@ -216,7 +216,7 @@ void ukiki_act_jump(void) {
     }
 }
 
-void ukiki_act_go_to_cage(void) {
+void omm_ukiki_act_go_to_cage(void) {
     struct Object *cage = cur_obj_nearest_object_with_behavior(bhvUkikiCage);
 
     // Unload cage Ukiki if there is no cage
@@ -332,7 +332,7 @@ void ukiki_act_go_to_cage(void) {
     }
 }
 
-void ukiki_act_wait_to_respawn(void) {
+void omm_ukiki_act_wait_to_respawn(void) {
     idle_ukiki_taunt();
     if (cur_obj_mario_far_away()) {
         cur_obj_set_pos_to_home_and_stop();
@@ -340,7 +340,7 @@ void ukiki_act_wait_to_respawn(void) {
     }
 }
 
-void ukiki_act_unused_turn(void) {
+void omm_ukiki_act_unused_turn(void) {
     idle_ukiki_taunt();
     if (o->oSubAction == UKIKI_SUB_ACT_TAUNT_JUMP_CLAP) {
         cur_obj_rotate_yaw_toward(o->oAngleToMario, 0x400);
@@ -352,16 +352,16 @@ void ukiki_act_unused_turn(void) {
 //
 
 void (*sUkikiActions[])(void) = {
-    ukiki_act_idle,
-    ukiki_act_run,
-    ukiki_act_turn_to_mario,
-    ukiki_act_jump,
-    ukiki_act_go_to_cage,
-    ukiki_act_wait_to_respawn,
-    ukiki_act_unused_turn,
+    omm_ukiki_act_idle,
+    omm_ukiki_act_run,
+    omm_ukiki_act_turn_to_mario,
+    omm_ukiki_act_jump,
+    omm_ukiki_act_go_to_cage,
+    omm_ukiki_act_wait_to_respawn,
+    omm_ukiki_act_unused_turn,
 };
 
-void ukiki_free_loop(void) {
+void omm_ukiki_free_loop(void) {
     cur_obj_update_floor_and_walls();
     cur_obj_call_action_function(sUkikiActions);
     cur_obj_move_standard(-88);
@@ -378,7 +378,7 @@ void ukiki_free_loop(void) {
 // Held
 //
 
-void cage_ukiki_held_loop(void) {
+void omm_cage_ukiki_held_loop(void) {
     switch(o->oUkikiTextState) {
         case UKIKI_TEXT_DEFAULT: {
             if (!(gMarioState->action & ACT_FLAG_AIR) && set_mario_npc_dialog(2) == 2) {
@@ -450,14 +450,14 @@ void hat_ukiki_held_loop(void) {
 // Update
 //
 
-void bhv_ukiki_init(void) {
+void omm_bhv_ukiki_init(void) {
 }
 
-void bhv_ukiki_loop(void) {
+void omm_bhv_ukiki_loop(void) {
     switch(o->oHeldState) {
         case HELD_FREE: {
             o->oUkikiTextboxTimer = 0;
-            ukiki_free_loop();
+            omm_ukiki_free_loop();
         } break;
 
         case HELD_HELD: {
@@ -466,7 +466,7 @@ void bhv_ukiki_loop(void) {
             if (o->oBehParams2ndByte == UKIKI_HAT) {
                 hat_ukiki_held_loop();
             } else {
-                cage_ukiki_held_loop();
+                omm_cage_ukiki_held_loop();
             }
         } break;
 

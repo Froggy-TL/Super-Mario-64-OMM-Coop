@@ -24,7 +24,7 @@ void geo_obj_sync_anim_frame_accel_assist(struct_AnimInfo *animInfo, bool clearB
     animInfo->animFrameAccelAssist |= animInfo->animFrame * ANIM_ACCEL_ONE;
 }
 
-void geo_obj_init_animation(struct GraphNodeObject *node, struct Animation **animPtrAddr) {
+void omm_geo_obj_init_animation(struct GraphNodeObject *node, struct Animation **animPtrAddr) {
     struct Animation *anim = *animPtrAddr;
     struct_AnimInfo *animInfo = &node->mAnimInfo;
     if (geo_obj_check_animation(animInfo, anim)) {
@@ -37,7 +37,7 @@ void geo_obj_init_animation(struct GraphNodeObject *node, struct Animation **ani
     geo_obj_sync_anim_frame_accel_assist(animInfo, true);
 }
 
-void geo_obj_init_animation_accel(struct GraphNodeObject *node, struct Animation **animPtrAddr, s32 animAccel) {
+void omm_geo_obj_init_animation_accel(struct GraphNodeObject *node, struct Animation **animPtrAddr, s32 animAccel) {
     struct Animation *anim = *animPtrAddr;
     struct_AnimInfo *animInfo = &node->mAnimInfo;
     if (geo_obj_check_animation(animInfo, anim)) {
@@ -124,9 +124,9 @@ void obj_anim_play_with_sound(struct Object *o, s32 animID, f32 animAccel, s32 s
         o->oCurrAnimRef = NULL;
     }
     if (o == gMarioObject) {
-        set_mario_anim_with_accel(gMarioState, animID, animAccel * ANIM_ACCEL_ONE);
+        omm_set_mario_anim_with_accel(gMarioState, animID, animAccel * ANIM_ACCEL_ONE);
     } else if (o->oAnimations) {
-        geo_obj_init_animation_accel(&o->header.gfx, &o->oAnimations[animID], animAccel * ANIM_ACCEL_ONE);
+        omm_geo_obj_init_animation_accel(&o->header.gfx, &o->oAnimations[animID], animAccel * ANIM_ACCEL_ONE);
         o->oAnimID = animID;
         o->oSoundStateID = animID;
     }
@@ -188,11 +188,11 @@ bool obj_anim_is_at_end(struct Object *o) {
 // Mario animation
 //
 
-s16 set_mario_animation(struct MarioState *m, s32 targetAnimID) {
-    return set_mario_anim_with_accel(m, targetAnimID, ANIM_ACCEL_ONE);
+s16 omm_set_mario_animation(struct MarioState *m, s32 targetAnimID) {
+    return omm_set_mario_anim_with_accel(m, targetAnimID, ANIM_ACCEL_ONE);
 }
 
-s16 set_mario_anim_with_accel(struct MarioState *m, s32 targetAnimID, s32 accel) {
+s16 omm_set_mario_anim_with_accel(struct MarioState *m, s32 targetAnimID, s32 accel) {
     struct Object *o = m->marioObj;
     struct Animation *targetAnim = gMarioTargetAnim;
     struct_AnimInfo *animInfo = &m->marioObj->oAnimInfo;
@@ -219,7 +219,7 @@ s16 set_mario_anim_with_accel(struct MarioState *m, s32 targetAnimID, s32 accel)
     return animInfo->animFrame;
 }
 
-void set_anim_to_frame(struct MarioState *m, s16 animFrame) {
+void omm_set_anim_to_frame(struct MarioState *m, s16 animFrame) {
     struct Animation *anim = m->marioObj->oCurrAnim;
     struct_AnimInfo *animInfo = &m->marioObj->oAnimInfo;
     if (!anim) return;
@@ -233,19 +233,19 @@ void set_anim_to_frame(struct MarioState *m, s16 animFrame) {
     geo_obj_sync_anim_frame(animInfo);
 }
 
-s32 is_anim_at_end(struct MarioState *m) {
+s32 omm_is_anim_at_end(struct MarioState *m) {
     return obj_anim_is_at_end(m->marioObj);
 }
 
-s32 is_anim_past_end(struct MarioState *m) {
+s32 omm_is_anim_past_end(struct MarioState *m) {
     return obj_anim_is_near_end(m->marioObj);
 }
 
-s32 is_anim_past_frame(struct MarioState *m, s16 animFrame) {
+s32 omm_is_anim_past_frame(struct MarioState *m, s16 animFrame) {
     return obj_anim_is_past_frame(m->marioObj, animFrame);
 }
 
-s16 find_mario_anim_flags_and_translation(struct Object *obj, s32 yaw, Vec3s translation) {
+s16 omm_find_mario_anim_flags_and_translation(struct Object *obj, s32 yaw, Vec3s translation) {
     struct Animation *currAnim = obj->oCurrAnim;
     if (currAnim) {
         s32 animFrame = geo_obj_update_animation_frame(&obj->oAnimInfo) / ANIM_ACCEL_ONE;

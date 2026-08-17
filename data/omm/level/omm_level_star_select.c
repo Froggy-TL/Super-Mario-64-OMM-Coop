@@ -2,9 +2,9 @@
 #include "data/omm/omm_includes.h"
 #undef OMM_ALL_HEADERS
 #include "level_commands.h"
-void bhv_act_selector_init(void) {}
-void bhv_act_selector_loop(void) {}
-void bhv_act_selector_star_type_loop(void) {}
+void omm_bhv_act_selector_init(void) {}
+void omm_bhv_act_selector_loop(void) {}
+void omm_bhv_act_selector_star_type_loop(void) {}
 Gfx *geo_act_selector_strings(UNUSED s16 a, UNUSED struct GraphNode *b, UNUSED void *c) { return NULL; }
 
 //

@@ -196,7 +196,7 @@ static s32 omm_act_grab_bowser(struct MarioState *m) {
         omm_mario_set_action(m, ACT_OMM_HOLD_BOWSER, 0, 0);
         m->angleVel[1] = 0;
     }
-    stationary_ground_step(m);
+    omm_stationary_ground_step(m);
     return OMM_MARIO_ACTION_RESULT_CONTINUE;
 }
 
@@ -279,7 +279,7 @@ static s32 omm_act_hold_bowser(struct MarioState *m) {
         (m->angleVel[1] > 0 && prevAngle > m->faceAngle[1])) {
         SFX(SOUND_OBJ_BOWSER_SPINNING);
     }
-    stationary_ground_step(m);
+    omm_stationary_ground_step(m);
 
     // Update Bowser's pos and angle
     struct Object *bowser = obj_get_first_with_behavior(bhvOmmBowser);
@@ -294,7 +294,7 @@ static s32 omm_act_release_bowser(struct MarioState *m) {
     if (obj_anim_is_at_end(m->marioObj)) {
         omm_mario_set_action(m, ACT_IDLE, 0, 0);
     }
-    stationary_ground_step(m);
+    omm_stationary_ground_step(m);
     return OMM_MARIO_ACTION_RESULT_CONTINUE;
 }
 

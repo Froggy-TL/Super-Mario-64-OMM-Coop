@@ -20,7 +20,7 @@ static void omm_act_submerged_update_swimming_yaw_and_roll(struct MarioState *m,
 }
 
 static void omm_act_submerged_update_swimming_speed(struct MarioState *m, bool hold) {
-    f32 buoyancy = max_f(0, get_buoyancy(m));
+    f32 buoyancy = max_f(0, omm_get_buoyancy(m));
     m->forwardVel = clamp_f(m->forwardVel - 4 * ((m->action & ACT_FLAG_STATIONARY) != 0), 0.f, OMM_MARIO_SWIMMING_MAX_SPEED(hold));
     m->vel[0] = m->forwardVel * coss(m->faceAngle[0]) * sins(m->faceAngle[1]);
     m->vel[1] = m->forwardVel * sins(m->faceAngle[0]) + buoyancy;
@@ -54,7 +54,7 @@ static void omm_act_submerged_idle_step(struct MarioState *m, bool hold, s32 ani
     omm_act_submerged_update_swimming_pitch(m, hold);
     omm_act_submerged_update_swimming_yaw_and_roll(m, hold, 1.f);
     omm_act_submerged_update_swimming_speed(m, hold);
-    perform_water_step(m);
+    omm_perform_water_step(m);
     omm_act_submerged_update_water_pitch(m);
     m->marioBodyState->headAngle[0] = (
         m->faceAngle[0] > 0 ?
@@ -69,7 +69,7 @@ static u32 omm_act_submerged_perform_water_step_and_correct_pitch_and_yaw(struct
     f32 speedFactor     = vec3f_length(m->vel) / OMM_MARIO_WATER_SHELL_MAX_SPEED;
     s32 pitchCorrection = (s32) (0x200 * speedFactor * clamp_0_1_f(1.f - (abs_f(m->controller->stickY) / 64.f)));
     s32 yawCorrection   = (s32) (0x200 * speedFactor * clamp_0_1_f(1.f - (abs_f(m->controller->stickX) / 64.f)));
-    u32 step = perform_water_step(m);
+    u32 step = omm_perform_water_step(m);
     switch (step) {
         case WATER_STEP_HIT_FLOOR:   m->faceAngle[0] += pitchCorrection; break;
         case WATER_STEP_HIT_CEILING: m->faceAngle[0] -= pitchCorrection; break;
@@ -510,7 +510,7 @@ static s32 omm_act_knockback_water(struct MarioState *m, s32 animID) {
 
     // Step
     omm_act_submerged_stationary_slow_down(m, 1.5f);
-    perform_water_step(m);
+    omm_perform_water_step(m);
 
     // Animation
     ANM(animID, 1.5f);
@@ -532,7 +532,7 @@ static s32 omm_act_water_first_person(struct MarioState *m) {
     m->faceAngle[2] = 0;
     s32 animID = obj_anim_is_at_end(m->marioObj) ? MARIO_ANIM_FIRST_PERSON : m->marioObj->oAnimID;
     omm_act_submerged_update_swimming_speed(m, false);
-    perform_water_step(m);
+    omm_perform_water_step(m);
     ANM(animID, 1.f);
     omm_act_submerged_set_swimming_at_surface_particles(m, PARTICLE_IDLE_WATER_WAVE);
     return OMM_MARIO_ACTION_RESULT_BREAK;
@@ -627,7 +627,7 @@ static s32 omm_act_water_ground_pound(struct MarioState *m) {
         ANM(MARIO_ANIM_GROUND_POUND, 1.f);
         PFX(PARTICLE_PLUNGE_BUBBLE | PARTICLE_BUBBLE);
 
-        s32 step = perform_water_step(m);
+        s32 step = omm_perform_water_step(m);
         action_condition(step == WATER_STEP_HIT_FLOOR, ACT_OMM_WATER_GROUND_POUND_LAND, 0, RETURN_BREAK, PFX(PARTICLE_MIST_CIRCLE | PARTICLE_HORIZONTAL_STAR););
         action_condition(m->vel[1] >= 0, ACT_WATER_IDLE, 0, RETURN_BREAK, m->vel[1] = 0;);
     }
@@ -641,7 +641,7 @@ static s32 omm_act_water_ground_pound_land(struct MarioState *m) {
     action_condition(m->flags & MARIO_METAL_CAP, ACT_METAL_WATER_FALL_LAND, 0, RETURN_CANCEL);
 
     // Step
-    stationary_ground_step(m);
+    omm_stationary_ground_step(m);
     if (m->actionState == 0) {
         action_a_pressed(OMM_MOVESET_ODYSSEY, ACT_OMM_WATER_GROUND_POUND_JUMP, 0, RETURN_CANCEL);
         ANM(MARIO_ANIM_GROUND_POUND_LANDING, 0.75f);
@@ -670,7 +670,7 @@ static s32 omm_act_water_ground_pound_jump(struct MarioState *m) {
 
     // Step
     omm_act_submerged_stationary_slow_down(m, 2.f);
-    perform_water_step(m);
+    omm_perform_water_step(m);
 
     // Animation
     ANM(MARIO_ANIM_DOUBLE_JUMP_RISE, 1.f);
@@ -695,7 +695,7 @@ static s32 omm_act_leave_object_water(struct MarioState *m) {
 
     // Step
     omm_act_submerged_stationary_slow_down(m, 1.f);
-    perform_water_step(m);
+    omm_perform_water_step(m);
     action_condition(omm_act_submerged_check_water_jump(m, ACT_WATER_JUMP, false), 0, 0, RETURN_CANCEL);
     action_condition(abs_f(m->vel[1]) < 1.f, ACT_WATER_IDLE, 0, RETURN_BREAK);
 
@@ -721,7 +721,7 @@ static s32 omm_act_cappy_throw_water(struct MarioState *m) {
     // Step
     m->vel[1] *= 0.9f;
     mario_set_forward_vel(m, m->forwardVel * 0.9f);
-    perform_water_step(m);
+    omm_perform_water_step(m);
     return OMM_MARIO_ACTION_RESULT_CONTINUE;
 }
 

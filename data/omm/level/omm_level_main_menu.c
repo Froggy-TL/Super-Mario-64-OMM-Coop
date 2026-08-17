@@ -5,12 +5,12 @@
 #include "level_commands.h"
 extern bool omm_save_file_are_all_captures_registered_sm64();
 
-void beh_yellow_background_menu_init(void) {}
-void beh_yellow_background_menu_loop(void) {}
-void bhv_menu_button_init(void) {}
-void bhv_menu_button_loop(void) {}
-void bhv_menu_button_manager_init(void) {}
-void bhv_menu_button_manager_loop(void) {}
+void omm_beh_yellow_background_menu_init(void) {}
+void omm_beh_yellow_background_menu_loop(void) {}
+void omm_bhv_menu_button_init(void) {}
+void omm_bhv_menu_button_loop(void) {}
+void omm_bhv_menu_button_manager_init(void) {}
+void omm_bhv_menu_button_manager_loop(void) {}
 Gfx *geo_file_select_strings_and_menu_cursor(UNUSED s32 callContext, UNUSED struct GraphNode *node, UNUSED Mat4 mtx) { return NULL; }
 
 static struct {

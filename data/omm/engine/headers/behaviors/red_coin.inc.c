@@ -62,7 +62,7 @@ void bhv_hidden_red_coin_star_loop_(void) {
     bhv_hidden_red_coin_star_loop_common(false);
 }
 
-void bhv_bowser_course_red_coin_star_loop(void) {
+void omm_bhv_bowser_course_red_coin_star_loop(void) {
     bhv_hidden_red_coin_star_loop_common(true);
 }
 
@@ -82,11 +82,11 @@ static struct ObjectHitbox sRedCoinHitbox = {
     /* hurtboxHeight:     */ 0,
 };
 
-void bhv_red_coin_init(void) {
+void omm_bhv_red_coin_init(void) {
     obj_set_hitbox(o, &sRedCoinHitbox);
 }
 
-void bhv_red_coin_loop(void) {
+void omm_bhv_red_coin_loop(void) {
     if (o->oInteractStatus & INT_STATUS_INTERACTED) {
         if (obj_get_first_with_behavior(bhvHiddenRedCoinStar) || obj_get_first_with_behavior(bhvBowserCourseRedCoinStar)) {
             gRedCoinsCollected++;

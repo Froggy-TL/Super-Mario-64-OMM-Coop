@@ -1204,7 +1204,7 @@ static void omm_mario_update_action(struct MarioState *m) {
                 case ACT_WARP_DOOR_SPAWN: {
                     gOmmWarp->state = POBJ_WARP_STATE_HAS_WARPED;
                     m->usedObj->oInteractStatus = (actionArg & 1) ? INT_STATUS_EXITING_WARP_DOOR : INT_STATUS_EXITING_WARP_DOOR_2; // needed to spawn on the right side of the door
-                    stop_and_set_height_to_floor(m);
+                    omm_stop_and_set_height_to_floor(m);
                     omm_mario_lock(m, 30);
                 } break;
 
@@ -1218,7 +1218,7 @@ static void omm_mario_update_action(struct MarioState *m) {
                 case ACT_TELEPORT_FADE_IN: {
                     gOmmWarp->state = POBJ_WARP_STATE_FADING_IN;
                     m->fadeWarpOpacity = 0x07;
-                    stop_and_set_height_to_floor(m);
+                    omm_stop_and_set_height_to_floor(m);
                     omm_mario_lock(m, 32);
                     obj_play_sound(gOmmCapture, SOUND_ACTION_TELEPORT);
                 } break;
@@ -1403,7 +1403,7 @@ static s32 (*sExecuteSm64ActionFunction[(ACT_GROUP_MASK >> 6) + 1])(struct Mario
     NULL,                                   // 0x1C0 Metal Water
 };
 
-void bhv_mario_update() {
+void omm_bhv_mario_update() {
     struct MarioState *m = gMarioState;
     if (!m->action) {
         return;
@@ -1578,7 +1578,7 @@ void bhv_mario_update() {
 
     // Update Mario object
     obj_set_xyz(m->marioObj, m->pos[0], m->pos[1], m->pos[2]);
-    obj_set_vel(m->marioObj, m->vel[0], m->vel[1], m->vel[2]);
+    omm_obj_set_vel(m->marioObj, m->vel[0], m->vel[1], m->vel[2]);
     obj_set_angle(m->marioObj, m->marioObj->oGfxAngle[0], m->marioObj->oGfxAngle[1], m->marioObj->oGfxAngle[2]);
     obj_set_angle_vel(m->marioObj, m->angleVel[0], m->angleVel[1], m->angleVel[2]);
     m->marioObj->oInteractStatus = 0;

@@ -7,7 +7,7 @@ static bool omm_act_exit_launch_mario_until_land(struct MarioState *m, s32 endAc
         m->marioObj->oNodeFlags |= GRAPH_RENDER_ACTIVE;
         mario_set_forward_vel(m, forwardVel);
         ANM(animID, 1.f);
-        if (perform_air_step(m, 0) == AIR_STEP_LANDED) {
+        if (omm_perform_air_step(m, 0) == AIR_STEP_LANDED) {
             omm_mario_set_action(m, endAction, 0, 0);
             return true;
         }
@@ -56,7 +56,7 @@ static s32 omm_act_disappeared(struct MarioState *m) {
     // Squished (classic): turn Mario into a pancake
     if (m->prevAction == ACT_SQUISHED) {
         ANM(MARIO_ANIM_A_POSE, 1.f);
-        stop_and_set_height_to_floor(m);
+        omm_stop_and_set_height_to_floor(m);
         m->squishTimer = 0xFF;
         obj_set_scale(m->marioObj, 2.f, 0.05f, 2.f);
         return OMM_MARIO_ACTION_RESULT_BREAK;
@@ -128,7 +128,7 @@ static s32 omm_act_unlocking_key_door(struct MarioState *m) {
             key->oPosX = m->pos[0];
             key->oPosY = m->pos[1];
             key->oPosZ = m->pos[2];
-            set_mario_animation(m, MARIO_ANIM_UNLOCK_DOOR);
+            omm_set_mario_animation(m, MARIO_ANIM_UNLOCK_DOOR);
         }
 
         // Set Mario pos
@@ -137,7 +137,7 @@ static s32 omm_act_unlocking_key_door(struct MarioState *m) {
 
         // Anim and sound
         update_mario_pos_for_anim(m);
-        stop_and_set_height_to_floor(m);
+        omm_stop_and_set_height_to_floor(m);
         switch (m->marioObj->oAnimFrame) {
             case 79:  SFX(SOUND_GENERAL_DOOR_INSERT_KEY); break;
             case 111: SFX(SOUND_GENERAL_DOOR_TURN_KEY);   break;
@@ -169,7 +169,7 @@ static s32 omm_act_reading_sign(struct MarioState *m) {
                 trigger_cutscene_dialog(1);
             }
             enable_time_stop();
-            set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
+            omm_set_mario_animation(m, MARIO_ANIM_FIRST_PERSON);
             m->actionState = 1;
         } break;
 

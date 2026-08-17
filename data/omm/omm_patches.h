@@ -50,10 +50,10 @@
 #define omm_patch__set_water_plunge_action__check_flooded                       OMM_RETURN_IF_TRUE(omm_mario_check_flooded(m), TRUE,);
 #define omm_patch__update_air_with_turn__update_air_with_turn                   OMM_RETURN_IF_TRUE(OMM_LIKELY(omm_mario_update_air_with_turn(m)),,);
 #define omm_patch__update_air_without_turn__update_air_without_turn             OMM_RETURN_IF_TRUE(OMM_LIKELY(omm_mario_update_air_without_turn(m)),,);
-#define omm_patch__common_air_action_step__check_wall_slide                     OMM_RETURN_IF_TRUE(omm_mario_try_to_perform_wall_slide(m), AIR_STEP_NONE, set_mario_animation(m, animation););
+#define omm_patch__common_air_action_step__check_wall_slide                     OMM_RETURN_IF_TRUE(omm_mario_try_to_perform_wall_slide(m), AIR_STEP_NONE, omm_set_mario_animation(m, animation););
 #define omm_patch__act_lava_boost__cheat_walk_on_lava                           && !OMM_CHEAT_WALK_ON_LAVA
 #define omm_patch__set_mario_npc_dialog__check_npc_dialog                       OMM_RETURN_IF_TRUE(omm_mario_check_npc_dialog(gMarioState, actionArg, &dialogState), dialogState);
-#define omm_patch__check_for_instant_quicksand__fix_downwarp                    OMM_RETURN_IF_TRUE(OMM_MOVESET_ODYSSEY, (find_floor_height(m->pos[0], m->pos[1], m->pos[2]) >= m->pos[1]) && mario_update_quicksand(m, 0.f),);
+#define omm_patch__check_for_instant_quicksand__fix_downwarp                    OMM_RETURN_IF_TRUE(OMM_MOVESET_ODYSSEY, (find_floor_height(m->pos[0], m->pos[1], m->pos[2]) >= m->pos[1]) && omm_mario_update_quicksand(m, 0.f),);
 #define omm_patch__apply_slope_accel__not_peach_vibe_gloom                      if (!omm_peach_vibe_is_gloom())
 #define omm_patch__update_walking_speed__update_walking_speed                   OMM_RETURN_IF_TRUE(OMM_LIKELY(omm_mario_update_walking_speed(m)),,);
 #define omm_patch__cheats_play_as__disable                                      return FALSE;
@@ -118,10 +118,10 @@
 #define do_cutscene_handler(...) CAT(do_cutscene_handler_, N_ARGS(__VA_ARGS__))
 #endif
 
-// bhv_mario_update uses OMM Mario update
-#define bhv_mario_update_0 bhv_mario_update()
+// omm_bhv_mario_update uses OMM Mario update
+#define bhv_mario_update_0 omm_bhv_mario_update()
 #define bhv_mario_update_1 bhv_mario_update_unused(void)
-#define bhv_mario_update(...) CAT(bhv_mario_update_, N_ARGS(__VA_ARGS__))
+#define omm_bhv_mario_update(...) CAT(bhv_mario_update_, N_ARGS(__VA_ARGS__))
 
 // mario_ready_to_speak is replaced by omm_mario_is_ready_to_speak
 #define mario_ready_to_speak_0 omm_mario_is_ready_to_speak(gMarioState)
