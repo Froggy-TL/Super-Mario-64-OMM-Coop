@@ -60,8 +60,8 @@ void mumble_init(void) {
 #endif
 
 	if(lm->uiVersion != 2) {
-		wcsncpy(lm->name, L"SM64 Coop Deluxe", 256);
-		wcsncpy(lm->description, L"SM64 Coop Deluxe support via the Link plugin.", 2048);
+		wcsncpy(lm->name, L"Super Mario 64 OMM-Coop", 256);
+		wcsncpy(lm->description, L"Super Mario 64 OMM-Coop support via the Link plugin.", 2048);
 		lm->uiVersion = 2;
 	}
 

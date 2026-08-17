@@ -11341,7 +11341,7 @@ COOP_OBJ_FLAG_NON_SYNC = (1 << 2)
 COOP_OBJ_FLAG_INITIALIZED = (1 << 3)
 
 --- @type string
-SM64COOPDX_VERSION = "v1.5.1"
+SM64COOPDX_VERSION = "v1.0.0"
 
 --- @type string
 VERSION_TEXT = "v"
@@ -11353,10 +11353,10 @@ VERSION_NUMBER = 42
 MINOR_VERSION_NUMBER = 1
 
 --- @type string
-GAME_NAME = "sm64coopdx"
+GAME_NAME = "ommcoop"
 
 --- @type string
-WINDOW_NAME = "Super Mario 64 Coop Deluxe"
+WINDOW_NAME = "Super Mario 64 OMM-Coop"
 
 --- @type integer
 MAX_VERSION_LENGTH = 128

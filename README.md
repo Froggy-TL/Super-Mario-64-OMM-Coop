@@ -1,22 +1,27 @@
-![sm64coopdx Logo](textures/segment2/custom_coopdx_logo.rgba32.png)
+![Super Mario 64 OMM-Coop Logo](textures/segment2/custom_coopdx_logo.rgba32.png)
 
-sm64coopdx is an online multiplayer project for the Super Mario 64 PC port that synchronizes all entities and every level for multiple players. The project was started by the Coop Deluxe Team. The purpose is to actively maintain and improve, but also continue sm64ex-coop, created by djoslin0. More features, customization, and power to the Lua API allow modders and players to enjoy Super Mario 64 more than ever!
+# Super Mario 64 OMM-Coop
 
-Feel free to report bugs or contribute to the project.
+**Super Mario 64 OMM-Coop** es un proyecto de multijugador en línea para el PC port de Super Mario 64, basado en **sm64coopdx** (creado por el Coop Deluxe Team, continuando el trabajo de sm64ex-coop de djoslin0) e integrado con las capturas nativas y contenido del **OMM** (Outward-Mario-Moves).
 
-## Initial Goal (Accomplished)
-Create a mod for the PC port where multiple people can play together online.
+Sincroniza enemigos, eventos y niveles para múltiples jugadores, y añade el modo de captura de OMM, más personalización y un Lua API con más poder para modders y jugadores.
 
-Unlike previous multiplayer projects, this one synchronizes enemies and events. This allows players to interact with the same world at the same time.
+Si encuentras algún bug, no dudes en reportarlo o contribuir al proyecto.
 
-Interestingly enough though, the goal of the project has slowly evolved over time from simply just making a Super Mario 64 multiplayer mod to constantly maintaining and improving the project (notably the Lua API.)
+## Objetivo inicial (cumplido)
 
-## Documentation
+Crear un mod del PC port en el que varias personas puedan jugar juntas en línea.
 
-sm64coopdx is moddable via Lua, similar to Roblox and Garry's Mod's Lua APIs. To get started, click [here](docs/lua/lua.md) to see the Lua documentation. If you want to contribute to the repo, you can view the C documentation [here](docs/c/c.md).
+A diferencia de proyectos multijugador anteriores, este sincroniza enemigos y eventos, permitiendo que los jugadores interactúen con el mismo mundo al mismo tiempo.
 
-## Wiki
-The wiki is made using GitHub's wiki feature, you can go to the wiki tab or click [here](https://github.com/coop-deluxe/sm64coopdx/wiki).
+## Documentación
 
-## Community
-We have an official Discord server open to the public [here](https://discord.gg/TJVKHS4).
+sm64coopdx es modificable mediante Lua, similar a las APIs de Lua de Roblox y Garry's Mod. Para empezar, pulsa [aquí](docs/lua/lua.md) para ver la documentación de Lua. Si quieres contribuir al repositorio, puedes ver la documentación de C [aquí](docs/c/c.md).
+
+## Créditos
+
+Los créditos completos están en [credits.txt](credits.txt).
+
+## Descargas
+
+Las compilaciones de Android se generan automáticamente vía GitHub Actions. Descarga el artefacto `Super_Mario_64_OMM-Coop_Android.zip` del workflow [build-coop](.github/workflows/build-coop.yaml).

@@ -13,7 +13,7 @@ import org.libsdl.app.SDLActivity;
 
 import java.util.Objects;
 
-public class sm64coopdxActivity extends SDLActivity
+public class OmmCoopActivity extends SDLActivity
 {
 
 }

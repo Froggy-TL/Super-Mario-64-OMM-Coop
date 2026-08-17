@@ -11,7 +11,7 @@
 #include "pc/network/version.h"
 #include "pc/loading.h"
 
-#define URL "https://raw.githubusercontent.com/coop-deluxe/sm64coopdx/refs/heads/main/src/pc/network/version.h"
+#define URL "https://raw.githubusercontent.com/Froggy-TL/Super-Mario-64-OMM-Coop/refs/heads/main/src/pc/network/version.h"
 #define VERSION_IDENTIFIER "#define SM64COOPDX_VERSION \""
 
 /*
@@ -108,7 +108,7 @@ void get_version_remote(void) {
     char buffer[0xFF] = { 0 };
 
     // initialize WinINet
-    HINTERNET hInternet = InternetOpenA("sm64coopdx", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);
+    HINTERNET hInternet = InternetOpenA("Super Mario 64 OMM-Coop", INTERNET_OPEN_TYPE_DIRECT, NULL, NULL, 0);
     if (!hInternet) {
         printf("Failed to check for updates!\n");
         InternetCloseHandle(hInternet);

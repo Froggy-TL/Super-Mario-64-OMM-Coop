@@ -225,7 +225,7 @@ static void djui_panel_menu_refresh(UNUSED struct DjuiBase* base) {
 }
 
 static void djui_mod_website_open(UNUSED struct DjuiBase* caller) {
-    open_url("https://mods.sm64coopdx.com/mods/");
+    open_url("https://github.com/Froggy-TL/Super-Mario-64-OMM-Coop/releases");
 }
 
 static void djui_mod_folder_open(UNUSED struct DjuiBase* caller) {

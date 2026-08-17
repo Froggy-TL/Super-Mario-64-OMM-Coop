@@ -10,9 +10,9 @@ void djui_panel_info_create(struct DjuiBase *caller) {
     struct DjuiBase *body = djui_three_panel_get_body(panel);
     {
         snprintf(sInfo, 512, "\
-sm64coopdx is an online multiplayer project for the Super Mario 64 PC port, started by the Coop Deluxe Team.\n\
-Its purpose is to actively maintain and improve, but also continue sm64ex-coop, created by djoslin0.\n\
-More features, customization, and power to the Lua API allow modders and players to enjoy Super Mario 64 more than ever!");
+ Super Mario 64 OMM-Coop is an online multiplayer project for the Super Mario 64 PC port.\n\
+ It is based on sm64coopdx, created by the Coop Deluxe Team, and integrates the native captures and content of the OMM (Outward-Mario-Moves) project.\n\
+ More features, customization, and power to the Lua API allow modders and players to enjoy Super Mario 64 more than ever!");
 
         struct DjuiText* text = djui_text_create(body, sInfo);
         djui_base_set_location(&text->base, 0, 0);

@@ -80,4 +80,9 @@ Sounds:
 
 The custom models, levels, textures, animations, and warps use DynOS. DynOS was created by PeachyPeach.
 
+Super Mario 64 OMM-Coop Developers:
+    Froggy-TL
+
+Super Mario 64 OMM-Coop was built by integrating the OMM (Outward-Mario-Moves) project into sm64coopdx. The OMM was created by the OMM Team.
+
 sm64coopdx was built on top of sm64ex-coop, which was built on top of sm64ex, which was built on top of the sm64 decomp project.
