@@ -4,6 +4,11 @@
 extern const Gfx omm_peach_tiara_gfx_enable[];
 extern const Gfx omm_peach_tiara_gfx_disable[];
 
+// coopdx has no OMM GfxTexture (hash/w/h) needed by omm_peach_tiara_gfx.inl;
+// provide empty display lists so the tiara models still render.
+const Gfx omm_peach_tiara_gfx_enable[] = { gsSPEndDisplayList() };
+const Gfx omm_peach_tiara_gfx_disable[] = { gsSPEndDisplayList() };
+
 #if defined(DEBUG)
 // VSCode + GDB being shit
 static Gfx *_geo_switch_anim_state(s32 callContext, struct GraphNode *node, void *context) { return geo_switch_anim_state(callContext, node, context); }

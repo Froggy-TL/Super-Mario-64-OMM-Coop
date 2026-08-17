@@ -90,7 +90,7 @@ static str_t sOmmMarioColorsCustoms[4] = {
     "Custom 4",
 };
 
-#if OMM_MARIO_COLORS
+#if 0 // OMM_MARIO_COLORS: lights defined below (actors/mario not compiled in this build)
 extern Lights1 mario_brown2_lights_group;
 extern Lights1 mario_beige_lights_group;
 extern Lights1 mario_white_lights_group;
@@ -105,7 +105,7 @@ Lights1 mario_red_lights_group    = gdSPDefLights1(0x7F, 0x00, 0x00, 0xFF, 0x00,
 Lights1 mario_blue_lights_group   = gdSPDefLights1(0x00, 0x00, 0x7F, 0x00, 0x00, 0xFF, 0x28, 0x28, 0x28);
 Lights1 mario_brown1_lights_group = gdSPDefLights1(0x39, 0x0E, 0x07, 0x72, 0x1C, 0x0E, 0x28, 0x28, 0x28);
 #endif
-#if OMM_CAP_COLORS
+#if 0 // OMM_CAP_COLORS: lights defined below (actors/mario_cap not compiled in this build)
 extern Lights1 mario_cap_seg3_lights_0301CF38;
 extern Lights1 mario_cap_seg3_lights_0301CF08;
 #else
