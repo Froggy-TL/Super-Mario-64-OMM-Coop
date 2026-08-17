@@ -3,6 +3,8 @@
 
 #include "game/game_init.h"
 #include "src/engine/geo_layout.h"
+#include "src/pc/fs/fs.h"
+#include "data/omm/omm_macros_coopdx.h"
 
 // Level script command/status macros from the original OMM port. coopdx keeps
 // the same vanilla format but does not expose these constants.

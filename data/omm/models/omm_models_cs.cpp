@@ -3,7 +3,9 @@
 #include <map>
 #include <algorithm>
 extern "C" {
+#define OMM_ALL_HEADERS
 #include "data/omm/omm_includes.h"
+#undef OMM_ALL_HEADERS
 #include "data/omm/models/omm_models_cs_char_sound.h"
 #include "mario_animation_ids.h"
 extern const GeoLayout mario_geo[];
@@ -1422,9 +1424,9 @@ static void omm_models_cs_animations_find(const char *buffer) {
                 continue;
             }
 
-            s16 *anim_values = mem_new(s16, values.size());
-            for (u32 i = 0; i != values.size(); ++i) {
-                anim_values[i] = (s16) values[i];
+u16 *anim_values = mem_new(u16, values.size());
+            for (size_t i = 0; i < values.size(); i++) {
+                anim_values[i] = (u16) values[i];
             }
 
             u16 *anim_index = mem_new(u16, index.size());

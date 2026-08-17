@@ -1,6 +1,8 @@
 #ifndef OMM_MACROS_COOPDX_H
 #define OMM_MACROS_COOPDX_H
 
+#include "src/pc/platform.h"
+
 // Fusion macros for the coopdx codebase (no OMM game selected).
 // Adapts OMM vanilla names to the coopdx equivalents.
 
