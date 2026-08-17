@@ -183,6 +183,8 @@ struct AnimInfo
     s32 animAccel;
     u16 animTimer;
     s16 animYTrans;
+    struct Animation *curAnimRef;
+    u16 animFlags;
 };
 
 struct GraphNodeObject
@@ -605,6 +607,14 @@ struct TextureInfo
 #define COOP_OBJ_FLAG_LUA         (1 << 1)
 #define COOP_OBJ_FLAG_NON_SYNC    (1 << 2)
 #define COOP_OBJ_FLAG_INITIALIZED (1 << 3)
+
+#define clamp_s(val, min, max)    (((val) < (min)) ? (min) : (((val) > (max)) ? (max) : (val)))
+#define min_3_s(a, b, c)          ((((a) < (b)) ? (a) : (b)) < (c) ? (((a) < (b)) ? (a) : (b)) : (c))
+#define max_3_s(a, b, c)          ((((a) > (b)) ? (a) : (b)) > (c) ? (((a) > (b)) ? (a) : (b)) : (c))
+#define max_f(a, b)               (((a) > (b)) ? (a) : (b))
+#define min_f(a, b)               (((a) < (b)) ? (a) : (b))
+#define clamp_f(val, min, max)    (((val) < (min)) ? (min) : (((val) > (max)) ? (max) : (val)))
+#define clamp_0_1_f(val)          clamp_f((val), 0.f, 1.f)
 
 #include "game/characters.h"
 #include "data/dynos.c.h"

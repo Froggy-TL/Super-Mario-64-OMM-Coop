@@ -46,7 +46,7 @@ const BehaviorScript bhvOmmBitfsPillar[] = {
     OBJ_TYPE_SURFACE,
     BHV_LOAD_COLLISION_DATA(omm_bitfs_pillar_collision),
     BHV_BEGIN_LOOP(),
-        BHV_CALL_NATIVE(load_object_collision_model),
+        BHV_CALL_NATIVE(omm_load_object_collision_model),
     BHV_END_LOOP(),
 };
 

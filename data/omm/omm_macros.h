@@ -76,6 +76,8 @@ Mat4_ts _throwMatrix;
 #include "omm_macros_smsr.h"
 #elif defined(smgs)
 #include "omm_macros_smgs.h"
+#else
+#include "omm_macros_coopdx.h"
 #endif
 #define OMM_GAME_IS_SMEX (OMM_GAME_SAVE == OMM_GAME_SMEX)
 #define OMM_GAME_IS_R96X (OMM_GAME_SAVE == OMM_GAME_R96X)

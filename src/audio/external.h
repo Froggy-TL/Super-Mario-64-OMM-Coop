@@ -45,6 +45,7 @@ enum DialogSound {
 
 extern s32 gAudioErrorFlags;
 extern f32 gGlobalSoundSource[3];
+extern u16 sLevelAcousticReaches[LEVEL_COUNT];
 
 extern const u8 sBackgroundMusicDefaultVolumeDefault[35];
 extern u8 sBackgroundMusicDefaultVolume[MAX_AUDIO_OVERRIDE];

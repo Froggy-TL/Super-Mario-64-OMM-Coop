@@ -1,16 +1,6 @@
 #ifndef OMM_AUDIO_CHARACTER_SOUND_H
 #define OMM_AUDIO_CHARACTER_SOUND_H
 
-// Turns out this sound is actually implemented, just not well defined
-#ifdef SOUND_MARIO_OKEY_DOKEY
-#undef SOUND_MARIO_OKEY_DOKEY
-#if defined(sm74) || defined(smsr)
-#define SOUND_MARIO_OKEY_DOKEY SOUND_ARG_LOAD(SOUND_BANK_VOICE, 0x21, 0x80, SOUND_NO_PRIORITY_LOSS | SOUND_DISCRETE)
-#else
-#define SOUND_MARIO_OKEY_DOKEY SOUND_ARG_LOAD(2, 4, 0x21, 0x80, 8)
-#endif
-#endif
-
 enum {
     CHARACTER_SOUND_YAH,
     CHARACTER_SOUND_WAH,

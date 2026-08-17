@@ -4,6 +4,7 @@
 #include "types.h"
 #include "object_fields.h"
 #include "data/omm/system/omm_system.h" // OmmStats
+#include "data/omm/engine/headers/include/surface_data.h"
 
 struct OmmData {
     void (*reset)(void);

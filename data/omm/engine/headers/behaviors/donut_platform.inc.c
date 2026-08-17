@@ -65,7 +65,7 @@ void omm_bhv_donut_platform_update(void) {
                 cur_obj_set_pos_to_home();
                 o->oTimer = 0;
             }
-            load_object_collision_model();
+            omm_load_object_collision_model();
         } break;
 
         // Falling
@@ -80,7 +80,7 @@ void omm_bhv_donut_platform_update(void) {
                 create_sound_spawner(SOUND_GENERAL_DONUT_PLATFORM_EXPLOSION);
                 o->oAction = 2;
             }
-            load_object_collision_model();
+            omm_load_object_collision_model();
         } break;
 
         // Waiting to respawn

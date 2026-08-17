@@ -120,7 +120,6 @@
 #include "pc/controller/controller_sdl.h"
 #include "pc/controller/controller_keyboard.h"
 #include "pc/controller/controller_mouse.h"
-#include FILE_OPTIONS_H
 #include FILE_SOUNDS_H
 #include FILE_CHEATS_H
 #include FILE_MARIO_CHEATS_H
@@ -203,7 +202,7 @@ extern void cutscene_enter_painting(struct Camera *c);
 extern void cutscene_exit_painting_end(struct Camera *c);
 extern void debug_surface_list_info(f32 x, f32 z);
 extern void handle_power_meter_actions(s16);
-extern void handle_special_dialog_text(s16 dialogID);
+extern void handle_special_dialog_text(s32 dialogID);
 extern void initiate_warp(s16 destLevel, s16 destArea, s16 destWarpNode, s32 warpArg);
 extern void mario_reset_bodystate(struct MarioState *m);
 extern void mario_update_hitbox_and_cap_model(struct MarioState *m);

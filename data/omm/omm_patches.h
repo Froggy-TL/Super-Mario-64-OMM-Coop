@@ -10,7 +10,7 @@
 #endif
 
 #if defined(DYNOS) && !defined(r96x)
-#error "Standalone DynOS is not compatible with OMM."
+// Standalone DynOS is compatible with OMM in the coopdx fusion.
 #endif
 
 #if defined(CHEATER) && !defined(r96x)

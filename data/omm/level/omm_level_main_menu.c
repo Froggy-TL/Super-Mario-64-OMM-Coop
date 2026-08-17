@@ -184,11 +184,9 @@ static struct { const char *label; const char *info[2]; } sOmmMainMenuStrings[] 
 #pragma GCC push_options
 #pragma GCC diagnostic ignored "-Wmissing-braces"
 
-static const u16 anim_C2_indices[];
-static const s16 anim_C2_values[];
-#undef ANIMINDEX_NUMPARTS
-#define ANIMINDEX_NUMPARTS(...) 0
-#include "assets/anims/anim_C2.inc.c"
+#include "pc/rom_assets.h"
+ROM_ASSET_LOAD_ANIM(anim_C2_indices, 0x00570cc8, 252, 0x00000000, 252);
+ROM_ASSET_LOAD_ANIM(anim_C2_values, 0x00570dc4, 5422, 0x00000000, 5422);
 
 #pragma GCC pop_options
 

@@ -164,7 +164,7 @@ const BehaviorScript bhvOmmSparklyStarHint[] = {
     BHV_SET_INT(oWoodenPostTotalMarioAngle, 0),
     BHV_BEGIN_LOOP(),
         BHV_SET_INT(oIntangibleTimer, 0),
-        BHV_CALL_NATIVE(load_object_collision_model),
+        BHV_CALL_NATIVE(omm_load_object_collision_model),
         BHV_SET_INT(oInteractStatus, 0),
     BHV_END_LOOP(),
 };

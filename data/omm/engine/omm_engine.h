@@ -6,7 +6,6 @@
 #include "engine/math_util.h"
 #include "engine/geo_layout.h"
 #include "engine/graph_node.h"
-#include "headers/src/engine/graph_node_o.h"
 #include "engine/behavior_script.h"
 #include "engine/level_script.h"
 #include "engine/surface_load.h"

@@ -76,6 +76,30 @@ extern f32 gCosineTable[];
     min(max(x, a), b) \
 )
 
+static inline s32 near_s        (s32 x, s32 a, s32 b)               { return (x - a < b - x ? a : b); }
+static inline f32 near_f        (f32 x, f32 a, f32 b)               { return (x - a < b - x ? a : b); }
+static inline s32 far_s         (s32 x, s32 a, s32 b)               { return (x - a > b - x ? a : b); }
+static inline f32 far_f         (f32 x, f32 a, f32 b)               { return (x - a > b - x ? a : b); }
+static inline f32 min_3_f       (f32 a, f32 b, f32 c)               { return min_f(min_f(a, b), c); }
+static inline f32 max_3_f       (f32 a, f32 b, f32 c)               { return max_f(max_f(a, b), c); }
+static inline s32 clamp_0_1_s   (s32 x)                             { return clamp_s(x, 0, 1); }
+static inline s32 lerp_s        (f32 t, s32 a, s32 b)               { return (a + (s32) (((f32) (b - a)) * t)); }
+static inline f32 lerp_f        (f32 t, f32 a, f32 b)               { return (a + (b - a) * t); }
+static inline f32 invlerp_s     (s32 x, s32 a, s32 b)               { return (f32) (x - a) / (f32) (b - a); }
+static inline f32 invlerp_f     (f32 x, f32 a, f32 b)               { return (x - a) / (b - a); }
+static inline f32 invlerp_0_1_s (s32 x, s32 a, s32 b)               { return clamp_f(invlerp_s(x, a, b), 0.f, 1.f); }
+static inline f32 invlerp_0_1_f (f32 x, f32 a, f32 b)               { return clamp_f(invlerp_f(x, a, b), 0.f, 1.f); }
+static inline s32 relerp_s      (s32 x, s32 a, s32 b, s32 c, s32 d) { return lerp_s(invlerp_s(x, a, b), c, d); }
+static inline f32 relerp_f      (f32 x, f32 a, f32 b, f32 c, f32 d) { return lerp_f(invlerp_f(x, a, b), c, d); }
+static inline s32 relerp_0_1_s  (s32 x, s32 a, s32 b, s32 c, s32 d) { return lerp_s(invlerp_0_1_s(x, a, b), c, d); }
+static inline f32 relerp_0_1_f  (f32 x, f32 a, f32 b, f32 c, f32 d) { return lerp_f(invlerp_0_1_f(x, a, b), c, d); }
+static inline s32 sign_s        (s32 x)                             { return (x < 0 ? -1 : +1); }
+static inline f32 sign_f        (f32 x)                             { return (x < 0.f ? -1.f : +1.f); }
+static inline s32 sign_0_s      (s32 x)                             { return (x == 0 ? 0 : sign_s(x)); }
+static inline f32 sign_0_f      (f32 x)                             { return (x == 0.f ? 0.f : sign_f(x)); }
+static inline s32 sqr_s         (s32 x)                             { return x * x; }
+static inline f32 sqr_f         (f32 x)                             { return x * x; }
+
 #else
 
 // Fallback to the original implementation for iDO

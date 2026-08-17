@@ -2,7 +2,6 @@
 #include "data/omm/omm_includes.h"
 #undef OMM_ALL_HEADERS
 #include "data/omm/system/omm_audio_character_sound.h"
-#include "data/omm/models/omm_models_cs_char_sound.h"
 
 #define STB_VORBIS_HEADER_ONLY
 #include "src/pc/utils/stb_vorbis.c"

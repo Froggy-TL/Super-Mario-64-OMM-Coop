@@ -128,7 +128,7 @@ const BehaviorScript bhvOmmSparklyStarBox[] = {
     BHV_SET_HOME(),
     BHV_BEGIN_LOOP(),
         BHV_CALL_NATIVE(bhv_pushable_loop),
-        BHV_CALL_NATIVE(load_object_collision_model),
+        BHV_CALL_NATIVE(omm_load_object_collision_model),
     BHV_END_LOOP(),
 };
 

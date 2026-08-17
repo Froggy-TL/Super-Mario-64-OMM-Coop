@@ -32,6 +32,6 @@ const BehaviorScript bhvOmmDorrie[] = {
     BHV_SET_RANDOM_INT(oBehParams, 0, 1800),
     BHV_BEGIN_LOOP(),
         BHV_CALL_NATIVE(bhv_omm_dorrie_update),
-        BHV_CALL_NATIVE(load_object_collision_model),
+        BHV_CALL_NATIVE(omm_load_object_collision_model),
     BHV_END_LOOP(),
 };
