@@ -5,6 +5,7 @@
 
 #include "types.h"
 #include "dialog_ids.h"
+#include "level_table.h"
 
 #define MAX_AUDIO_OVERRIDE 128
 
