@@ -88,7 +88,12 @@ int stop_thread(struct ThreadHandle *handle) {
     handle->state = STOPPED;
 
     // Stop and or cancel the execution of the thread in question.
+#ifdef TARGET_ANDROID
+    // pthread_cancel is unavailable on Android (Bionic).
+    return 0;
+#else
     return pthread_cancel(handle->thread);
+#endif
 }
 
 // Optimally just call init_thread_handle instead.
