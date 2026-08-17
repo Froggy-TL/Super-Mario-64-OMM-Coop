@@ -17,6 +17,7 @@
 #define GRAPH_RENDER_HAS_ANIMATION  (1 << 5)
 #define GRAPH_RENDER_CYLBOARD       (1 << 6)
 #define GRAPH_RENDER_PLAYER         (1 << 7)
+#define GRAPH_RENDER_ALWAYS         (1 << 8)
 
 // Extra, custom, flags
 #define GRAPH_EXTRA_FORCE_3D        (1 << 0)

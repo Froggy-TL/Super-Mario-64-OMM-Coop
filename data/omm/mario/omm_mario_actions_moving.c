@@ -101,7 +101,7 @@ void omm_act_roll_update_gfx(struct MarioState *m) {
     f32 headHeight = geo_get_marios_anim_part_height(m->marioObj->oGraphNode, MARIO_ANIM_PART_HEAD);
     f32 rollOffsetMult = (1.f + 0.5f * ((headHeight - 85.f) / 85.f)) * m->marioObj->oScaleY;
     Vec3f v = { 0.f, -60.f * rollOffsetMult, -20.f };
-    vec3f_rotate_zxy(v, v, m->faceAngle[0], m->faceAngle[1], 0);
+    omm_vec3f_rotate_zxy(v, v, m->faceAngle[0], m->faceAngle[1], 0);
     m->marioObj->oGfxPos[0] += v[0];
     m->marioObj->oGfxPos[1] += v[1] + 50.f * rollOffsetMult + 10.f * rollOffsetMult * sins(m->faceAngle[0]);
     m->marioObj->oGfxPos[2] += v[2];

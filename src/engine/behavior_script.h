@@ -30,6 +30,8 @@ void stub_behavior_script_2(void);
 
 void cur_obj_update(void);
 
+void obj_update(struct Object *o);
+
 /* |description|Updates an object's graphical position and angle|descriptionEnd| */
 void obj_update_gfx_pos_and_angle(struct Object *obj);
 

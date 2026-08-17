@@ -176,7 +176,7 @@ static Gfx **omm_cappy_gfx_get_display_lists(u32 id, bool metal) {
         vec3f_set_dist_and_angle(gVec3fZero, fwd, 1.f, params->pitch, params->yaw);
 
         // Vertical axis
-        vec3f_rotate_zxy(vrt, gVec3fY, 0, 0, params->roll);
+        omm_vec3f_rotate_zxy(vrt, gVec3fY, 0, 0, params->roll);
         vec3f_project_vector(vrt, vrt, fwd);
         vec3f_normalize(vrt);
 

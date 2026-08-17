@@ -131,7 +131,7 @@ static void bhv_omm_chain_chomp_free_init() {
 
     // Spawn the chain parts if they don't exist yet
     if (!o->oChainChompSegments) {
-        struct ChainSegment *segments = mem_pool_alloc(gObjectMemoryPool, 5 * sizeof(struct ChainSegment));
+        struct ChainSegment *segments = dynamic_pool_alloc(gLevelPool, 5 * sizeof(struct ChainSegment));
         if (segments != NULL) {
 
             // Init segments

@@ -105,6 +105,8 @@
 #define oTransparency                                       OBJECT_FIELD_S16(0x0D, 0)
 #define oInteractId                                         OBJECT_FIELD_S16(0x0D, 1)
 #define oSafeStep                                           OBJECT_FIELD_S32(0x0E)
+#define oTreasureChestUnkF4                                 OBJECT_FIELD_S32(0x1B)
+#define oTreasureChestUnkF8                                 OBJECT_FIELD_S32(0x1C)
 // FREE SLOT                                                unused1
 // FREE SLOT                                                unused2
 

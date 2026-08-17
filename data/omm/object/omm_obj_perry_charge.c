@@ -98,8 +98,10 @@ static Gfx *omm_geo_perry_charge_update_gfx(s32 callContext, UNUSED struct Graph
             Vec3f scale;
             if (p->oScaleX > 0.f) {
                 Vec3f delta = { 0.f, 110.f, 0.f };
-                vec3f_rotate_zxy(delta, delta, p->oFaceAnglePitch, p->oFaceAngleYaw, p->oFaceAngleRoll);
-                vec3f_mult(delta, delta, p->oGfxScale);
+                omm_vec3f_rotate_zxy(delta, delta, p->oFaceAnglePitch, p->oFaceAngleYaw, p->oFaceAngleRoll);
+                delta[0] *= p->oGfxScale[0];
+                delta[1] *= p->oGfxScale[1];
+                delta[2] *= p->oGfxScale[2];
                 vec3f_sum(posPerryTip, posPerryHandle, delta);
                 vec3f_copy(scale, p->oGfxScale);
             } else {

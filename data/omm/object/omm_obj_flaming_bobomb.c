@@ -101,7 +101,7 @@ static void bhv_omm_flaming_bobomb_update() {
     o->oFaceAngleRoll += o->oAngleVelRoll;
     o->oFlags |= OBJ_FLAG_SHADOW_COPY_OBJ_POS;
     Vec3f offset = { 0, 49.f * o->oScaleY, 0 };
-    vec3f_rotate_zxy(offset, offset, o->oFaceAnglePitch, o->oFaceAngleYaw, o->oFaceAngleRoll);
+    omm_vec3f_rotate_zxy(offset, offset, o->oFaceAnglePitch, o->oFaceAngleYaw, o->oFaceAngleRoll);
     vec3f_set(o->oGfxPos, o->oPosX - offset[0], o->oPosY - offset[1], o->oPosZ - offset[2]);
     vec3s_set(o->oGfxAngle, o->oFaceAnglePitch, o->oFaceAngleYaw, o->oFaceAngleRoll);
     obj_set_params(o, INTERACT_FLAME, 1, 99, 0, o->oAction == 1 || o->oAction == 3 || o->oAction == 5);

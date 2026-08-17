@@ -74,7 +74,7 @@ s32 omm_cappy_mips_update(struct Object *o) {
         // Spawn star
         else if (gOmmObject->state.actionState == 2) {
             if (omm_mario_unlock(gMarioState)) {
-                bhv_spawn_star_no_level_exit(3 + o->oBehParams2ndByte);
+                bhv_spawn_star_no_level_exit(o, 3 + o->oBehParams2ndByte, TRUE);
                 gOmmObject->state.actionState = 3;
             }
         }

@@ -265,6 +265,8 @@ Vec3f gVec3fZero = { 0.0f, 0.0f, 0.0f };
 
 Vec3f gVec3fOne = { 1.0f, 1.0f, 1.0f };
 
+Vec3f gVec3fY = { 0.0f, 1.0f, 0.0f };
+
 /**
  * Returns a vector rotated around the z axis, then the x axis, then the y
  * axis.
@@ -880,6 +882,54 @@ OPTIMIZE_O3 Vec3fp get_pos_from_transform_mtx(VEC_OUT Vec3f dest, Mat4 objMtx, M
     dest[1] = objMtx[3][0] * camMtx[1][0] + objMtx[3][1] * camMtx[1][1] + objMtx[3][2] * camMtx[1][2] - camY;
     dest[2] = objMtx[3][0] * camMtx[2][0] + objMtx[3][1] * camMtx[2][1] + objMtx[3][2] * camMtx[2][2] - camZ;
 
+    return dest;
+}
+
+bool vec3f_check_cylinder_overlap(Vec3f pos1, f32 radius1, f32 height1, f32 offset1, Vec3f pos2, f32 radius2, f32 height2, f32 offset2) {
+
+    // Radius check
+    f32 r2 = sqr_f(radius1 + radius2);
+    f32 d2 = sqr_f(pos1[0] - pos2[0]) + sqr_f(pos1[2] - pos2[2]);
+    if (d2 > r2) {
+        return false;
+    }
+
+    // Height check
+    f32 lowerb1 = pos1[1] - offset1;
+    f32 upperb1 = height1 + lowerb1;
+    f32 lowerb2 = pos2[1] - offset2;
+    f32 upperb2 = height2 + lowerb2;
+    if (max_f(upperb2 - lowerb1, upperb1 - lowerb2) > (height1 + height2)) {
+        return false;
+    }
+
+    // Overlap
+    return true;
+}
+
+void *vec3f_set_mag(Vec3f v, f32 mag) {
+    vec3f_normalize(v);
+    vec3f_mul(v, mag);
+    return v;
+}
+
+void *vec3f_get_projected_point_on_line(Vec3f dest, f32 *t, Vec3f p, Vec3f a, Vec3f b) {
+    Vec3f ab = { b[0] - a[0], b[1] - a[1], b[2] - a[2] };
+    Vec3f ap = { p[0] - a[0], p[1] - a[1], p[2] - a[2] };
+    f32 dota = (ab[0] * ap[0]) + (ab[1] * ap[1]) + (ab[2] * ap[2]);
+    f32 iab2 = 1.f / ((ab[0] * ab[0]) + (ab[1] * ab[1]) + (ab[2] * ab[2]));
+    f32 abt = dota * iab2;
+    dest[0] = a[0] + ab[0] * abt;
+    dest[1] = a[1] + ab[1] * abt;
+    dest[2] = a[2] + ab[2] * abt;
+    if (t) *t = abt;
+    return dest;
+}
+
+void *vec3f_interpolate(Vec3f dest, Vec3f from, Vec3f to, f32 t) {
+    dest[0] = lerp_f(t, from[0], to[0]);
+    dest[1] = lerp_f(t, from[1], to[1]);
+    dest[2] = lerp_f(t, from[2], to[2]);
     return dest;
 }
 

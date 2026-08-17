@@ -78,7 +78,7 @@ static OmmSplit *omm_speedrun_split_data_create_split(const char *s, bool lastSp
 
 OMM_AT_STARTUP static void omm_speedrun_init() {
     sys_path_t filename;
-    fs_cat_paths(filename, sys_exe_path(), "splits.lss");
+    snprintf(filename, sizeof(filename), "%s/splits.lss", sys_exe_path_dir());
     FILE *f = fopen(filename, "r");
     if (f) {
         omm_log("Extracting split data from file: \"%s\"\n",, filename);

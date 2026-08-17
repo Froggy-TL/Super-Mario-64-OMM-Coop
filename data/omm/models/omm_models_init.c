@@ -122,7 +122,7 @@ const void **omm_models_init() {
     }
 
     // Scan the packs folders
-    fs_walk("", omm_models_register_packs, NULL, true, FS_DIR_PACKS);
+    fs_walk("packs", omm_models_register_packs, NULL, true);
 
     // Register model packs from CS packs
     omm_models_cs_register_packs();

@@ -152,6 +152,7 @@ struct GraphNode
     struct GraphNode *parent;
     struct GraphNode *children;
     const void *georef;
+    bool noBillboard;
 
     s16 type; // structure type
     s16 flags; // hi = drawing layer, lo = rendering modes
@@ -611,6 +612,10 @@ struct TextureInfo
 #define clamp_s(val, min, max)    (((val) < (min)) ? (min) : (((val) > (max)) ? (max) : (val)))
 #define min_3_s(a, b, c)          ((((a) < (b)) ? (a) : (b)) < (c) ? (((a) < (b)) ? (a) : (b)) : (c))
 #define max_3_s(a, b, c)          ((((a) > (b)) ? (a) : (b)) > (c) ? (((a) > (b)) ? (a) : (b)) : (c))
+#define max_s(a, b)               (((a) > (b)) ? (a) : (b))
+#define min_s(a, b)               (((a) < (b)) ? (a) : (b))
+#define abs_s(x)                  (((x) < 0) ? -(x) : (x))
+#define abs_f(x)                  (((x) < 0.f) ? -(x) : (x))
 #define max_f(a, b)               (((a) > (b)) ? (a) : (b))
 #define min_f(a, b)               (((a) < (b)) ? (a) : (b))
 #define clamp_f(val, min, max)    (((val) < (min)) ? (min) : (((val) > (max)) ? (max) : (val)))

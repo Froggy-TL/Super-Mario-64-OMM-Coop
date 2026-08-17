@@ -123,10 +123,13 @@ extern Vec3s gVec3sZero;
 extern Vec3f gVec3fOne;
 extern Vec3i gVec3iOne;
 extern Vec3s gVec3sOne;
+extern Vec3f gVec3fY;
 extern Mat4 gMat4Identity;
 extern Mat4 gMat4Zero;
 
 #include "math_util.inl"
+
+bool vec3f_check_cylinder_overlap(Vec3f pos1, f32 radius1, f32 height1, f32 offset1, Vec3f pos2, f32 radius2, f32 height2, f32 offset2);
 
 /* |description|
 Calculates the sine of the given angle, where the angle is specified as a signed 16-bit integer representing a fixed-point "SM64 angle". This function returns a floating-point result corresponding to sin(angle)
@@ -231,6 +234,10 @@ OPTIMIZE_O3 void vec3f_set_dist_and_angle(Vec3f from, VEC_OUT Vec3f to, f32 dist
 Determines a vector that is perpendicular (normal) to the plane defined by three given 3D floating-point points `a`, `b`, and `c`. The resulting perpendicular vector is stored in `dest`
 |descriptionEnd| */
 OPTIMIZE_O3 Vec3fp find_vector_perpendicular_to_plane(VEC_OUT Vec3f dest, Vec3f a, Vec3f b, Vec3f c);
+
+void *vec3f_set_mag(Vec3f v, f32 mag);
+void *vec3f_get_projected_point_on_line(Vec3f dest, f32 *t, Vec3f p, Vec3f a, Vec3f b);
+void *vec3f_interpolate(Vec3f dest, Vec3f from, Vec3f to, f32 t);
 
   ///////////
  // Vec3i //

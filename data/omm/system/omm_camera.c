@@ -807,7 +807,7 @@ static void omm_camera_update_transform(struct MarioState *m) {
     // Position
     sOmmCamDistance = approach(sOmmCamDistance, camDistTarget, 0x80);
     Vec3f v = { 0, 0, sOmmCamDistance };
-    vec3f_rotate_zxy(v, v, -(sOmmCamPitch + gLakituState.shakeMagnitude[0]), +(sOmmCamYaw + gLakituState.shakeMagnitude[1]), 0);
+    omm_vec3f_rotate_zxy(v, v, -(sOmmCamPitch + gLakituState.shakeMagnitude[0]), +(sOmmCamYaw + gLakituState.shakeMagnitude[1]), 0);
     sOmmCamPos[0] = sOmmCamFocus[0] + v[0];
     sOmmCamPos[1] = sOmmCamFocus[1] + v[1] + camPosOffsetY;
     sOmmCamPos[2] = sOmmCamFocus[2] + v[2];

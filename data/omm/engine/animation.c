@@ -2,6 +2,8 @@
 #include "data/omm/omm_includes.h"
 #undef OMM_ALL_HEADERS
 
+s16 omm_set_mario_anim_with_accel(struct MarioState *m, s32 targetAnimID, s32 accel);
+
 //
 // Geo animation
 //
@@ -197,7 +199,7 @@ s16 omm_set_mario_anim_with_accel(struct MarioState *m, s32 targetAnimID, s32 ac
     struct Animation *targetAnim = gMarioTargetAnim;
     struct_AnimInfo *animInfo = &m->marioObj->oAnimInfo;
 
-    if (load_patchable_table(gMarioAnimations, targetAnimID)) {
+    if (load_patchable_table(gMarioAnimations, targetAnimID, true)) {
         targetAnim->values = (void *) ((u8 *) targetAnim + (uintptr_t) targetAnim->values);
         targetAnim->index  = (void *) ((u8 *) targetAnim + (uintptr_t) targetAnim->index);
     }

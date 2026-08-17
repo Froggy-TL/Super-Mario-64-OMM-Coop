@@ -108,7 +108,7 @@ s32 omm_cappy_toad_update(struct Object *o) {
         else if (gOmmObject->state.actionState == 2) {
             if (omm_mario_unlock(gMarioState)) {
                 if (gOmmObject->toad.spawnStar != -1) {
-                    bhv_spawn_star_no_level_exit(gOmmObject->toad.spawnStar);
+                    bhv_spawn_star_no_level_exit(o, gOmmObject->toad.spawnStar, TRUE);
                     gOmmObject->toad.dialogId = OMM_CAPPY_TOAD_PARAMS[gOmmObject->toad.spawnStar].dialogIdAfter;
                 }
                 gOmmObject->state.actionState = 3;

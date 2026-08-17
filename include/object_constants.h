@@ -663,6 +663,7 @@
     /* oBehParams2ndByte */
     #define UKIKI_CAGE 0
     #define UKIKI_CAP  1
+    #define UKIKI_HAT  UKIKI_CAP
 
     /* Animations */
     #define UKIKI_ANIM_RUN           0
@@ -686,6 +687,7 @@
 
     /* oUkikiHasCap */
     #define UKIKI_CAP_ON 1
+    #define UKIKI_HAT_ON UKIKI_CAP_ON
 
 /* Ukiki Cage Star */
     /* oAction */

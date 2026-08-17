@@ -624,7 +624,7 @@ static void omm_update_worlds(struct MarioState *m) {
         // - Hide the fish groups
         case COURSE_SA: {
             if (m->numStars >= 120 && (sOmmWorld->prevCourseNum == COURSE_CCM || sOmmWorld->prevCourseNum == COURSE_SL)) {
-                omm_world_behavior_set_dormant(bhvLargeFishGroup, true);
+                omm_world_behavior_set_dormant(bhvFishGroup, true);
                 sOmmWorld->isFrozen = true;
             }
         } break;

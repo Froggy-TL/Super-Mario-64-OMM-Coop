@@ -79,7 +79,7 @@ const BehaviorScript bhvOmmSpinyBall[] = {
 
 struct Object *omm_obj_spawn_spiny_ball(struct Object *o) {
     struct Object *ball = obj_spawn_from_geo(o, spiny_ball_geo, bhvOmmSpinyBall);
-    obj_init_animation_with_sound(ball, spiny_egg_seg5_anims_050157E4, 0);
+    obj_init_animation_with_sound(ball, &spiny_egg_seg5_anims_050157E4, 0);
     ball->parentObj = o;
     obj_set_interact_id(o, ball);
     return ball;

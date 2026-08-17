@@ -1448,7 +1448,7 @@ static void bhv_omm_bowser_clone_start(OmmBowser *bowser) {
             if (bowser->timer < 45) {
 OMM_BOWSER_CLONE_CODE(
                 bowser->obj->oFaceAngleYaw += 0x30 * (is_bowser_clone ? -1 : +1);
-                vec3f_rotate_zxy(&bowser->obj->oPosX, &bowser->obj->oPosX, 0, 0x30 * (is_bowser_clone ? -1 : +1), 0);
+                omm_vec3f_rotate_zxy(&bowser->obj->oPosX, &bowser->obj->oPosX, 0, 0x30 * (is_bowser_clone ? -1 : +1), 0);
                 obj_anim_play(bowser->obj, OMM_BOWSER_ANIM_IDLE, 1.f);
 );
             } else {

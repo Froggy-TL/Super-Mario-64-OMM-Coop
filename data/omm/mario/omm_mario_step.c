@@ -204,12 +204,15 @@ void omm_stop_and_set_height_to_floor(struct MarioState *m) {
 
 struct Surface gWaterSurfacePseudoFloor = {
     SURFACE_VERY_SLIPPERY,
-    0, 0, 0, 0, 0,
+    0, 0, 0, 0, 0, 0,
+    { 0, 0, 0 },
+    { 0, 0, 0 },
+    { 0, 0, 0 },
     { 0, 0, 0 },
     { 0, 0, 0 },
     { 0, 0, 0 },
     { 0, 1, 0 },
-    0, NULL
+    0, 0, 0, NULL
 };
 
 static s32 omm_mario_perform_ground_sub_step(struct MarioState *m, Vec3f nextPos) {

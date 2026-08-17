@@ -309,7 +309,7 @@ static void bhv_omm_peach_vibe_gloom_tear_update() {
                     for (s32 k = 0; k != OMM_PEACH_VIBE_GLOOM_TEAR_NUM_VERTICES_PER_POINT; ++k) {
                         s16 angle = (s16) ((k * 0x10000) / OMM_PEACH_VIBE_GLOOM_TEAR_NUM_VERTICES_PER_POINT);
                         Vec3f dv = { radius * coss(angle), -radius * sins(angle), 0.f };
-                        vec3f_rotate_zxy(dv, dv, -pitch, yaw, 0);
+                        omm_vec3f_rotate_zxy(dv, dv, -pitch, yaw, 0);
                         vtx->n.ob[0] = pos1[0] + dv[0];
                         vtx->n.ob[1] = pos1[1] + dv[1];
                         vtx->n.ob[2] = pos1[2] + dv[2];

@@ -49,6 +49,33 @@ extern Vec3f gFindWallDirection;
 extern u8 gFindWallDirectionActive;
 extern u8 gFindWallDirectionAirborne;
 
+#define MAX_RAYCAST_COL_HITS (16)
+
+typedef struct {
+    Vec3f pos;
+    f32 dist; // from focus to hit pos
+    f32 ratio; // dist / maxDist
+    struct Surface *surf;
+} RayHit;
+
+typedef struct {
+    RayHit hits[MAX_RAYCAST_COL_HITS];
+    s32 count;
+} RayCollisionData;
+
+#define RAYCAST_FLAG_NO_CAM_COL (1 << 0)
+#define RAYCAST_FLAG_FLOORS     (1 << 1)
+#define RAYCAST_FLAG_CEILS      (1 << 2)
+#define RAYCAST_FLAG_WALLS      (1 << 3)
+#define RAYCAST_FLAGS_SURFACES  (RAYCAST_FLAG_FLOORS | RAYCAST_FLAG_CEILS | RAYCAST_FLAG_WALLS)
+#define RAYCAST_FLAGS_CAMERA    (RAYCAST_FLAG_NO_CAM_COL | RAYCAST_FLAG_FLOORS | RAYCAST_FLAG_CEILS | RAYCAST_FLAG_WALLS)
+
+s32 find_collisions_on_ray(Vec3f orig, Vec3f dir, RayCollisionData *hits, f32 surfaceScale, u32 flags);
+bool surface_intersects_cylinder(struct Surface *surf, Vec3f pos, f32 radius, f32 height, f32 downOffset);
+bool vec3f_check_cylinder_overlap(Vec3f pos1, f32 radius1, f32 height1, f32 offset1, Vec3f pos2, f32 radius2, f32 height2, f32 offset2);
+struct Surface *get_pseudo_floor_at_pos(f32 x, f32 y, f32 z);
+Vec3fp omm_vec3f_rotate_zxy(Vec3f dest, Vec3f v, s16 pitch, s16 yaw, s16 roll);
+
 s32 f32_find_wall_collision(f32 *xPtr, f32 *yPtr, f32 *zPtr, f32 offsetY, f32 radius);
 
 /* |description|

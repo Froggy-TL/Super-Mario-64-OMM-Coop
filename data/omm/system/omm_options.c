@@ -585,9 +585,9 @@ static OmmOptGame sOmmOptGames[] = {
 
 static const char *get_exe_path(sys_path_t dst, const char *gameCode) {
 #if WINDOWS_BUILD
-    snprintf(dst, sizeof(sys_path_t), "%s/sm64.%s.exe", sys_exe_path(), gameCode);
+    snprintf(dst, sizeof(sys_path_t), "%s/sm64.%s.exe", sys_exe_path_dir(), gameCode);
 #else
-    snprintf(dst, sizeof(sys_path_t), "%s/sm64.%s", sys_exe_path(), gameCode);
+    snprintf(dst, sizeof(sys_path_t), "%s/sm64.%s", sys_exe_path_dir(), gameCode);
 #endif
     return dst;
 }
@@ -863,7 +863,6 @@ static struct Option omm_opt_make_main_menu() {
 }
 
 OMM_AT_STARTUP static void omm_opt_init() {
-    fs_init(sys_ropaths, NULL, NULL);
     extern void omm_data_init();
     omm_data_init();
     omm_save_file_load_all();

@@ -314,7 +314,7 @@ static void bhv_omm_mips_held(struct Object *o) {
         obj_anim_play_with_sound(o, 4, 1.f, 0, false);
         cur_obj_set_pos_relative(gMarioObject, 0, 60.f, 100.f);
         if (o->oMipsGrabbedCounter < 3) {
-            if (set_mario_npc_dialog(1) == 2) {
+            if (set_mario_npc_dialog(&gMarioStates[0], 1, NULL) == 2) {
                 o->activeFlags |= ACTIVE_FLAG_INITIATED_TIME_STOP;
                 if (cutscene_object_with_dialog(CUTSCENE_DIALOG, o, OMM_DIALOG_SPARKLY_MIPS_1 + o->oMipsGrabbedCounter)) {
                     o->oMipsEscapePath = bhv_omm_mips_get_nearest_waypoint(o);
@@ -323,7 +323,7 @@ static void bhv_omm_mips_held(struct Object *o) {
                     o->oMipsForwardVelocity += 15.f;
                     o->oInteractionSubtype |= INT_SUBTYPE_DROP_IMMEDIATELY;
                     o->activeFlags &= ~ACTIVE_FLAG_INITIATED_TIME_STOP;
-                    set_mario_npc_dialog(0);
+                    set_mario_npc_dialog(&gMarioStates[0], 0, NULL);
                 }
             }
         }

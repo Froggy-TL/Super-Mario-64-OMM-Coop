@@ -403,7 +403,7 @@ void omm_cappy_update_behavior(struct Object *cappy, struct MarioState *m) {
                 f32 r = min_f(cappy->oCappyLifeTimer * OMM_CAPPY_BHV_FLYING_RADIUS_GROWTH, OMM_CAPPY_BHV_FLYING_RADIUS_MAX);
                 s16 a = (s16) (cappy->oFaceAngleYaw + (s32) (cappy->oCappyLifeTimer) * OMM_CAPPY_BHV_FLYING_ANGLE_VEL);
                 Vec3f v = { r * coss(a), r * sins(a), 0 };
-                vec3f_rotate_zxy(v, v, -m->faceAngle[0], m->faceAngle[1], 0);
+                omm_vec3f_rotate_zxy(v, v, -m->faceAngle[0], m->faceAngle[1], 0);
                 cappy->oPosX = m->pos[0];
                 cappy->oPosY = m->pos[1] + OMM_CAPPY_BHV_FLYING_OFFSET;
                 cappy->oPosZ = m->pos[2];

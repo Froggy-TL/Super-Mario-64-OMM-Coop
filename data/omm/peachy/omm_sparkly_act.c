@@ -143,7 +143,7 @@ static struct {
 
 static void omm_sparkly_act_ending_update_toad_anim(EndToadStruct *toad) {
     if (toad->obj) {
-        omm_geo_obj_init_animation(&toad->obj->header.gfx, (struct Animation **) &toad_seg6_anims_0600FB58[toad->anim]);
+        omm_geo_obj_init_animation(&toad->obj->header.gfx, (struct Animation **) &toad_seg6_anims_0600FB58.anims[toad->anim]);
         if (obj_anim_is_near_end(toad->obj) && (toad->anim == 0 || toad->anim == 2)) {
             toad->anim++;
         }

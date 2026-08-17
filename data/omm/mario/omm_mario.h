@@ -35,6 +35,22 @@ bool omm_mario_update_air_with_turn             (struct MarioState *m);
 bool omm_mario_update_hanging_speed             (struct MarioState *m);
 
 //
+// Steps
+//
+
+s32  omm_stationary_ground_step                 (struct MarioState *m);
+void omm_stop_and_set_height_to_floor           (struct MarioState *m);
+s32  omm_perform_ground_step                    (struct MarioState *m);
+s32  omm_perform_air_step                       (struct MarioState *m, u32 stepArg);
+s32  omm_perform_water_step                     (struct MarioState *m);
+void omm_mario_bonk_reflection                  (struct MarioState *m, u32 negateSpeed);
+f32  omm_get_buoyancy                           (struct MarioState *m);
+u32  omm_mario_update_quicksand                 (struct MarioState *m, f32 sinkingSpeed);
+u32  omm_mario_update_windy_ground              (struct MarioState *m);
+u32  omm_mario_update_moving_sand               (struct MarioState *m);
+s16  omm_set_mario_animation                    (struct MarioState *m, s32 targetAnimID);
+
+//
 // Interactions
 //
 

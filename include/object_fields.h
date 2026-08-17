@@ -1064,6 +1064,7 @@
 #define /*0x1AE*/ oUkikiTextboxTimer   OBJECT_FIELD_S16(0x49, 1)
 #define /*0x1B0*/ oUkikiCageSpinTimer  OBJECT_FIELD_S16(0x4A, 0)
 #define /*0x1B2*/ oUkikiHasCap         OBJECT_FIELD_S16(0x4A, 1)
+#define /*0x1B2*/ oUkikiHasHat         oUkikiHasCap
 
 /* Ukiki Cage*/
 #define /*0x088*/ oUkikiCageNextAction OBJECT_FIELD_S32(0x00)

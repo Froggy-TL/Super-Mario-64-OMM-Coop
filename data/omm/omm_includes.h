@@ -93,6 +93,8 @@
 #include "game/object_helpers.h"
 #include "game/print.h"
 #include "game/save_file.h"
+#include "data/omm/system/omm_save_file_shim.h"
+#include "data/omm/system/omm_geo_shim.h"
 #include "game/screen_transition.h"
 #include "game/segment2.h"
 #include "game/sound_init.h"

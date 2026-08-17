@@ -25,7 +25,9 @@ static void omm_wing_compute_mario_hand_pos(struct MarioState *m, Vec3f dest, bo
     Vec3f hpos; geo_get_marios_anim_part_pos(NULL, hpos, isLeft ? MARIO_ANIM_PART_LEFT_HAND : MARIO_ANIM_PART_RIGHT_HAND);
     Vec3f dpos; vec3f_dif(dpos, hpos, fpos);
     vec3f_normalize(dpos);
-    vec3f_mult(dpos, dpos, m->marioObj->oGfxScale);
+    dpos[0] *= m->marioObj->oGfxScale[0];
+    dpos[1] *= m->marioObj->oGfxScale[1];
+    dpos[2] *= m->marioObj->oGfxScale[2];
     vec3f_mul(dpos, OMM_PLAYER_MODEL_IS_PEACH ? 10.f : 15.f);
     vec3f_sum(dest, hpos, dpos);
 }

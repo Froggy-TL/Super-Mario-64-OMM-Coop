@@ -20,7 +20,7 @@ bool omm_cappy_spiny_init(struct Object* o) {
 
 void omm_cappy_spiny_end(struct Object *o) {
     o->oGraphNode = geo_layout_to_graph_node(NULL, spiny_geo);
-    o->oAnimations = (struct Animation **) spiny_seg5_anims_05016EAC;
+        o->oAnimations = (struct Animation **) &spiny_seg5_anims_05016EAC;
     obj_anim_play(o, 0, 1.f);
     obj_set_angle(o, 0, o->oFaceAngleYaw, 0);
     obj_scale(o, 1.f);
@@ -188,7 +188,7 @@ void omm_cappy_spiny_update_gfx(struct Object *o) {
     // Ball form
     if (gOmmObject->state.actionFlag) {
         o->oGraphNode = geo_layout_to_graph_node(NULL, spiny_ball_geo);
-        o->oAnimations = (struct Animation **) spiny_egg_seg5_anims_050157E4;
+        o->oAnimations = (struct Animation **) &spiny_egg_seg5_anims_050157E4;
         o->oFaceAnglePitch += o->oAngleVelPitch * relerp_0_1_f(POBJ_ABS_FORWARD_VEL, pobj_get_walk_speed(o), pobj_get_dash_speed(o), 1.f, 2.f);
         obj_scale(o, 1.25f);
         obj_update_gfx(o);
@@ -205,7 +205,7 @@ void omm_cappy_spiny_update_gfx(struct Object *o) {
     // Hedgehog form
     else {
         o->oGraphNode = geo_layout_to_graph_node(NULL, spiny_geo);
-        o->oAnimations = (struct Animation **) spiny_seg5_anims_05016EAC;
+    o->oAnimations = (struct Animation **) &spiny_seg5_anims_05016EAC;
         o->oFaceAnglePitch = 0;
         obj_update_gfx(o);
     }

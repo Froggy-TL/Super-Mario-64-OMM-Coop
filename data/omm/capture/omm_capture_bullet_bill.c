@@ -88,7 +88,7 @@ s32 omm_cappy_bullet_bill_update(struct Object *o) {
     // Animation, sound and particles
     struct Object *smoke = POBJ_B_BUTTON_DOWN ? omm_obj_spawn_fire_smoke(o, 0) : spawn_object(o, MODEL_SMOKE, bhvWhitePuffSmoke);
     Vec3f dir = { 0, 0, -1 };
-    vec3f_rotate_zxy(dir, dir, o->oFaceAnglePitch, o->oFaceAngleYaw, 0);
+    omm_vec3f_rotate_zxy(dir, dir, o->oFaceAnglePitch, o->oFaceAngleYaw, 0);
     smoke->oPosX += o->hitboxRadius * dir[0];
     smoke->oPosY += o->hitboxRadius * dir[1] + omm_capture_get_hitbox_down_offset(o);
     smoke->oPosZ += o->hitboxRadius * dir[2];

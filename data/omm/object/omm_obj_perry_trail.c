@@ -81,7 +81,7 @@ static void bhv_omm_perry_trail_update() {
     struct Object *perry = omm_perry_get_object();
     if (o->oAction == 0 && perry && (perry->oPerryFlags & OBJ_INT_PERRY_TRAIL)) {
         Vec3f perryDir = { 0.f, 120.f, 0.f };
-        vec3f_rotate_zxy(perryDir, perryDir, perry->oFaceAnglePitch, perry->oFaceAngleYaw, perry->oFaceAngleRoll);
+        omm_vec3f_rotate_zxy(perryDir, perryDir, perry->oFaceAnglePitch, perry->oFaceAngleYaw, perry->oFaceAngleRoll);
 
         // Real points, not interpolated
         Point *pts[3] = {

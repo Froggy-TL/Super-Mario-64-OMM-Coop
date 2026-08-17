@@ -190,14 +190,14 @@ void omm_mario_capture_update_cap_object(struct Object *o, struct Object *obj, s
 
         // Object graph pos and angle
         if (gOmmObject->cappy.o_gfx) {
-            vec3f_rotate_zxy(dv, dv, obj->oGfxAngle[0], obj->oGfxAngle[1], obj->oGfxAngle[2]);
+            omm_vec3f_rotate_zxy(dv, dv, obj->oGfxAngle[0], obj->oGfxAngle[1], obj->oGfxAngle[2]);
             vec3f_sum(translation, obj->oGfxPos, dv);
             vec3s_sum(rotation, obj->oGfxAngle, gOmmObject->cappy.rot);
         }
 
         // Object pos and angle
         else {
-            vec3f_rotate_zxy(dv, dv, obj->oFaceAnglePitch, obj->oFaceAngleYaw, obj->oFaceAngleRoll);
+            omm_vec3f_rotate_zxy(dv, dv, obj->oFaceAnglePitch, obj->oFaceAngleYaw, obj->oFaceAngleRoll);
             vec3f_sum(translation, &obj->oPosX, dv);
             vec3s_set(rotation, obj->oFaceAnglePitch, obj->oFaceAngleYaw, obj->oFaceAngleRoll);
             vec3s_add(rotation, gOmmObject->cappy.rot);

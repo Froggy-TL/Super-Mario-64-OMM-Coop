@@ -257,26 +257,12 @@ static void omm_geo_star_compute_color(OmmStarGeoData *data, const char *texture
         }
     }
 
-    // Not found, compute new color and register it
-    sys_path_t filename;
-    str_cat(filename, sizeof(filename), FS_TEXTUREDIR "/", texture, ".png");
-    s32 w, h;
-    u8 *p = fs_load_png(filename, &w, &h);
-    if (p) {
-        u32 r = 0;
-        u32 g = 0;
-        u32 b = 0;
-        for (s32 i = 0; i != w * h; ++i) {
-            r += (u32) p[4 * i + 0];
-            g += (u32) p[4 * i + 1];
-            b += (u32) p[4 * i + 2];
-        }
-        data->star.r = (u8) (r / (w * h));
-        data->star.g = (u8) (g / (w * h));
-        data->star.b = (u8) (b / (w * h));
-        stbi_image_free(p);
-        omm_map_add(sOmmStarTexColors, ptr, mem_dup(texture, strlen(texture) + 1), u32, (data->star.r << 16) | (data->star.g << 8) | (data->star.b << 0));
-    }
+    // Not found, register the default star color.
+    // (The original port averaged the star PNG texture; coopdx has no fs_load_png.)
+    data->star.r = 0xF8;
+    data->star.g = 0xB8;
+    data->star.b = 0x50;
+    omm_map_add(sOmmStarTexColors, ptr, mem_dup(texture, strlen(texture) + 1), u32, (data->star.r << 16) | (data->star.g << 8) | (data->star.b << 0));
 }
 
 static Gfx *omm_geo_star_update(s32 callContext, struct GraphNode *node, UNUSED void *context) {

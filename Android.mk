@@ -94,6 +94,25 @@ ULTRA_C_FILES := \
   guTranslateF.c
 
 C_FILES := $(filter-out $(LOCAL_PATH)/src/game/main.c,$(C_FILES))
+C_FILES := $(filter-out $(LOCAL_PATH)/data/omm/engine/surface_load.c,$(C_FILES))
+# OMM modules not ported to coopdx: custom UI/render/dialog/loading/profiler,
+# palette editor, custom level definitions and coopdx-incompatible helpers.
+C_FILES := $(filter-out \
+  $(LOCAL_PATH)/data/omm/system/omm_dialog.c \
+  $(LOCAL_PATH)/data/omm/system/omm_render_complete.c \
+  $(LOCAL_PATH)/data/omm/system/omm_render_pause.c \
+  $(LOCAL_PATH)/data/omm/system/omm_render_hud.c \
+  $(LOCAL_PATH)/data/omm/system/omm_loading.c \
+  $(LOCAL_PATH)/data/omm/system/omm_profiler.c \
+  $(LOCAL_PATH)/data/omm/system/omm_palette_editor.c \
+  $(LOCAL_PATH)/data/omm/engine/dialog_box.c \
+  $(LOCAL_PATH)/data/omm/engine/fs_packtype_zip.c \
+  $(LOCAL_PATH)/data/omm/level/omm_level_ttm.c \
+  $(LOCAL_PATH)/data/omm/level/omm_level_peachy.c \
+  $(LOCAL_PATH)/data/omm/level/omm_level_fish.c \
+  $(LOCAL_PATH)/data/omm/level/omm_level_bowser_4.c \
+  $(LOCAL_PATH)/data/omm/level/omm_level_main_menu.c \
+  ,$(C_FILES))
 ULTRA_C_FILES := $(addprefix $(LOCAL_PATH)/lib/src/,$(ULTRA_C_FILES))
 
 GODDARD_C_FILES := $(foreach dir,$(GODDARD_SRC_DIRS),$(wildcard $(dir)/*.c))
@@ -105,7 +124,7 @@ LOCAL_SHORT_COMMANDS := true
 LOCAL_SHARED_LIBRARIES := sdl2 curl
 LOCAL_STATIC_LIBRARIES := lua5.3.5 coopnet libjuice
 LOCAL_LDLIBS := -lEGL -lGLESv3 -llog -lz -pthread -rdynamic -ldl -landroid
-LOCAL_C_INCLUDES := $(LOCAL_PATH) $(LOCAL_PATH)/include $(LOCAL_PATH)/include/android_execinfo $(LOCAL_PATH)/src $(LOCAL_PATH)/src/engine $(LOCAL_PATH)/sound $(LOCAL_PATH)/lib/lua/include $(LOCAL_PATH)/lib/coopnet/include $(LOCAL_PATH)/lib/sdl2/include $(LOCAL_PATH)/lib/curl/include $(PC_BUILD_DIR) $(PC_BUILD_DIR)/include $(JNI_H_INCLUDE) $(LOCAL_PATH)/data/omm/engine/headers/include $(LOCAL_PATH)/data/omm/engine/headers/include/config $(LOCAL_PATH)/data/omm/engine/headers/src/engine
+LOCAL_C_INCLUDES := $(LOCAL_PATH) $(LOCAL_PATH)/include $(LOCAL_PATH)/include/android_execinfo $(LOCAL_PATH)/src $(LOCAL_PATH)/src/engine $(LOCAL_PATH)/sound $(LOCAL_PATH)/lib/lua/include $(LOCAL_PATH)/lib/coopnet/include $(LOCAL_PATH)/lib/sdl2/include $(LOCAL_PATH)/lib/curl/include $(PC_BUILD_DIR) $(PC_BUILD_DIR)/include $(JNI_H_INCLUDE) $(LOCAL_PATH)/data/omm/engine/headers $(LOCAL_PATH)/data/omm/engine/headers/include $(LOCAL_PATH)/data/omm/engine/headers/include/config $(LOCAL_PATH)/data/omm/engine/headers/src/engine
 LOCAL_CFLAGS := -DNON_MATCHING -DAVOID_UB -DTARGET_LINUX -DTARGET_ANDROID -DENABLE_OPENGL -DWIDESCREEN -DF3DEX_GBI_2E -D_LANGUAGE_C -DNO_SEGMENTED_MEMORY -D$(VERSION_DEF) -DSTDC_HEADERS -DDYNOS -DCOOP -DCOOPNET -DUSE_GLES -DTEXTURE_FIX -DBETTERCAMERA -DEXT_OPTIONS_MENU -DIMMEDIATELOAD -DRAPI_GL=1 -DWAPI_SDL2=1 -DAAPI_SDL2=1 -DCAPI_SDL2 -DHAVE_SDL2=1 -DNO_BZERO_BCOPY -O3 -w
 ifeq ($(TOUCH_CONTROLS),1)
   LOCAL_CFLAGS += -DTOUCH_CONTROLS

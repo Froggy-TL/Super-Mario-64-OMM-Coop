@@ -4924,6 +4924,53 @@ typedef union {
 #define	gDPNoOpTag(pkt, tag)	gDPParam(pkt, G_NOOP, tag)
 #define	gsDPNoOpTag(tag)	gsDPParam(G_NOOP, tag)
 
+/* OMM extensions (only used internally by omm_cappy_gfx for its own DL counting) */
+#define G_VTXTC			0x02
+#define G_VTXEXT		0x03
+#define G_VTXEXTTC		0x04
+#define G_TRIEXT		0x07
+
+#define G_TEXTURE_ALPHA		0x400000
+
+#define G_PUSHTEX		0xd0
+#define G_POPTEX		0xd1
+
+#define gSPVertexTC(pkt, v, n, v0) \
+{ \
+    Gfx *_g = (Gfx *)(pkt); \
+    _g->words.w0 = _SHIFTL(G_VTXTC,24,8) | _SHIFTL((n),12,8) | _SHIFTL((v0)+(n),1,7); \
+    _g->words.w1 = (uintptr_t)(v); \
+}
+
+#define gsSPVertexTC(v, n, v0) \
+{{ \
+    (_SHIFTL(G_VTXTC,24,8) | _SHIFTL((n),12,8) | _SHIFTL((v0)+(n),1,7)), (uintptr_t)(v) \
+}}
+
+#define gsXPPushTexture() \
+{{ \
+    _SHIFTL(G_PUSHTEX, 24, 8), 0 \
+}}
+
+#define gXPPushTexture(pkt) \
+{ \
+    Gfx *_g = (Gfx *)(pkt); \
+    _g->words.w0 = _SHIFTL(G_PUSHTEX, 24, 8); \
+    _g->words.w1 = 0; \
+}
+
+#define gsXPPopTexture() \
+{{ \
+    _SHIFTL(G_POPTEX, 24, 8), 0 \
+}}
+
+#define gXPPopTexture(pkt) \
+{ \
+    Gfx *_g = (Gfx *)(pkt); \
+    _g->words.w0 = _SHIFTL(G_POPTEX, 24, 8); \
+    _g->words.w1 = 0; \
+}
+
 #endif /* _LANGUAGE_C */
 
 

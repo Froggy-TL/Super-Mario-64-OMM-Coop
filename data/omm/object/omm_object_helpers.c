@@ -112,9 +112,9 @@ bool obj_is_object2_hit_from_below(struct Object *o1, struct Object *o2) {
            o1u < o2u - 0.25f * (o2u - o2l); // o1's head must be slightly below o2's head
 }
 
-struct Box { f32 radius; f32 height; };
-static struct Box obj_get_box_for_overlap_check(struct Object *o, u32 flags) {
-    struct Box box;
+struct OmmBox { f32 radius; f32 height; };
+static struct OmmBox obj_get_box_for_overlap_check(struct Object *o, u32 flags) {
+    struct OmmBox box;
     f32 hitboxRadius  = o->hitboxRadius;
     f32 hitboxHeight  = o->hitboxHeight;
     f32 hurtboxRadius = o->hurtboxRadius;
@@ -141,7 +141,7 @@ static struct Box obj_get_box_for_overlap_check(struct Object *o, u32 flags) {
 }
 
 bool obj_has_hitbox(struct Object *o, u32 flags) {
-    struct Box box = obj_get_box_for_overlap_check(o, flags);
+    struct OmmBox box = obj_get_box_for_overlap_check(o, flags);
     return box.radius != 0 && box.height != 0;
 }
 
@@ -154,8 +154,8 @@ bool obj_detect_hitbox_overlap(struct Object *o1, struct Object *o2, u32 obj1Fla
     }
 
     // Box dimensions check
-    struct Box box1 = obj_get_box_for_overlap_check(o1, obj1Flags);
-    struct Box box2 = obj_get_box_for_overlap_check(o2, obj2Flags);
+    struct OmmBox box1 = obj_get_box_for_overlap_check(o1, obj1Flags);
+    struct OmmBox box2 = obj_get_box_for_overlap_check(o2, obj2Flags);
     if (box1.radius == 0 || box1.height == 0 ||
         box2.radius == 0 || box2.height == 0) {
         return false;

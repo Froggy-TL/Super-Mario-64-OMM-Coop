@@ -163,15 +163,15 @@ static void bhv_omm_hold_update() {
                     case HOLD_ACT_BOUNCE_TOAD: {
                         s32 starCount = omm_save_file_get_total_star_count(gCurrSaveFileNum - 1, OMM_GAME_MODE);
                         switch (o->oToadMessageDialogId) {
-                            case TOAD_STAR_1_DIALOG: if (starCount >= TOAD_STAR_1_REQUIREMENT) { bhv_spawn_star_no_level_exit(0); o->oToadMessageDialogId = TOAD_STAR_1_DIALOG_AFTER; } break;
-                            case TOAD_STAR_2_DIALOG: if (starCount >= TOAD_STAR_2_REQUIREMENT) { bhv_spawn_star_no_level_exit(1); o->oToadMessageDialogId = TOAD_STAR_2_DIALOG_AFTER; } break;
-                            case TOAD_STAR_3_DIALOG: if (starCount >= TOAD_STAR_3_REQUIREMENT) { bhv_spawn_star_no_level_exit(2); o->oToadMessageDialogId = TOAD_STAR_3_DIALOG_AFTER; } break;
+                            case TOAD_STAR_1_DIALOG: if (starCount >= TOAD_STAR_1_REQUIREMENT) { bhv_spawn_star_no_level_exit(o, 0, TRUE); o->oToadMessageDialogId = TOAD_STAR_1_DIALOG_AFTER; } break;
+                            case TOAD_STAR_2_DIALOG: if (starCount >= TOAD_STAR_2_REQUIREMENT) { bhv_spawn_star_no_level_exit(o, 1, TRUE); o->oToadMessageDialogId = TOAD_STAR_2_DIALOG_AFTER; } break;
+                            case TOAD_STAR_3_DIALOG: if (starCount >= TOAD_STAR_3_REQUIREMENT) { bhv_spawn_star_no_level_exit(o, 2, TRUE); o->oToadMessageDialogId = TOAD_STAR_3_DIALOG_AFTER; } break;
                         }
                         o->oToadMessageState = 1;
                         o->oToadMessageRecentlyTalked = 1;
 #if OMM_GAME_IS_SM64
                         struct Object *obj = o->oFloor->object;
-                        if (obj && obj->behavior == bhvWaterLevelPillar && !obj->oWaterLevelPillarUnkF8 && obj->oAction == 0) {
+                        if (obj && obj->behavior == bhvWaterLevelPillar && !obj->oWaterLevelPillarDrained && obj->oAction == 0) {
                             obj->oAction = 1;
                             obj_spawn_white_puff(o, SOUND_GENERAL_WALL_EXPLOSION);
                         }
@@ -182,7 +182,7 @@ static void bhv_omm_hold_update() {
                     // Spawn Mips's star then bounce
                     case HOLD_ACT_BOUNCE_MIPS: {
                         if (o->oMipsStarStatus != MIPS_STAR_STATUS_ALREADY_SPAWNED_STAR) {
-                            bhv_spawn_star_no_level_exit(3 + o->oBehParams2ndByte);
+                            bhv_spawn_star_no_level_exit(o, 3 + o->oBehParams2ndByte, TRUE);
                             o->oMipsStarStatus = MIPS_STAR_STATUS_ALREADY_SPAWNED_STAR;
                         }
                         o->oAction = MIPS_ACT_FALL_DOWN;
@@ -396,7 +396,7 @@ bool pobj_update_held_object(struct Object *o, f32 dx, f32 dy, f32 dz, f32 dh, f
     if (obj) {
         Vec3f p0 = { obj->oHomeX, obj->oHomeY, obj->oHomeZ };
         Vec3f p1 = { dx * o->oScaleX, dy * o->oScaleY, dz * o->oScaleZ };
-        vec3f_rotate_zxy(p1, p1, o->oFaceAnglePitch, o->oFaceAngleYaw, o->oFaceAngleRoll);
+        omm_vec3f_rotate_zxy(p1, p1, o->oFaceAnglePitch, o->oFaceAngleYaw, o->oFaceAngleRoll);
         vec3f_add(p1, &o->oPosX);
         obj_set_xyz(obj, lerp_f(dt, p0[0], p1[0]), lerp_f(dt, p0[1], p1[1]) + dh * sins(dt * 0x8000), lerp_f(dt, p0[2], p1[2]));
         obj_set_angle(obj, o->oFaceAnglePitch, o->oFaceAngleYaw, o->oFaceAngleRoll);

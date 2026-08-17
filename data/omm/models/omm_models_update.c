@@ -19,12 +19,13 @@ static s32 get_mario_current_anim_index() {
 
 // As we don't know the length of the table, let's hope that we'll always find the animation...
 static s32 get_obj_current_anim_index(struct Object *obj) {
-    if (!obj->oAnimations || !obj->oCurrAnim) {
+    struct AnimationTable *table = obj->oAnimations;
+    struct Animation *curAnim = obj->header.gfx.animInfo.curAnim;
+    if (!table || !curAnim) {
         return -1;
     }
-    for (s32 i = 0; obj->oAnimations[i] != NULL; ++i) {
-        if (obj->oAnimations[i] == obj->oCurrAnim ||
-            obj->oAnimations[i] == obj->oCurrAnimRef) {
+    for (s32 i = 0; i != (s32) table->count; ++i) {
+        if (table->anims[i] == curAnim) {
             return i;
         }
     }

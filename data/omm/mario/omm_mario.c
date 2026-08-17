@@ -793,7 +793,7 @@ static void omm_mario_update_dialog(struct MarioState *m) {
                     doneTurning = (o->oAngleVelYaw == 0);
                 }
 
-                if (set_mario_npc_dialog(2) == 2 && doneTurning) {
+                if (set_mario_npc_dialog(m, 2, NULL) == 2 && doneTurning) {
                     gOmmMario->dialog.state = 1;
                 }
             } break;
@@ -811,7 +811,7 @@ static void omm_mario_update_dialog(struct MarioState *m) {
                     o->activeFlags &= ~ACTIVE_FLAG_INITIATED_TIME_STOP;
                     gOmmMario->dialog.obj = NULL;
                 } else {
-                    set_mario_npc_dialog(0);
+                    set_mario_npc_dialog(m, 0, NULL);
                 }
             } break;
         }

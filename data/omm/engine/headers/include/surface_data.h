@@ -24,5 +24,10 @@ struct SurfaceData {
 void clear_surface_data(struct SurfaceData *data);
 void get_surface_data(struct SurfaceData *data, struct Surface *surf);
 struct Surface *get_surface_from_data(const struct SurfaceData *data);
+struct Surface *get_next_surface(struct Surface *surf);
+
+void omm_load_object_collision_model(void);
+void omm_surface_add_all_surfaces_again(void);
+void omm_debug_surfaces_print_info(s32 x, s32 y);
 
 #endif

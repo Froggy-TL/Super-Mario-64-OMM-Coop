@@ -241,7 +241,7 @@ void omm_pre_render() {
     // Sparkly Stars sparkles
     if (OMM_SPARKLY_STARS_COMPLETION_REWARD && !OMM_EXTRAS_INVISIBLE_MODE && o && !(o->oNodeFlags & GRAPH_RENDER_INVISIBLE) && get_dialog_id() == -1 && !omm_is_game_paused()) {
         f32 vel = vec3f_dist(m->pos, gOmmMario->state.previous.pos);
-        if (gGlobalTimer % (3 - clamp_s(vel / 25.f, 0, 2)) == 0) {
+        if (gGlobalTimer % (s32) (3 - clamp_s(vel / 25.f, 0, 2)) == 0) {
             struct Object *sparkle = omm_obj_spawn_sparkly_star_sparkle_mario(o, OMM_SPARKLY_STARS_COMPLETION_REWARD, 20.f, 10.f, 0.4f, 30.f);
             Vec3f marioRootPos; geo_get_marios_anim_part_pos(NULL, marioRootPos, MARIO_ANIM_PART_ROOT);
             sparkle->oPosX += (marioRootPos[0] - o->oPosX);

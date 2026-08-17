@@ -49,7 +49,7 @@ s32 omm_audio_resample_fast(u8 **output, const u8 *input, s32 inputLength, f32 o
 
     // Resampling
     for (s32 i = 0; i != outputSamples; ++i) {
-        temp[i] = inputBuffer[clamp_s(i * invOutputScale, 0, inputSamples - 1)];
+        temp[i] = inputBuffer[(s32) clamp_s(i * invOutputScale, 0, inputSamples - 1)];
     }
 
     // Copy temp to output
