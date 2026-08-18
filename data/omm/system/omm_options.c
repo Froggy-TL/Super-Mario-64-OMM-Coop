@@ -866,16 +866,21 @@ OMM_AT_STARTUP static void omm_opt_init() {
     __android_log_print(6, "OMMINIT", "START omm_opt_init");
 extern void omm_data_init();
     omm_data_init();
+    __android_log_print(6, "OMMINIT", "STEP 1 after omm_data_init");
     omm_save_file_load_all();
+    __android_log_print(6, "OMMINIT", "STEP 2 after save_file_load_all");
     omm_player_select(gOmmCharacter);
+    __android_log_print(6, "OMMINIT", "STEP 3 after player_select");
 
     // OMM sub-menu
     struct Option optOmmMenu = omm_opt_make_main_menu();
     gOmmOptMenu.label = mem_dup(optOmmMenu.label, omm_opt_text_length(optOmmMenu.label) + 1);
     gOmmOptMenu.subMenu = mem_dup(optOmmMenu.nextMenu, sizeof(struct SubMenu));
+    __android_log_print(6, "OMMINIT", "STEP 4 after make_main_menu");
 
     // Model packs sub-menu
     const void **packs = omm_models_init();
+    __android_log_print(6, "OMMINIT", "STEP 5 after omm_models_init");
     if (packs) {
         const char **packNames = (const char **) packs[0];
         bool **packToggles = (bool **) packs[1];
@@ -924,9 +929,11 @@ extern void omm_data_init();
         ), 6);
     gOmmOptTimeTrials.label = mem_dup(optTimeTrials.label, omm_opt_text_length(optTimeTrials.label) + 1);
     gOmmOptTimeTrials.subMenu = mem_dup(optTimeTrials.nextMenu, sizeof(struct SubMenu));
+    __android_log_print(6, "OMMINIT", "STEP 6 after time trials menu");
 
     // Warp to level sub-menu
     omm_opt_init_warp_to_level();
+    __android_log_print(6, "OMMINIT", "STEP 7 after warp_to_level_init");
     struct Option optWarpToLevel =
         omm_opt_make_submenu(0, OMM_TEXT_OPT_WARP_TO_LEVEL_LABEL, OMM_TEXT_OPT_WARP_TO_LEVEL_TITLE, options(
             omm_opt_make_choice_level(OMM_TEXT_OPT_WARP_TO_LEVEL_LEVEL, &sOmmWarp->currLevel),
@@ -1031,6 +1038,7 @@ extern void omm_data_init();
     // Edit the options menu to include OMM sub-menus
     extern void omm_opt_init_main_menu();
     omm_opt_init_main_menu();
+    __android_log_print(6, "OMMINIT", "DONE omm_opt_init");
 }
 
 //

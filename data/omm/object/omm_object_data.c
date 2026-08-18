@@ -225,6 +225,8 @@ OMM_DO_ONCE {
         gOmmData->globals->mouseWheelY = 0;
         gOmmData->globals->instantWarp.warped = false;
     }
+
+    __android_log_print(6, "OMMINIT", "DONE omm_data_init");
 }
 
 //
