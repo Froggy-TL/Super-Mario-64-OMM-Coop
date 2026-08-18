@@ -347,6 +347,25 @@ static struct ShaderProgram *gfx_opengl_create_and_load_new_shader(struct ColorC
     // Original author: ArthurCarvalho
     // Modified GLSL implementation by twinaphex, mupen64plus-libretro project.
     if (ccf.used_textures[0] || ccf.used_textures[1]) {
+#ifdef USE_GLES
+        for (int t = 0; t < 2; t++) {
+            if (!ccf.used_textures[t]) { continue; }
+            fs_len += sprintf(fs_buf + fs_len, "vec4 filter3point%d(in vec2 texCoord, in vec2 texSize) {\n", t);
+            fs_len += sprintf(fs_buf + fs_len, "    vec2 offset = fract(texCoord*texSize - vec2(0.5));\n");
+            fs_len += sprintf(fs_buf + fs_len, "    offset -= step(1.0, offset.x + offset.y);\n");
+            fs_len += sprintf(fs_buf + fs_len, "    vec4 c0 = texture2D(uTex%d, texCoord - offset/texSize);\n", t);
+            fs_len += sprintf(fs_buf + fs_len, "    vec4 c1 = texture2D(uTex%d, texCoord - vec2(offset.x - sign(offset.x), offset.y)/texSize);\n", t);
+            fs_len += sprintf(fs_buf + fs_len, "    vec4 c2 = texture2D(uTex%d, texCoord - vec2(offset.x, offset.y - sign(offset.y))/texSize);\n", t);
+            fs_len += sprintf(fs_buf + fs_len, "    return c0 + abs(offset.x)*(c1-c0) + abs(offset.y)*(c2-c0);\n");
+            fs_len += sprintf(fs_buf + fs_len, "}\n");
+            fs_len += sprintf(fs_buf + fs_len, "vec4 sampleTex%d(in vec2 uv, in vec2 texSize, in bool dofilter, in int filter) {\n", t);
+            fs_len += sprintf(fs_buf + fs_len, "    if (dofilter && filter == 2)\n");
+            fs_len += sprintf(fs_buf + fs_len, "        return filter3point%d(uv, texSize);\n", t);
+            fs_len += sprintf(fs_buf + fs_len, "    else\n");
+            fs_len += sprintf(fs_buf + fs_len, "        return texture2D(uTex%d, uv);\n", t);
+            fs_len += sprintf(fs_buf + fs_len, "}\n");
+        }
+#else
         append_line(fs_buf, &fs_len, "#define TEX_OFFSET(off) texture2D(tex, texCoord - (off)/texSize)");
         append_line(fs_buf, &fs_len, "vec4 filter3point(in sampler2D tex, in vec2 texCoord, in vec2 texSize) {");
         append_line(fs_buf, &fs_len, "    vec2 offset = fract(texCoord*texSize - vec2(0.5));");
@@ -362,6 +381,7 @@ static struct ShaderProgram *gfx_opengl_create_and_load_new_shader(struct ColorC
         append_line(fs_buf, &fs_len, "    else");
         append_line(fs_buf, &fs_len, "        return texture2D(tex, uv);");
         append_line(fs_buf, &fs_len, "}");
+#endif
     }
 
     if (world_geometry) {
@@ -441,15 +461,27 @@ static struct ShaderProgram *gfx_opengl_create_and_load_new_shader(struct ColorC
     }
 
     if (ccf.used_textures[0]) {
+#ifdef USE_GLES
+        append_line(fs_buf, &fs_len, "vec4 texVal0 = sampleTex0(vTexCoord0, uTex0Size, uTex0Filter, uFilter);");
+#else
         append_line(fs_buf, &fs_len, "vec4 texVal0 = sampleTex(uTex0, vTexCoord0, uTex0Size, uTex0Filter, uFilter);");
+#endif
     }
     if (ccf.used_textures[1]) {
         if (opt_light_map) {
+#ifdef USE_GLES
+            append_line(fs_buf, &fs_len, "vec4 texVal1 = sampleTex1(vLightMap, uTex1Size, uTex1Filter, uFilter);");
+#else
             append_line(fs_buf, &fs_len, "vec4 texVal1 = sampleTex(uTex1, vLightMap, uTex1Size, uTex1Filter, uFilter);");
+#endif
             append_line(fs_buf, &fs_len, "texVal0.rgb *= uLightmapColor.rgb;");
             append_line(fs_buf, &fs_len, "texVal1.rgb = texVal1.rgb * texVal1.rgb + texVal1.rgb;");
         } else {
+#ifdef USE_GLES
+            append_line(fs_buf, &fs_len, "vec4 texVal1 = sampleTex1(vTexCoord1, uTex1Size, uTex1Filter, uFilter);");
+#else
             append_line(fs_buf, &fs_len, "vec4 texVal1 = sampleTex(uTex1, vTexCoord1, uTex1Size, uTex1Filter, uFilter);");
+#endif
         }
     }
 
@@ -570,6 +602,11 @@ static struct ShaderProgram *gfx_opengl_create_and_load_new_shader(struct ColorC
         fprintf(stderr, "Vertex shader compilation failed\n");
         glGetShaderInfoLog(vertex_shader, max_length, &max_length, &error_log[0]);
         fprintf(stderr, "%s\n", &error_log[0]);
+#ifdef TARGET_ANDROID
+        extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+        __android_log_print(6, "OMMINIT", "VS err: %s", &error_log[0]);
+        __android_log_print(6, "OMMINIT", "VS src: %s", vs_buf);
+#endif
         sys_fatal("vertex shader compilation failed (see terminal)");
     }
 
@@ -584,6 +621,11 @@ static struct ShaderProgram *gfx_opengl_create_and_load_new_shader(struct ColorC
         fprintf(stderr, "Fragment shader compilation failed\n");
         glGetShaderInfoLog(fragment_shader, max_length, &max_length, &error_log[0]);
         fprintf(stderr, "%s\n", &error_log[0]);
+#ifdef TARGET_ANDROID
+        extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+        __android_log_print(6, "OMMINIT", "FS err: %s", &error_log[0]);
+        __android_log_print(6, "OMMINIT", "FS src: %s", fs_buf);
+#endif
         sys_fatal("fragment shader compilation failed (see terminal)");
     }
 
