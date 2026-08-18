@@ -599,6 +599,15 @@ void level_script_preprocess(const LevelScript *script, LevelScriptPreprocessFun
             case LEVEL_SCRIPT_RETURN:
                 cmd = (stackTop > 0) ? stack[--stackTop] : NULL;
                 break;
+            case LEVEL_SCRIPT_NEXT:
+                cmd = (struct LevelCommand *) ((u8 *) cmd + (cmd->size << CMD_SIZE_SHIFT));
+                break;
+            case LEVEL_SCRIPT_JUMP:
+                if (stackTop < 32) {
+                    stack[stackTop++] = (struct LevelCommand *) ((u8 *) cmd + (cmd->size << CMD_SIZE_SHIFT));
+                }
+                cmd = (struct LevelCommand *) segmented_to_virtual(level_cmd_get(cmd, void *, 12));
+                break;
             default: {
                 struct LevelCommand *next = (struct LevelCommand *) ((u8 *) cmd + (cmd->size << CMD_SIZE_SHIFT));
                 switch (type) {

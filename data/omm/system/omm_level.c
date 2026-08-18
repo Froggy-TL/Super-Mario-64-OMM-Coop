@@ -104,7 +104,7 @@ static s32 omm_level_preprocess_master_script(u8 type, void *cmd) {
         // Following it would make the preprocessor walk the menu and then
         // stray past its end into garbage memory.
         if (type == LEVEL_CMD_EXECUTE) {
-            return LEVEL_SCRIPT_RETURN;
+            return LEVEL_SCRIPT_NEXT;
         }
         return LEVEL_SCRIPT_CONTINUE;
     }
@@ -132,7 +132,8 @@ static s32 omm_level_preprocess_master_script(u8 type, void *cmd) {
                     break;
                 }
             }
-        } break;
+            return LEVEL_SCRIPT_JUMP;
+        }
     }
     return LEVEL_SCRIPT_CONTINUE;
 }

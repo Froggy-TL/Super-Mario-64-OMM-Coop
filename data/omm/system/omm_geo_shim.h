@@ -13,6 +13,7 @@
 #define LEVEL_SCRIPT_NEXT                   (1)
 #define LEVEL_SCRIPT_RETURN                 (2)
 #define LEVEL_SCRIPT_STOP                   (3)
+#define LEVEL_SCRIPT_JUMP                   (4)
 
 #define LEVEL_CMD_EXECUTE                   (0x00)
 #define LEVEL_CMD_EXIT_AND_EXECUTE          (0x01)
