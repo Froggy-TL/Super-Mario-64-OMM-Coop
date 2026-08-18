@@ -99,6 +99,13 @@ static s32 omm_level_preprocess_master_script(u8 type, void *cmd) {
 
     // Are we inside the level scripts table?
     if (!sOmmLevel->areaIndex) {
+        // Skip the coopdx menu: the master script EXECUTEs into
+        // level_main_menu_entry_2, which loops back to the master.
+        // Following it would make the preprocessor walk the menu and then
+        // stray past its end into garbage memory.
+        if (type == LEVEL_CMD_EXECUTE) {
+            return LEVEL_SCRIPT_RETURN;
+        }
         return LEVEL_SCRIPT_CONTINUE;
     }
 

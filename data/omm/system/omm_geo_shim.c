@@ -585,6 +585,13 @@ void level_script_preprocess(const LevelScript *script, LevelScriptPreprocessFun
         }
 #endif
         u8 type = cmd->type;
+        if (cmd->size == 0) {
+#ifdef TARGET_ANDROID
+            extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+            __android_log_print(6, "OMMINIT", "preprocess SIZE0 bail cmd=%p type=%u func=%p", (void *) cmd, (unsigned) type, (void *) func);
+#endif
+            return;
+        }
         s32 action = func(type, (void *) cmd);
         switch (action) {
             case LEVEL_SCRIPT_STOP:
