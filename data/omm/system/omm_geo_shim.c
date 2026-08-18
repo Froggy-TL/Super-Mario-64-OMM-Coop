@@ -570,8 +570,20 @@ void level_script_preprocess(const LevelScript *script, LevelScriptPreprocessFun
     struct LevelCommand *cmd = (struct LevelCommand *) script;
     struct LevelCommand *stack[32];
     s32 stackTop = 0;
+    u64 count = 0;
 
     while (cmd != NULL) {
+#ifdef TARGET_ANDROID
+        if ((++count & 0xFFFFF) == 0) {
+            extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+            __android_log_print(6, "OMMINIT", "preprocess iter=%llu cmd=%p type=%u func=%p", (unsigned long long) count, (void *) cmd, (unsigned) cmd->type, (void *) func);
+        }
+        if (count > 20000000) {
+            extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+            __android_log_print(6, "OMMINIT", "preprocess LOOP CAP cmd=%p type=%u func=%p", (void *) cmd, (unsigned) cmd->type, (void *) func);
+            return;
+        }
+#endif
         u8 type = cmd->type;
         s32 action = func(type, (void *) cmd);
         switch (action) {

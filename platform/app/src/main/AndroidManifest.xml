@@ -88,7 +88,7 @@
             android:windowSoftInputMode="adjustResize"
             android:fitsSystemWindows="true"
             android:exported="true"
-            android:screenOrientation="userLandscape"
+            android:screenOrientation="landscape"
             >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

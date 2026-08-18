@@ -236,18 +236,21 @@ static s32 omm_level_fill_data(u8 type, void *cmd) {
 
 static void omm_level_init() {
     OMM_DO_ONCE {
-
+        __android_log_print(6, "OMMINIT", "LVL init: master preprocess");
         // Level scripts
         sOmmLevel->levelNum = -1;
         sOmmLevel->areaIndex = 0;
         level_script_preprocess(level_main_scripts_entry, omm_level_preprocess_master_script);
+        __android_log_print(6, "OMMINIT", "LVL init: master done");
 
         // Level data
         for (sOmmLevel->levelNum = 0; sOmmLevel->levelNum != LEVEL_COUNT; ++sOmmLevel->levelNum) {
             if (sOmmLevel->data[sOmmLevel->levelNum].script) {
+                __android_log_print(6, "OMMINIT", "LVL init: fill level %d", sOmmLevel->levelNum);
                 level_script_preprocess(sOmmLevel->data[sOmmLevel->levelNum].script, omm_level_fill_data);
             }
         }
+        __android_log_print(6, "OMMINIT", "LVL init: fill done, building list");
 
         // Level list ordered by course id
         for (s32 courseNum = COURSE_MIN; courseNum <= COURSE_MAX; ++courseNum) {
@@ -262,6 +265,7 @@ static void omm_level_init() {
         sOmmLevel->list[sOmmLevel->count++] = LEVEL_CASTLE;
         sOmmLevel->list[sOmmLevel->count++] = LEVEL_CASTLE_GROUNDS;
         sOmmLevel->list[sOmmLevel->count++] = LEVEL_CASTLE_COURTYARD;
+        __android_log_print(6, "OMMINIT", "LVL init: done count=%d", sOmmLevel->count);
     }
 }
 
