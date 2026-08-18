@@ -862,7 +862,7 @@ static struct Option omm_opt_make_main_menu() {
     return optOmmMenu;
 }
 
-OMM_AT_STARTUP static void omm_opt_init() {
+void omm_opt_init() {
     __android_log_print(6, "OMMINIT", "START omm_opt_init");
 extern void omm_data_init();
     omm_data_init();

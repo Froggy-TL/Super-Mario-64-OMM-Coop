@@ -496,6 +496,13 @@ void* main_game_init(UNUSED void* dummy) {
     network_player_init();
     mumble_init();
 
+#ifdef TARGET_ANDROID
+    extern void omm_memory_init_pools(void);
+    extern void omm_opt_init(void);
+    omm_memory_init_pools();
+    omm_opt_init();
+#endif
+
     gGameInited = true;
     return NULL;
 }
