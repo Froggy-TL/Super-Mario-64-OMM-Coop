@@ -294,11 +294,73 @@ static void sys_fatal_impl(const char *msg) {
 
 #else
 
+#ifdef __ANDROID__
+#include <jni.h>
+#endif
 #include <SDL2/SDL.h>
+
+#ifdef __ANDROID__
+const char *get_gamedir(void) {
+    SDL_bool privileged_write = SDL_FALSE, privileged_manage = SDL_FALSE;
+    static char gamedir_unprivileged[SYS_MAX_PATH] = { 0 }, gamedir_privileged[SYS_MAX_PATH] = { 0 };
+    const char *basedir_unprivileged = SDL_AndroidGetExternalStoragePath();
+    const char *basedir_privileged = SDL_AndroidGetTopExternalStoragePath();
+
+    snprintf(gamedir_unprivileged, sizeof(gamedir_unprivileged),
+             "%s", basedir_unprivileged);
+    snprintf(gamedir_privileged, sizeof(gamedir_privileged),
+             "%s/%s", basedir_privileged, ANDROID_APPNAME);
+
+    //Android 10 and below
+    privileged_write = SDL_AndroidRequestPermission("android.permission.WRITE_EXTERNAL_STORAGE");
+    //Android 11 and up
+    privileged_manage = SDL_AndroidRequestPermission("android.permission.MANAGE_EXTERNAL_STORAGE");
+    return (privileged_write || privileged_manage) ? gamedir_privileged : gamedir_unprivileged;
+}
+
+static bool sFilePickerActive = false;
+
+void open_file_picker(void) {
+    JNIEnv* env = (JNIEnv*)SDL_AndroidGetJNIEnv();
+    jobject activity = (jobject)SDL_AndroidGetActivity();
+
+    jclass cls = (*env)->GetObjectClass(env, activity);
+    jmethodID method = (*env)->GetMethodID(env, cls, "openFilePicker", "()V");
+
+    (*env)->CallVoidMethod(env, activity, method);
+    sFilePickerActive = true;
+}
+
+bool is_file_picker_open(void) {
+    return sFilePickerActive;
+}
+
+#include "rom_checker.h"
+
+JNIEXPORT void JNICALL Java_org_libsdl_app_SDLActivity_nativeFilePicked(JNIEnv* env, jclass cls, jstring jpath) {
+    const char* path = (*env)->GetStringUTFChars(env, jpath, NULL);
+    rom_on_drop_file(path);
+    (*env)->ReleaseStringUTFChars(env, jpath, path);
+    sFilePickerActive = false;
+}
+
+JNIEXPORT void JNICALL Java_org_libsdl_app_SDLActivity_nativeFilePickerCancelled(JNIEnv* env, jclass cls) {
+    sFilePickerActive = false;
+}
+#endif
 
 const char *sys_user_path(void) {
     static char path[SYS_MAX_PATH] = { 0 };
     if ('\0' != path[0]) { return path; }
+
+#ifdef __ANDROID__
+    const char *basedir = get_gamedir();
+    snprintf(path, sizeof(path), "%s/user", basedir);
+
+    if (!fs_sys_dir_exists(path) && !fs_sys_mkdir(path))
+        path[0] = 0; // somehow failed, we got no user path
+    return path;
+#endif
 
     char const *subdirs[] = { "sm64coopdx", "sm64ex-coop", "sm64coopdx", NULL };
 
@@ -357,6 +419,15 @@ const char *sys_exe_path_dir(void) {
     static char path[SYS_MAX_PATH];
     if ('\0' != path[0]) { return path; }
 
+#ifdef __ANDROID__
+    const char *basedir = get_gamedir();
+    snprintf(path, sizeof(path), "%s", basedir);
+
+    if (!fs_sys_dir_exists(path) && !fs_sys_mkdir(path))
+        path[0] = 0; // somehow failed, we got no exe path
+    return path;
+#endif
+
     const char *exeFilepath = sys_exe_path_file();
     char *lastSeparator = strrchr(exeFilepath, '/');
     if (lastSeparator != NULL) {
@@ -371,7 +442,10 @@ const char *sys_exe_path_file(void) {
     static char path[SYS_MAX_PATH];
     if ('\0' != path[0]) { return path; }
 
-#if defined(__APPLE__)
+#if defined(__ANDROID__)
+    ssize_t res = readlink("/proc/self/exe", path, SYS_MAX_PATH); //returns path to libmain.so on android
+
+#elif defined(__APPLE__)
     uint32_t bufsize = SYS_MAX_PATH;
     int res = _NSGetExecutablePath(path, &bufsize);
 
