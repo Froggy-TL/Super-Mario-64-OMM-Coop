@@ -315,7 +315,18 @@ const char *get_gamedir(void) {
     privileged_write = SDL_AndroidRequestPermission("android.permission.WRITE_EXTERNAL_STORAGE");
     //Android 11 and up
     privileged_manage = SDL_AndroidRequestPermission("android.permission.MANAGE_EXTERNAL_STORAGE");
-    return (privileged_write || privileged_manage) ? gamedir_privileged : gamedir_unprivileged;
+
+#ifdef TARGET_ANDROID
+    extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+    __android_log_print(6, "OMMINIT", "gamedir unpriv='%s' priv='%s' privWrite=%d privManage=%d", gamedir_unprivileged, gamedir_privileged, (int)privileged_write, (int)privileged_manage);
+#endif
+
+    const char *gamedir = (privileged_write || privileged_manage) ? gamedir_privileged : gamedir_unprivileged;
+
+    // fs_sys_mkdir is non-recursive, so make sure the gamedir itself exists first.
+    if (!fs_sys_dir_exists(gamedir)) { fs_sys_mkdir(gamedir); }
+
+    return gamedir;
 }
 
 static bool sFilePickerActive = false;
@@ -357,8 +368,19 @@ const char *sys_user_path(void) {
     const char *basedir = get_gamedir();
     snprintf(path, sizeof(path), "%s/user", basedir);
 
-    if (!fs_sys_dir_exists(path) && !fs_sys_mkdir(path))
+    if (!fs_sys_dir_exists(path) && !fs_sys_mkdir(path)) {
+#ifdef TARGET_ANDROID
+        extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+        __android_log_print(6, "OMMINIT", "sys_user_path FAILED to create '%s'", path);
+#endif
         path[0] = 0; // somehow failed, we got no user path
+    }
+#ifdef TARGET_ANDROID
+    else {
+        extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+        __android_log_print(6, "OMMINIT", "sys_user_path = '%s'", path);
+    }
+#endif
     return path;
 #endif
 
