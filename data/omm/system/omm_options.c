@@ -863,7 +863,8 @@ static struct Option omm_opt_make_main_menu() {
 }
 
 OMM_AT_STARTUP static void omm_opt_init() {
-    extern void omm_data_init();
+    __android_log_print(6, "OMMINIT", "START omm_opt_init");
+extern void omm_data_init();
     omm_data_init();
     omm_save_file_load_all();
     omm_player_select(gOmmCharacter);

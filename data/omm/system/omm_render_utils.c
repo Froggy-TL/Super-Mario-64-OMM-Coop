@@ -764,7 +764,8 @@ const u8 *omm_render_get_star_rgb(s32 modeIndex, bool colored, bool collected) {
 }
 
 OMM_AT_STARTUP static void omm_patch_dialog_char_widths() {
-    gDialogCharWidths[0x50] = 8; // up arrow
+    __android_log_print(6, "OMMINIT", "START omm_patch_dialog_char_widths");
+gDialogCharWidths[0x50] = 8; // up arrow
     gDialogCharWidths[0x51] = 8; // down arrow
     gDialogCharWidths[0x52] = 8; // left arrow
     gDialogCharWidths[0x53] = 8; // right arrow

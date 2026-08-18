@@ -127,7 +127,8 @@ Lights1 mario_emblem_lights_group = gdSPDefLights1(0x7F, 0x00, 0x00, 0xFF, 0x00,
 // - Use the proper color for the bottom of the cap
 OMM_AT_STARTUP static void omm_mario_colors_patch_display_lists() {
 
-    // mario_face_cap_on_dl
+    __android_log_print(6, "OMMINIT", "START omm_mario_colors_patch_display_lists");
+// mario_face_cap_on_dl
     patch_offset(mario_face_cap_on_dl, 0x1, gsSPLight(&mario_cap_seg3_lights_0301CF38.l, 1));
     patch_offset(mario_face_cap_on_dl, 0x2, gsSPLight(&mario_cap_seg3_lights_0301CF38.a, 2));
 
@@ -166,7 +167,8 @@ OMM_AT_STARTUP static void omm_mario_colors_patch_display_lists() {
 #endif
 
 OMM_AT_STARTUP static void omm_mario_colors_init() {
-    lights1_to_rgb24(mario_cap_seg3_lights_0301CF38, &sOmmMarioColorsPresets[0].cap[0],      &sOmmMarioColorsPresets[0].cap[1]);
+    __android_log_print(6, "OMMINIT", "START omm_mario_colors_init");
+lights1_to_rgb24(mario_cap_seg3_lights_0301CF38, &sOmmMarioColorsPresets[0].cap[0],      &sOmmMarioColorsPresets[0].cap[1]);
     lights1_to_rgb24(mario_brown2_lights_group,      &sOmmMarioColorsPresets[0].hair[0],     &sOmmMarioColorsPresets[0].hair[1]);
     lights1_to_rgb24(mario_beige_lights_group,       &sOmmMarioColorsPresets[0].skin[0],     &sOmmMarioColorsPresets[0].skin[1]);
     lights1_to_rgb24(mario_white_lights_group,       &sOmmMarioColorsPresets[0].gloves[0],   &sOmmMarioColorsPresets[0].gloves[1]);
@@ -289,7 +291,8 @@ extern Lights1 omm_tiara_eye_top_light;
 extern Lights1 omm_tiara_eye_bottom_light;
 
 OMM_AT_STARTUP static void omm_peach_colors_init() {
-    lights1_to_rgb24(omm_peach_skin_light,       &sOmmPeachColorsPresets[0].skin[0],     &sOmmPeachColorsPresets[0].skin[1]);
+    __android_log_print(6, "OMMINIT", "START omm_peach_colors_init");
+lights1_to_rgb24(omm_peach_skin_light,       &sOmmPeachColorsPresets[0].skin[0],     &sOmmPeachColorsPresets[0].skin[1]);
     lights1_to_rgb24(omm_peach_hair_light,       &sOmmPeachColorsPresets[0].hair[0],     &sOmmPeachColorsPresets[0].hair[1]);
     lights1_to_rgb24(omm_peach_dress_1_light,    &sOmmPeachColorsPresets[0].dress1[0],   &sOmmPeachColorsPresets[0].dress1[1]);
     lights1_to_rgb24(omm_peach_dress_2_light,    &sOmmPeachColorsPresets[0].dress2[0],   &sOmmPeachColorsPresets[0].dress2[1]);

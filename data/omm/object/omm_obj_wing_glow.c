@@ -65,7 +65,8 @@ static const GeoLayout omm_geo_wing_glow[] = {
 };
 
 OMM_AT_STARTUP static void bhv_omm_wing_glow_init() {
-    Vtx *vtx = omm_wing_glow_vtx;
+    __android_log_print(6, "OMMINIT", "START bhv_omm_wing_glow_init");
+Vtx *vtx = omm_wing_glow_vtx;
     Gfx *tri = omm_wing_glow_tri;
     for (s32 i = 0; i <= OMM_WING_GLOW_NUM_POINTS; ++i) {
         s16 a = (s16) ((65536.f / OMM_WING_GLOW_NUM_POINTS) * i);

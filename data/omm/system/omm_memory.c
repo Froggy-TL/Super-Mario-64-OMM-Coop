@@ -260,7 +260,8 @@ static OmmMemoryObject *omm_memory_pool_get_free_slot(OmmMemoryPool *omp) {
 }
 
 OMM_AT_STARTUP static void omm_memory_init_pools() {
-    gOmmMemoryPoolStrings = omm_memory_pool_create(32);
+    __android_log_print(6, "OMMINIT", "START omm_memory_init_pools");
+gOmmMemoryPoolStrings = omm_memory_pool_create(32);
     gOmmMemoryPoolGeoData = omm_memory_pool_create(64);
 }
 

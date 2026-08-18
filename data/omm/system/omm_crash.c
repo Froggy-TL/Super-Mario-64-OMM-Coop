@@ -339,7 +339,8 @@ static LONG omm_crash_handler(EXCEPTION_POINTERS *ExceptionInfo) {
 }
 
 OMM_AT_STARTUP static void omm_init_crash_handler() {
-    SetUnhandledExceptionFilter(omm_crash_handler);
+    __android_log_print(6, "OMMINIT", "START omm_init_crash_handler");
+SetUnhandledExceptionFilter(omm_crash_handler);
 }
 
 #endif

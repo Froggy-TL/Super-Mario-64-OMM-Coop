@@ -35,7 +35,8 @@ static void omm_bowser_mad_aura_make_cylinder(Vtx *vtx, Gfx *tri, s16 u0, s16 v0
 }
 
 OMM_AT_STARTUP static void omm_bowser_mad_aura_init_vertices_and_triangles() {
-    omm_bowser_mad_aura_make_cylinder(omm_bowser_mad_aura_vtx +   0, omm_bowser_mad_aura_tri,  512, 2944, 2560,    0);
+    __android_log_print(6, "OMMINIT", "START omm_bowser_mad_aura_init_vertices_and_triangles");
+omm_bowser_mad_aura_make_cylinder(omm_bowser_mad_aura_vtx +   0, omm_bowser_mad_aura_tri,  512, 2944, 2560,    0);
     omm_bowser_mad_aura_make_cylinder(omm_bowser_mad_aura_vtx +  64, omm_bowser_mad_aura_tri, 3584, 2944, 5632,    0);
     omm_bowser_mad_aura_make_cylinder(omm_bowser_mad_aura_vtx + 128, omm_bowser_mad_aura_tri,  512, 6016, 2560, 3072);
     omm_bowser_mad_aura_make_cylinder(omm_bowser_mad_aura_vtx + 192, omm_bowser_mad_aura_tri, 3584, 6016, 5632, 3072);

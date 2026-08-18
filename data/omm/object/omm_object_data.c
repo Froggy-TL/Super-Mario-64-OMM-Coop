@@ -192,7 +192,8 @@ OMM_ROUTINE_LEVEL_ENTRY(omm_data_reset) {
 //
 
 OMM_AT_STARTUP void omm_data_init() {
-    OMM_DO_ONCE {
+    __android_log_print(6, "OMMINIT", "START omm_data_init");
+OMM_DO_ONCE {
         gOmmData->reset = omm_data_reset;
         gOmmData->reset_mario = omm_data_reset_mario;
         gOmmData->reset_object = omm_data_reset_object;

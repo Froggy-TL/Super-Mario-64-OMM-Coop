@@ -7,6 +7,7 @@
 
 #define OMM_AT_STARTUP                                  __attribute__((constructor))
 #define OMM_AT_EXIT                                     __attribute__((destructor))
+extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
 #define OMM_LIKELY(expr)                                (__builtin_expect(!!(expr), 1))
 #define OMM_UNLIKELY(expr)                              (__builtin_expect(!!(expr), 0))
 #define OMM_INLINE                                      static inline
