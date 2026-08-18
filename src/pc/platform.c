@@ -313,6 +313,11 @@ const char *sys_user_path(void) {
 
         sdlPath = SDL_GetPrefPath("", subdirs[i]);
 
+#ifdef TARGET_ANDROID
+        extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+        __android_log_print(6, "OMMINIT", "SDL_GetPrefPath('%s') -> '%s'", subdirs[i], sdlPath ? sdlPath : "(NULL)");
+#endif
+
         // Choose this directory if it already exists and is not empty.
         if (sdlPath && !fs_sys_dir_is_empty(sdlPath)) { break; }
     }

@@ -51,6 +51,10 @@ bool fs_init(const char *writepath) {
 #ifdef DEVELOPMENT
     printf("FS: writepath set to `%s`\n", fs_writepath);
 #endif
+#ifdef TARGET_ANDROID
+    extern int __android_log_print(int prio, const char *tag, const char *fmt, ...);
+    __android_log_print(6, "OMMINIT", "FS writepath='%s' empty=%d exists=%d", fs_writepath, (fs_writepath[0] == '\0'), fs_sys_dir_exists(fs_writepath));
+#endif
 
     // we shall not progress any further if the path is inaccessible
     if (('\0' == fs_writepath[0]) || !fs_sys_dir_exists(fs_writepath)) {
