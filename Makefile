@@ -68,6 +68,8 @@ ASAN ?= 0
 ICON ?= 1
 # Use .app (for macOS)
 USE_APP ?= 1
+# Enable touchscreen controls
+TOUCH_CONTROLS ?= 0
 # Minimum macOS Version
 MIN_MACOS_VERSION ?= 11
 # Make some small adjustments for handheld devices
@@ -993,6 +995,12 @@ endif
 ifeq ($(DOCKERBUILD),1)
   CC_CHECK_CFLAGS += -DDOCKERBUILD
   CFLAGS += -DDOCKERBUILD
+endif
+
+# Check for SDL2 touch controls
+ifeq ($(TOUCH_CONTROLS),1)
+  CC_CHECK_CFLAGS += -DTOUCH_CONTROLS
+  CFLAGS += -DTOUCH_CONTROLS
 endif
 
 # Check for Discord SDK option

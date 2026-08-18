@@ -76,9 +76,7 @@
         android:appCategory="game"
         >
 
-        <!-- Example of setting SDL hints from AndroidManifest.xml:
         <meta-data android:name="SDL_ENV.SDL_ACCELEROMETER_AS_JOYSTICK" android:value="0"/>
-         -->
      
         <activity android:name="OmmCoopActivity"
             android:alwaysRetainTaskState="true"

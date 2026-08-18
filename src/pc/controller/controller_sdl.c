@@ -14,6 +14,9 @@
 #include "controller_api.h"
 #include "controller_sdl.h"
 #include "controller_mouse.h"
+#ifdef TOUCH_CONTROLS
+#include "controller_touchscreen.h"
+#endif
 #include "pc/pc_main.h"
 #include "pc/configfile.h"
 #include "pc/platform.h"
@@ -101,6 +104,12 @@ static void controller_sdl_bind(void) {
 }
 
 static void controller_sdl_init(void) {
+    // On Android the accelerometer is exposed as joystick 0 by default and
+    // gravity would drive a constant phantom stick deflection. Disable it.
+#ifdef TARGET_ANDROID
+    SDL_SetHint(SDL_HINT_ACCELEROMETER_AS_JOYSTICK, "0");
+#endif
+
     // Allows extended reports on PS4 and PS5 controllers
     if (configExtendedReports) {
         SDL_SetHint(SDL_HINT_JOYSTICK_HIDAPI_PS4_RUMBLE, "1");
@@ -176,6 +185,9 @@ static inline void update_button(const int i, const bool new) {
         last_joybutton = i;
         djui_panel_pause_disconnect_key_update(VK_BASE_SDL_GAMEPAD + i);
         djui_interactable_on_key_down(VK_BASE_SDL_GAMEPAD + i);
+#ifdef TOUCH_CONTROLS
+        gGamepadActive = true;
+#endif
     }
     if (unpressed) {
         djui_interactable_on_key_up(VK_BASE_SDL_GAMEPAD + i);

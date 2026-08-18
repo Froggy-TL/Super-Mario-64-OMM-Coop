@@ -25,7 +25,12 @@ static struct DjuiInputbox* sPalettePresetNameTextBox = NULL;
 
 static struct DjuiRect *sColorRect = NULL;
 
+#ifdef TOUCH_CONTROLS
+bool gToggleWearCap = false;
+struct DjuiButton* gDjuiPaletteToggle = NULL;
+#else
 struct DjuiText* gDjuiPaletteToggle = NULL;
+#endif
 
 void djui_panel_player_create(struct DjuiBase* caller);
 
@@ -235,6 +240,12 @@ static void djui_panel_player_edit_palette_destroy(struct DjuiBase* caller) {
     (*sSavedDestroy)(caller);
 }
 
+#ifdef TOUCH_CONTROLS
+static void djui_panel_player_on_toggle_wear_cap(UNUSED struct DjuiBase* caller) {
+    gToggleWearCap = true;
+}
+#endif
+
 static void djui_panel_player_edit_palette_create(struct DjuiBase* caller) {
     gDjuiInPlayerMenu = true;
 
@@ -325,11 +336,17 @@ static void djui_panel_player_edit_palette_create(struct DjuiBase* caller) {
             djui_base_set_size(&button2->base, 0.485f, 32);
         }
 
+#ifndef TOUCH_CONTROLS
         djui_button_create(body, DLANG(MENU, BACK), DJUI_BUTTON_STYLE_BACK, djui_panel_menu_back);
+#endif
 
         {
+#ifdef TOUCH_CONTROLS
+            struct DjuiButton *text = djui_button_create(body, DLANG(PLAYER, CAP_TOGGLE_TOUCH), DJUI_BUTTON_STYLE_NORMAL, djui_panel_player_on_toggle_wear_cap);
+#else
             struct DjuiText *text = djui_text_create(body, DLANG(PLAYER, CAP_TOGGLE));
             djui_text_set_alignment(text, DJUI_HALIGN_CENTER, DJUI_VALIGN_TOP);
+#endif
             djui_base_set_size_type(&text->base, DJUI_SVT_RELATIVE, DJUI_SVT_ABSOLUTE);
             djui_base_set_size(&text->base, 1.0f, 64);
             gDjuiPaletteToggle = text;
@@ -379,8 +396,12 @@ static void djui_panel_player_name_active_palette(struct DjuiBase* caller) {
         }
 
         {
+#ifdef TOUCH_CONTROLS
+            struct DjuiButton *text = djui_button_create(body, DLANG(PLAYER, CAP_TOGGLE_TOUCH), DJUI_BUTTON_STYLE_NORMAL, djui_panel_player_on_toggle_wear_cap);
+#else
             struct DjuiText *text = djui_text_create(body, DLANG(PLAYER, CAP_TOGGLE));
             djui_text_set_alignment(text, DJUI_HALIGN_CENTER, DJUI_VALIGN_TOP);
+#endif
             djui_base_set_size_type(&text->base, DJUI_SVT_RELATIVE, DJUI_SVT_ABSOLUTE);
             djui_base_set_size(&text->base, 1.0f, 64);
             gDjuiPaletteToggle = text;
@@ -533,11 +554,17 @@ void djui_panel_player_create(struct DjuiBase* caller) {
 
         djui_button_create(body, DLANG(PLAYER, EDIT_PALETTE), DJUI_BUTTON_STYLE_NORMAL, djui_panel_player_edit_palette_create);
         djui_button_create(body, DLANG(PLAYER, ACTIVE_PALETTE), DJUI_BUTTON_STYLE_NORMAL, djui_panel_player_name_active_palette);
+#ifndef TOUCH_CONTROLS
         djui_button_create(body, DLANG(MENU, BACK), DJUI_BUTTON_STYLE_BACK, djui_panel_menu_back);
+#endif
 
         {
+#ifdef TOUCH_CONTROLS
+            struct DjuiButton *text = djui_button_create(body, DLANG(PLAYER, CAP_TOGGLE_TOUCH), DJUI_BUTTON_STYLE_NORMAL, djui_panel_player_on_toggle_wear_cap);
+#else
             struct DjuiText *text = djui_text_create(body, DLANG(PLAYER, CAP_TOGGLE));
             djui_text_set_alignment(text, DJUI_HALIGN_CENTER, DJUI_VALIGN_TOP);
+#endif
             djui_base_set_size_type(&text->base, DJUI_SVT_RELATIVE, DJUI_SVT_ABSOLUTE);
             djui_base_set_size(&text->base, 1.0f, 64);
             gDjuiPaletteToggle = text;

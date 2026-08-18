@@ -26,6 +26,9 @@
 #include "controller/controller_api.h"
 #include "controller/controller_keyboard.h"
 #include "controller/controller_mouse.h"
+#ifdef TOUCH_CONTROLS
+#include "controller/controller_touchscreen.h"
+#endif
 #include "fs/fs.h"
 
 #include "game/display.h" // for gGlobalTimer
@@ -547,6 +550,9 @@ int main(int argc, char *argv[]) {
         gWindowApi->set_keyboard_callbacks(keyboard_on_key_down, keyboard_on_key_up, keyboard_on_all_keys_up,
             keyboard_on_text_input, keyboard_on_text_editing);
         gWindowApi->set_scroll_callback(mouse_on_scroll);
+#ifdef TOUCH_CONTROLS
+        gWindowApi->set_touchscreen_callbacks((void *)touch_down, (void *)touch_motion, (void *)touch_up);
+#endif
     }
 
     // render the rom setup screen

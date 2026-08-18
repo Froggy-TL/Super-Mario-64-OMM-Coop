@@ -8,6 +8,9 @@
 #include "sounds.h"
 #include "audio/external.h"
 #include "game/bettercamera.h"
+#ifdef TOUCH_CONTROLS
+#include "pc/controller/controller_touchscreen.h"
+#endif
 
 static struct DjuiPanel* sPanelList = NULL;
 static struct DjuiPanel* sPanelRemoving = NULL;
