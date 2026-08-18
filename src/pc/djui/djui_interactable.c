@@ -8,6 +8,9 @@
 #include "pc/controller/controller_sdl.h"
 #include "pc/controller/controller_mouse.h"
 #include "pc/controller/controller_keyboard.h"
+#ifdef TOUCH_CONTROLS
+#include "pc/controller/controller_touchscreen.h"
+#endif
 #include "pc/utils/misc.h"
 #include "pc/network/network.h"
 
