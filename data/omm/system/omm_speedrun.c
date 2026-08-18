@@ -76,9 +76,8 @@ static OmmSplit *omm_speedrun_split_data_create_split(const char *s, bool lastSp
     return NULL;
 }
 
-OMM_AT_STARTUP static void omm_speedrun_init() {
-    __android_log_print(6, "OMMINIT", "START omm_speedrun_init");
-sys_path_t filename;
+void omm_speedrun_init() {
+    sys_path_t filename;
     snprintf(filename, sizeof(filename), "%s/splits.lss", sys_exe_path_dir());
     FILE *f = fopen(filename, "r");
     if (f) {

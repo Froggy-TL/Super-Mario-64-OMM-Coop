@@ -499,8 +499,10 @@ void* main_game_init(UNUSED void* dummy) {
 #ifdef TARGET_ANDROID
     extern void omm_memory_init_pools(void);
     extern void omm_opt_init(void);
+    extern void omm_speedrun_init(void);
     omm_memory_init_pools();
     omm_opt_init();
+    omm_speedrun_init();
 #endif
 
     gGameInited = true;
