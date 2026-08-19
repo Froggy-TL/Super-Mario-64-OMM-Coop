@@ -62,11 +62,18 @@ static s16 invert_s16(s16 val) {
 static inline void controller_add_binds(const u32 mask, const u32 *btns) {
     for (u32 i = 0; i < MAX_BINDS; ++i) {
         if (btns[i] >= VK_BASE_SDL_GAMEPAD && btns[i] <= VK_BASE_SDL_GAMEPAD + VK_SIZE) {
+#ifndef TOUCH_CONTROLS
+            // On Android, SDL synthesizes mouse button events from finger
+            // touches, so mapping mouse binds to pad buttons would make every
+            // tap press B (punch). Menu clicks still work through the mouse
+            // state read directly by the DJUI.
             if (btns[i] >= VK_BASE_SDL_MOUSE && num_mouse_binds < MAX_JOYBINDS) {
                 mouse_binds[num_mouse_binds][0] = btns[i] - VK_BASE_SDL_MOUSE;
                 mouse_binds[num_mouse_binds][1] = mask;
                 ++num_mouse_binds;
-            } else if (num_joy_binds < MAX_JOYBINDS) {
+            } else
+#endif
+            if (num_joy_binds < MAX_JOYBINDS) {
                 joy_binds[num_joy_binds][0] = btns[i] - VK_BASE_SDL_GAMEPAD;
                 joy_binds[num_joy_binds][1] = mask;
                 ++num_joy_binds;
