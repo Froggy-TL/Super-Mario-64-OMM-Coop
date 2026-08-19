@@ -28,6 +28,7 @@
 #include "level_table.h"
 #include "pc/lua/utils/smlua_model_utils.h"
 #include "pc/lua/smlua.h"
+#include "data/omm/system/omm_system.h"
 #include "pc/djui/djui.h"
 #include "pc/debug_context.h"
 #include "game/hardcoded.h"
@@ -1125,6 +1126,8 @@ static void (*LevelScriptJumpTable[])(void) = {
 struct LevelCommand *level_script_execute(struct LevelCommand *cmd) {
     sScriptStatus = SCRIPT_RUNNING;
     sCurrentCmd = cmd;
+
+    omm_update();
 
     CTX_BEGIN(CTX_LEVEL_SCRIPT);
     while (sScriptStatus == SCRIPT_RUNNING) {
