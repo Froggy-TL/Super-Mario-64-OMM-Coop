@@ -271,6 +271,7 @@ void bhv_mario_update(void) {
     smlua_call_event_hooks(HOOK_BEFORE_MARIO_UPDATE, gMarioState);
 
     u32 particleFlags = 0;
+#ifdef TARGET_ANDROID
     if (stateIndex == 0) {
         extern void omm_bhv_mario_update(void);
         if (gMarioState->knockbackTimer > 0) {
@@ -283,6 +284,9 @@ void bhv_mario_update(void) {
     } else {
         particleFlags = execute_mario_action(gCurrentObject);
     }
+#else
+    particleFlags = execute_mario_action(gCurrentObject);
+#endif
     smlua_call_event_hooks(HOOK_MARIO_UPDATE, gMarioState);
     particleFlags |= gMarioState->particleFlags;
     gCurrentObject->oMarioParticleFlags = particleFlags;

@@ -1126,8 +1126,10 @@ struct LevelCommand *level_script_execute(struct LevelCommand *cmd) {
     sScriptStatus = SCRIPT_RUNNING;
     sCurrentCmd = cmd;
 
+#ifdef TARGET_ANDROID
     extern void omm_update(void);
     omm_update();
+#endif
 
     CTX_BEGIN(CTX_LEVEL_SCRIPT);
     while (sScriptStatus == SCRIPT_RUNNING) {
