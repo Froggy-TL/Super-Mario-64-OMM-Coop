@@ -1306,8 +1306,9 @@ s32 perform_object_step(struct Object *o, u32 flags) {
 
     // Squish test
     if (isCapture && !omm_mario_is_locked(gMarioState) && !POBJ_IS_STAR_DANCING && !POBJ_IS_OPENING_DOORS) {
+        struct Surface *floor = NULL;
         struct Surface *ceil = NULL;
-        f32 floorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, NULL);
+        f32 floorHeight = find_floor(o->oPosX, o->oPosY, o->oPosZ, &floor);
         f32 ceilHeight = find_ceil(o->oPosX, o->oPosY, o->oPosZ, &ceil);
         f32 diffHeight = o->hitboxHeight;
         if (floorHeight < ceilHeight && ceilHeight < floorHeight + diffHeight &&

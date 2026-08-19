@@ -115,7 +115,8 @@ bool omm_capture_should_reference_object(struct Object *o) {
 void omm_capture_apply_squish(struct Object *o) {
     if (gOmmObject->state._squishTimer > 0 && vec3f_eq(gOmmObject->state._squishScale, gVec3fZero)) {
         obj_scale_as_vec3f(o, gOmmObject->state._squishScale);
-        f32 ceilHeight = find_ceil(o->oPosX, o->oPosY, o->oPosZ, NULL);
+        struct Surface *ceil = NULL;
+        f32 ceilHeight = find_ceil(o->oPosX, o->oPosY, o->oPosZ, &ceil);
         f32 distToCeil = ceilHeight - o->oPosY;
         f32 squishMult = clamp_f(distToCeil / omm_capture_get_top(o), 0.05f, 1.f);
         obj_set_scale(o,
