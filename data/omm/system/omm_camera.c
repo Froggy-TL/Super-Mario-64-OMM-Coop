@@ -2,6 +2,8 @@
 #include "data/omm/omm_includes.h"
 #undef OMM_ALL_HEADERS
 #include "behavior_commands.h"
+#include "src/game/bettercamera.h"
+#include "src/game/first_person_cam.h"
 #undef newcam_init_settings
 #undef puppycam_default_config
 
@@ -72,18 +74,14 @@ bool omm_camera_is_available(struct MarioState *m) {
 
 s16 omm_camera_get_intended_yaw(struct MarioState *m) {
 
-    // OMM cam
-    if (omm_camera_is_available(m)) {
-        return atan2s(-m->controller->stickY, m->controller->stickX) + sOmmCamYaw;
+    // coopdx camera
+    if (gLakituState.mode != CAMERA_MODE_NEWCAM) {
+        return atan2s(-m->controller->stickY, m->controller->stickX) + m->area->camera->yaw;
+    } else if (get_first_person_enabled()) {
+        return atan2s(-m->controller->stickY, m->controller->stickX) + gLakituState.yaw;
+    } else {
+        return atan2s(-m->controller->stickY, m->controller->stickX) - gNewCamera.yaw + 0x4000;
     }
-
-    // Better cam (not Puppy cam)
-    if (BETTER_CAM_IS_ENABLED && !BETTER_CAM_IS_PUPPY_CAM && gLakituState.mode == BETTER_CAM_MODE) {
-        return atan2s(-m->controller->stickY, m->controller->stickX) - BETTER_CAM_YAW + 0x4000;
-    }
-
-    // Lakitu/Puppy cam
-    return atan2s(-m->controller->stickY, m->controller->stickX) + m->area->camera->yaw;
 }
 
 s32 omm_camera_get_relative_dist_mode() {
